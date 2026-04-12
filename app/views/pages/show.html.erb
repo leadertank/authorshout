@@ -1,0 +1,44 @@
+<% if @page.builder_html.present? %>
+  <% content_for :body_class, "page-fullbleed" %>
+<% end %>
+
+<section class="content-page content-page-<%= @page.layout_template %>">
+  <% unless @page.builder_html.present? %>
+    <header class="panel content-page-hero">
+      <h1><%= @page.title %></h1>
+      <% if @page.summary.present? %>
+        <p class="content-page-summary"><%= @page.summary %></p>
+      <% end %>
+      <% if @page.featured_image.attached? %>
+        <%= image_tag @page.featured_image, alt: @page.title, class: "content-page-featured-image" %>
+      <% end %>
+    </header>
+  <% end %>
+
+  <% if @page.builder_html.present? %>
+    <div class="unlayer-page-output">
+      <%= raw @page.builder_html %>
+    </div>
+  <% elsif @page.body.present? %>
+    <article class="panel content-page-body">
+      <%= @page.body %>
+    </article>
+  <% elsif @page.page_blocks.any? %>
+    <% grouped_rows = @page.page_blocks.group_by { |block| block.row_number || 1 } %>
+    <section class="content-row-stack">
+      <% grouped_rows.keys.sort.each do |row_number| %>
+        <% row_blocks = grouped_rows[row_number] %>
+        <% row_columns = [[row_blocks.map { |block| block.row_columns || 1 }.max.to_i, 1].max, 5].min %>
+        <section class="content-row rc-cols-<%= row_columns %>">
+          <% (1..row_columns).each do |slot| %>
+            <div class="content-col">
+              <% row_blocks.select { |block| (block.column_slot || 1) == slot }.sort_by(&:position).each do |page_block| %>
+                <%= render "page_block", page_block: page_block %>
+              <% end %>
+            </div>
+          <% end %>
+        </section>
+      <% end %>
+    </section>
+  <% end %>
+</section>

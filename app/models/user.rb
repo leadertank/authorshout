@@ -19,7 +19,11 @@ class User < ApplicationRecord
   scope :admins_first, -> { order(admin: :desc, created_at: :asc) }
 
   def display_name
-    email.to_s.split("@").first.titleize
+    full_name.presence || email.to_s.split("@").first.titleize
+  end
+
+  def full_name
+    [first_name, last_name].join(" ").squish
   end
 
   private

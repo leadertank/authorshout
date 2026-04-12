@@ -1,0 +1,55 @@
+<%= form_with model: [:admin, post], class: "cms-form" do |f| %>
+  <% if post.errors.any? %>
+    <div class="form-errors">
+      <h2>Please fix these issues:</h2>
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div>
+      <%= f.label :slug %>
+      <%= f.text_field :slug, placeholder: "auto-generated-if-left-blank" %>
+    </div>
+  </div>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :status %>
+      <%= f.select :status, Post.statuses.keys.map { |status| [status.titleize, status] }, {}, class: "cms-select" %>
+    </div>
+
+    <div>
+      <%= f.label :published_at, "Publish date" %>
+      <%= f.datetime_local_field :published_at %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :excerpt %>
+    <%= f.text_area :excerpt, rows: 3 %>
+  </div>
+
+  <div>
+    <%= f.label :featured_image %>
+    <%= f.file_field :featured_image, accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= f.label :body, "Rich text post body" %>
+    <%= f.rich_textarea :body %>
+  </div>
+
+  <div class="cms-form-actions">
+    <%= f.submit class: "button" %>
+  </div>
+<% end %>

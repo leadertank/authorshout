@@ -1,0 +1,27 @@
+<article class="panel public-block public-block-<%= page_block.kind %> public-block-theme-<%= page_block.theme.presence || "default" %> public-block-bg-<%= page_block.background_style %> public-block-align-<%= page_block.text_align %> public-block-space-<%= page_block.section_spacing %> span-<%= page_block.column_span %>">
+  <% if page_block.heading.present? %>
+    <h2><%= page_block.heading %></h2>
+  <% end %>
+
+  <% if page_block.subheading.present? %>
+    <p class="public-block-subheading"><%= page_block.subheading %></p>
+  <% end %>
+
+  <% if page_block.media_url.present? %>
+    <div class="public-block-media-wrap">
+      <%= image_tag page_block.media_url, alt: page_block.heading.presence || "Page block image", class: "public-block-media" %>
+    </div>
+  <% end %>
+
+  <% if page_block.body.present? %>
+    <% if page_block.kind == "code" %>
+      <pre class="public-block-code"><code><%= page_block.body %></code></pre>
+    <% else %>
+      <div class="public-block-body"><%= simple_format(page_block.body) %></div>
+    <% end %>
+  <% end %>
+
+  <% if (page_block.kind == "button" || page_block.kind == "cta" || page_block.button_text.present?) && page_block.button_url.present? %>
+    <p><%= link_to (page_block.button_text.presence || "Button"), page_block.button_url, class: "button", target: "_blank", rel: "noopener" %></p>
+  <% end %>
+</article>

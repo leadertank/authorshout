@@ -18,6 +18,24 @@
       <h2>Total Likes</h2>
       <p class="stat"><%= @total_likes %></p>
     </article>
+    <article class="panel stat-card">
+      <h2>Pages</h2>
+      <p class="stat"><%= @total_pages %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Posts</h2>
+      <p class="stat"><%= @total_posts %></p>
+    </article>
+  </div>
+
+  <div class="cms-quick-links panel">
+    <h2>Content Management</h2>
+    <div class="cms-quick-actions">
+      <%= link_to "Manage Pages", admin_pages_path, class: "button" %>
+      <%= link_to "Create Page", new_admin_page_path, class: "button" %>
+      <%= link_to "Manage Posts", admin_posts_path, class: "button" %>
+      <%= link_to "Write Post", new_admin_post_path, class: "button" %>
+    </div>
   </div>
 
   <div class="admin-grid">
@@ -71,6 +89,24 @@
               (admin)
             <% end %>
           </li>
+        <% end %>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <h2>Recently Updated Pages</h2>
+      <ul class="link-list">
+        <% @recent_pages.each do |page| %>
+          <li><%= link_to page.title, edit_admin_page_path(page), class: "text-link" %></li>
+        <% end %>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <h2>Recently Updated Posts</h2>
+      <ul class="link-list">
+        <% @recent_posts.each do |post| %>
+          <li><%= link_to post.title, edit_admin_post_path(post), class: "text-link" %></li>
         <% end %>
       </ul>
     </article>

@@ -14,6 +14,21 @@
       </div>
     <% end %>
 
+    <h2>Author Name</h2>
+    <%= f.fields_for :user do |user_fields| %>
+      <%= user_fields.hidden_field :id %>
+
+      <div>
+        <%= user_fields.label :first_name, "First name" %>
+        <%= user_fields.text_field :first_name, autocomplete: "given-name" %>
+      </div>
+
+      <div>
+        <%= user_fields.label :last_name, "Last name" %>
+        <%= user_fields.text_field :last_name, autocomplete: "family-name" %>
+      </div>
+    <% end %>
+
     <div>
       <%= f.label :avatar, "Profile picture" %>
       <%= f.file_field :avatar, accept: "image/*" %>

@@ -5,6 +5,8 @@ module Admin
       @total_admins = User.where(admin: true).count
       @total_books = Book.count
       @total_likes = Book.sum(:likes_count)
+      @total_pages = Page.count
+      @total_posts = Post.count
 
       @member_growth = User.where(admin: false)
                            .where("created_at >= ?", 14.days.ago)
@@ -17,6 +19,8 @@ module Admin
 
       @recent_members = User.order(created_at: :desc).limit(10)
       @top_books = Book.order(likes_count: :desc, created_at: :desc).limit(10)
+      @recent_pages = Page.order(updated_at: :desc).limit(5)
+      @recent_posts = Post.order(updated_at: :desc).limit(5)
     end
   end
 end

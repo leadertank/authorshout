@@ -1,0 +1,35 @@
+<section class="admin-shell">
+  <div class="cms-header-row">
+    <div>
+      <h1>Posts</h1>
+      <p>Publish blog posts with rich text, images, and formatted editorial content.</p>
+    </div>
+    <%= link_to "New Post", new_admin_post_path, class: "button" %>
+  </div>
+
+  <div class="cms-table-wrap panel">
+    <table class="cms-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Published</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td><strong><%= post.title %></strong><br><span class="cms-slug">/blog/<%= post.slug %></span></td>
+            <td><%= post.status.titleize %></td>
+            <td><%= post.published_at&.to_date || "Not scheduled" %></td>
+            <td class="cms-table-actions">
+              <%= link_to "View", admin_post_path(post), class: "text-link" %>
+              <%= link_to "Edit", edit_admin_post_path(post), class: "text-link" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

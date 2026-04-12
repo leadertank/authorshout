@@ -4,6 +4,7 @@ class Profile < ApplicationRecord
   has_one_attached :avatar
 
   accepts_nested_attributes_for :book, update_only: true
+  accepts_nested_attributes_for :user, update_only: true
 
   validates :bio, length: { maximum: 1200 }
   validate :avatar_url_must_be_valid

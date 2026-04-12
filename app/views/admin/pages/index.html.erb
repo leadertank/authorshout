@@ -1,0 +1,37 @@
+<section class="admin-shell">
+  <div class="cms-header-row">
+    <div>
+      <h1>Pages</h1>
+      <p>Create and manage landing pages, static pages, and editor-built content.</p>
+    </div>
+    <%= link_to "New Page", new_admin_page_path, class: "button" %>
+  </div>
+
+  <div class="cms-table-wrap panel">
+    <table class="cms-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Layout</th>
+          <th>Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pages.each do |page| %>
+          <tr>
+            <td><strong><%= page.title %></strong><br><span class="cms-slug">/<%= page.slug %></span></td>
+            <td><%= page.status.titleize %></td>
+            <td><%= page.layout_template.titleize %></td>
+            <td><%= page.updated_at.to_date %></td>
+            <td class="cms-table-actions">
+              <%= link_to "View", admin_page_path(page), class: "text-link" %>
+              <%= link_to "Edit", edit_admin_page_path(page), class: "text-link" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

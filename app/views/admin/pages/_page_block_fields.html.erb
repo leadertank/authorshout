@@ -1,0 +1,67 @@
+<div class="rc-module" data-module-kind="<%= f.object.kind.presence || "__BLOCK_KIND__" %>">
+  <div class="rc-module-bar">
+    <button type="button" class="rc-module-drag" title="Drag module">&#9699;</button>
+    <span class="rc-module-kind"><%= (f.object.kind.presence || "text").titleize %></span>
+    <div class="rc-module-actions">
+      <button type="button" class="rc-module-settings" data-action="click->block-editor#toggleSettings" title="Module settings">&#9881;</button>
+      <button type="button" class="rc-module-remove" data-action="click->block-editor#remove" title="Remove module">&#x2715;</button>
+    </div>
+  </div>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :position, value: f.object.position || 0 %>
+  <%= f.hidden_field :row_number, value: f.object.row_number || 1, class: "rc-row-input" %>
+  <%= f.hidden_field :column_slot, value: f.object.column_slot || 1, class: "rc-col-input" %>
+  <%= f.hidden_field :row_columns, value: f.object.row_columns || 1, class: "rc-cols-input" %>
+  <%= f.hidden_field :_destroy, value: 0 %>
+
+  <div class="rc-module-main">
+    <%= f.text_field :heading, placeholder: "Module heading...", class: "rc-input-heading" %>
+    <%= f.text_field :subheading, placeholder: "Subheading...", class: "rc-input-subheading" %>
+    <%= f.text_area :body, placeholder: "Module content...", rows: 4, class: "rc-input-body" %>
+  </div>
+
+  <div class="rc-module-settings-panel" hidden>
+    <div class="rc-settings-grid">
+      <div>
+        <%= f.label :kind, "Widget / Module" %>
+        <%= f.select :kind, PageBlock::KINDS.map { |kind| [kind.titleize, kind] }, { selected: (f.object.kind.presence || "__BLOCK_KIND__") }, class: "rc-select", data: { action: "change->block-editor#kindChanged" } %>
+      </div>
+      <div>
+        <%= f.label :text_align, "Text Align" %>
+        <%= f.select :text_align, PageBlock::TEXT_ALIGNS.map { |value| [value.titleize, value] }, {}, class: "rc-select" %>
+      </div>
+      <div>
+        <%= f.label :theme, "Theme" %>
+        <%= f.select :theme, PageBlock::THEMES.map { |theme| [theme.titleize, theme] }, {}, class: "rc-select" %>
+      </div>
+      <div>
+        <%= f.label :background_style, "Background" %>
+        <%= f.select :background_style, PageBlock::BACKGROUND_STYLES.map { |style| [style.titleize, style] }, {}, class: "rc-select" %>
+      </div>
+      <div>
+        <%= f.label :section_spacing, "Spacing" %>
+        <%= f.select :section_spacing, PageBlock::SECTION_SPACINGS.map { |space| [space.upcase, space] }, {}, class: "rc-select" %>
+      </div>
+      <div>
+        <%= f.label :column_span, "Legacy Width" %>
+        <%= f.select :column_span, PageBlock::COLUMN_SPANS.map { |span| ["#{span}/12", span] }, {}, class: "rc-select" %>
+      </div>
+    </div>
+
+    <div class="rc-settings-grid">
+      <div>
+        <%= f.label :media_url, "Image URL" %>
+        <%= f.url_field :media_url, placeholder: "https://...", class: "rc-input" %>
+      </div>
+      <div>
+        <%= f.label :button_text, "Button Text" %>
+        <%= f.text_field :button_text, placeholder: "Learn More", class: "rc-input" %>
+      </div>
+      <div>
+        <%= f.label :button_url, "Button URL" %>
+        <%= f.url_field :button_url, placeholder: "https://...", class: "rc-input" %>
+      </div>
+    </div>
+  </div>
+</div>

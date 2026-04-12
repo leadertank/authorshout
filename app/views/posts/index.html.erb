@@ -1,0 +1,17 @@
+<section class="content-page">
+  <header class="panel content-page-hero">
+    <h1>Blog</h1>
+    <p class="content-page-summary">Published posts from the AuthorShout editorial desk.</p>
+  </header>
+
+  <div class="post-feed">
+    <% @posts.each do |post| %>
+      <article class="panel post-card">
+        <h2><%= link_to post.title, post_path(post.slug), class: "text-link" %></h2>
+        <p class="meta-line"><%= post.published_at&.to_date || post.created_at.to_date %></p>
+        <p><%= post.excerpt.presence || truncate(strip_tags(post.body.to_s), length: 180) %></p>
+        <p><%= link_to "Read Post", post_path(post.slug), class: "button" %></p>
+      </article>
+    <% end %>
+  </div>
+</section>

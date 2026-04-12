@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_12_003906) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_12_043000) do
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -62,6 +72,58 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_003906) do
     t.index ["profile_id"], name: "index_books_on_profile_id", unique: true
   end
 
+  create_table "page_blocks", force: :cascade do |t|
+    t.integer "page_id", null: false
+    t.string "kind", default: "text", null: false
+    t.integer "position", default: 0, null: false
+    t.string "heading"
+    t.string "subheading"
+    t.text "body"
+    t.string "button_text"
+    t.string "button_url"
+    t.string "media_url"
+    t.string "theme"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "column_span", default: 12, null: false
+    t.string "text_align", default: "left", null: false
+    t.string "background_style", default: "card", null: false
+    t.string "section_spacing", default: "md", null: false
+    t.integer "row_number", default: 1, null: false
+    t.integer "column_slot", default: 1, null: false
+    t.integer "row_columns", default: 1, null: false
+    t.index ["page_id", "position"], name: "index_page_blocks_on_page_id_and_position"
+    t.index ["page_id", "row_number", "column_slot", "position"], name: "index_page_blocks_on_layout_position"
+    t.index ["page_id"], name: "index_page_blocks_on_page_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.text "summary"
+    t.string "layout_template", default: "standard", null: false
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "builder_json"
+    t.text "builder_html"
+    t.index ["slug"], name: "index_pages_on_slug", unique: true
+    t.index ["status"], name: "index_pages_on_status"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.text "excerpt"
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
+    t.index ["status"], name: "index_posts_on_status"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "bio"
@@ -87,6 +149,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_003906) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false, null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -96,5 +160,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_003906) do
   add_foreign_key "book_likes", "books"
   add_foreign_key "book_likes", "users"
   add_foreign_key "books", "profiles"
+  add_foreign_key "page_blocks", "pages"
   add_foreign_key "profiles", "users"
 end

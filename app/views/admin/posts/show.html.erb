@@ -1,0 +1,21 @@
+<section class="admin-shell">
+  <div class="cms-header-row">
+    <div>
+      <h1><%= @post.title %></h1>
+      <p>Slug: /blog/<%= @post.slug %></p>
+    </div>
+    <div class="cms-show-actions">
+      <% if @post.published? %>
+        <%= link_to "Preview", post_path(@post.slug), class: "button", target: "_blank", rel: "noopener" %>
+      <% end %>
+      <%= link_to "Edit", edit_admin_post_path(@post), class: "button" %>
+      <%= button_to "Delete", admin_post_path(@post), method: :delete, class: "button", form: { data: { turbo_confirm: "Delete this post?" } } %>
+    </div>
+  </div>
+
+  <article class="panel">
+    <p><strong>Status:</strong> <%= @post.status.titleize %></p>
+    <p><strong>Excerpt:</strong> <%= @post.excerpt.presence || "No excerpt added." %></p>
+    <div class="cms-rich-preview"><%= @post.body %></div>
+  </article>
+</section>

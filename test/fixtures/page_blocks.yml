@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page: one
+  kind: MyString
+  position: 1
+  heading: MyString
+  subheading: MyString
+  body: MyText
+  button_text: MyString
+  button_url: MyString
+  media_url: MyString
+  theme: MyString
+
+two:
+  page: two
+  kind: MyString
+  position: 1
+  heading: MyString
+  subheading: MyString
+  body: MyText
+  button_text: MyString
+  button_url: MyString
+  media_url: MyString
+  theme: MyString

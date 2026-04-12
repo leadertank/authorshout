@@ -13,6 +13,21 @@
     <p>Books are listed by submission time. Click a cover to view the link shared by the author.</p>
   </div>
 
+  <div class="books-pager">
+    <% if @page > 1 %>
+      <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
+    <% else %>
+      <span class="pager-button disabled">Previous</span>
+    <% end %>
+
+    <% if @page < @total_pages %>
+      <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
+    <% else %>
+      <span class="pager-button disabled">Next</span>
+    <% end %>
+  </div>
+  <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
+
   <% if @books.any? %>
     <div class="book-grid">
       <% @books.each do |book| %>
@@ -25,8 +40,8 @@
             <% end %>
           <% end %>
 
-          <h3><%= book.title %></h3>
-          <p class="meta-line">
+          <h3 class="book-card-title"><%= book.title %></h3>
+          <p class="meta-line book-card-author">
             by
             <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
           </p>
@@ -37,6 +52,21 @@
         </article>
       <% end %>
     </div>
+
+    <div class="books-pager books-pager-bottom">
+      <% if @page > 1 %>
+        <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Previous</span>
+      <% end %>
+
+      <% if @page < @total_pages %>
+        <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Next</span>
+      <% end %>
+    </div>
+    <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
   <% else %>
     <p class="empty-state">No books have been added yet. Be the first member to add one.</p>
   <% end %>

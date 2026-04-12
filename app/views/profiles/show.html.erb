@@ -1,4 +1,13 @@
 <section class="profile-shell">
+  <div class="profile-share-wrap">
+    <p class="profile-share-lead">Share this page on social (Click a button below).</p>
+    <div class="profile-share-row">
+      <%= render "shared/share_buttons",
+                 url: profile_url(@profile),
+                 text: "Check out #{@profile.user.display_name}'s author profile on AuthorShout" %>
+    </div>
+  </div>
+
   <div class="profile-heading">
     <h1><%= @profile.user.display_name %></h1>
     <% if user_signed_in? && current_user == @profile.user %>
@@ -43,29 +52,28 @@
 
     <article class="panel panel-links">
       <h2>Website & Social Links</h2>
-      <ul class="link-list">
-        <% if @profile.website.present? %>
-          <li>
-            <%= link_to "Website",
-                        @profile.website,
-                        target: "_blank",
-                        rel: "noopener",
-                        class: "social-link-pill social-website" %>
-          </li>
-        <% end %>
-        <% @profile.social_links.each do |name, url| %>
-          <li>
-            <%= link_to name,
-                        url,
-                        target: "_blank",
-                        rel: "noopener",
-                        class: "social-link-pill social-#{name.parameterize}" %>
-          </li>
-        <% end %>
-      </ul>
-      <%= render "shared/share_buttons",
-                 url: profile_url(@profile),
-                 text: "Check out #{@profile.user.display_name}'s author profile on AuthorShout" %>
+      <% if @profile.website.present? || @profile.social_links.any? %>
+        <ul class="link-list">
+          <% if @profile.website.present? %>
+            <li>
+              <%= link_to "Website",
+                          @profile.website,
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "social-link-pill social-website" %>
+            </li>
+          <% end %>
+          <% @profile.social_links.each do |name, url| %>
+            <li>
+              <%= link_to name,
+                          url,
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "social-link-pill social-#{name.parameterize}" %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </article>
   </div>
 </section>

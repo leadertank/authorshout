@@ -5,6 +5,16 @@
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
+      <p><%= f.label :first_name, "First name" %></p>
+      <p><%= f.text_field :first_name, autocomplete: "given-name" %></p>
+    </div>
+
+    <div class="field">
+      <p><%= f.label :last_name, "Last name" %></p>
+      <p><%= f.text_field :last_name, autocomplete: "family-name" %></p>
+    </div>
+
+    <div class="field">
       <p><%= f.label :email %></p>
       <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
     </div>
@@ -22,8 +32,8 @@
       <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
     </div>
 
-    <div class="checkbox-row">
-      <%= f.check_box :human_verification %>
+    <div class="checkbox-row checkbox-row-large">
+      <%= f.check_box :human_verification, class: "large-checkbox" %>
       <%= f.label :human_verification, "Check box to verify you are human" %>
     </div>
 

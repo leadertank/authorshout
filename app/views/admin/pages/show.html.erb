@@ -1,0 +1,26 @@
+<section class="admin-shell">
+  <div class="cms-header-row">
+    <div>
+      <h1><%= @page.title %></h1>
+      <p>Slug: /pages/<%= @page.slug %></p>
+    </div>
+    <div class="cms-show-actions">
+      <% if @page.published? %>
+        <%= link_to "Preview", page_path(@page.slug), class: "button", target: "_blank", rel: "noopener" %>
+      <% end %>
+      <%= link_to "Edit", edit_admin_page_path(@page), class: "button" %>
+      <%= button_to "Delete", admin_page_path(@page), method: :delete, class: "button", form: { data: { turbo_confirm: "Delete this page?" } } %>
+    </div>
+  </div>
+
+  <article class="panel">
+    <p><strong>Status:</strong> <%= @page.status.titleize %></p>
+    <p><strong>Layout:</strong> <%= @page.layout_template.titleize %></p>
+    <p><strong>Summary:</strong> <%= @page.summary.presence || "No summary added." %></p>
+    <% if @page.builder_html.present? %>
+      <div class="cms-rich-preview unlayer-rendered-content"><%= raw @page.builder_html %></div>
+    <% else %>
+      <div class="cms-rich-preview"><%= @page.body %></div>
+    <% end %>
+  </article>
+</section>

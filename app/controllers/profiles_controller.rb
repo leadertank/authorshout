@@ -38,6 +38,7 @@ class ProfilesController < ApplicationController
       :youtube_url,
       :avatar,
       :avatar_url,
+      user_attributes: [:id, :first_name, :last_name],
       book_attributes: [:id, :title, :purchase_url, :cover_image, :cover_image_url]
     )
   end

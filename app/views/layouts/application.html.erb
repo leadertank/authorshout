@@ -19,23 +19,32 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= content_for(:body_class) %>">
     <header class="site-header">
       <div class="nav-wrap">
-        <%= link_to root_path, class: "brand" do %>
-          <span class="brand-title">AuthorShout</span>
-          <span class="brand-tagline">Connecting Authors With Readers Worldwide.</span>
-        <% end %>
-        <button type="button" class="mobile-nav-toggle" data-nav-toggle aria-label="Open navigation menu">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
+        <div class="brand-row">
+          <%= link_to root_path, class: "brand" do %>
+            <span class="brand-title">AUTHORSHOUT</span>
+            <span class="brand-tagline">Connecting Authors With Readers Worldwide</span>
+          <% end %>
 
-        <div class="header-right">
+          <div class="header-follow-wrap">
+            <p class="follow-us-label">Follow Us On Social</p>
+            <%= render "shared/follow_icons" %>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="mobile-nav-toggle" data-nav-toggle aria-label="Open navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+
           <nav class="site-nav" data-main-nav>
             <%= link_to "Home", root_path %>
             <% if user_signed_in? %>
@@ -43,6 +52,8 @@
               <%= link_to "Edit Profile", edit_my_profile_path %>
               <% if current_user.admin? %>
                 <%= link_to "Admin Dashboard", admin_dashboard_path %>
+                <%= link_to "Pages CMS", admin_pages_path %>
+                <%= link_to "Posts CMS", admin_posts_path %>
                 <%= link_to "Users", admin_users_path %>
               <% end %>
               <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "link-button" %>
@@ -51,11 +62,6 @@
               <%= link_to "Log In", new_user_session_path %>
             <% end %>
           </nav>
-
-          <div class="header-follow-wrap">
-            <p class="follow-us-label">Follow Us On Social</p>
-            <%= render "shared/follow_icons" %>
-          </div>
         </div>
       </div>
     </header>
@@ -71,9 +77,12 @@
       <%= yield %>
     </main>
 
-    <footer class="mobile-social-footer">
-      <p class="follow-us-label">Follow Us On Social</p>
-      <%= render "shared/follow_icons" %>
+    <footer class="site-footer">
+      <div class="mobile-social-footer">
+        <p class="follow-us-label">Follow Us On Social</p>
+        <%= render "shared/follow_icons" %>
+      </div>
+      <p class="footer-brand">AUTHORSHOUT</p>
     </footer>
   </body>
 </html>

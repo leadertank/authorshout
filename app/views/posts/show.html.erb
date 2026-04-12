@@ -1,0 +1,16 @@
+<section class="content-page">
+  <article class="panel content-page-hero">
+    <h1><%= @post.title %></h1>
+    <p class="meta-line"><%= @post.published_at&.to_date || @post.created_at.to_date %></p>
+    <% if @post.excerpt.present? %>
+      <p class="content-page-summary"><%= @post.excerpt %></p>
+    <% end %>
+    <% if @post.featured_image.attached? %>
+      <%= image_tag @post.featured_image, alt: @post.title, class: "content-page-featured-image" %>
+    <% end %>
+  </article>
+
+  <article class="panel content-page-body">
+    <%= @post.body %>
+  </article>
+</section>

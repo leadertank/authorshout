@@ -1,0 +1,76 @@
+<%= form_with model: [:admin, page], class: "cms-form pb-form" do |f| %>
+  <% if page.errors.any? %>
+    <div class="form-errors pb-errors">
+      <h2>Please fix these issues:</h2>
+      <ul>
+        <% page.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# ── Slim top bar: always visible at the very top ── %>
+  <div class="pb-topbar">
+    <div class="pb-topbar-left">
+      <%= link_to "← Pages", admin_pages_path, class: "pb-back" %>
+      <%= f.text_field :title, placeholder: "Page title…", class: "pb-title-input" %>
+    </div>
+    <div class="pb-topbar-right">
+      <%= f.select :status, Page.statuses.keys.map { |s| [s.titleize, s] }, {}, class: "pb-status-select" %>
+      <%= f.submit page.persisted? ? "Save Page" : "Create Page", class: "button pb-save-btn" %>
+    </div>
+  </div>
+
+  <%# ── Unlayer canvas – takes the rest of the viewport ── %>
+  <section class="unlayer-builder" data-controller="unlayer-editor">
+    <%= f.hidden_field :builder_json, value: page.builder_json.to_s, data: { unlayer_editor_target: "json" } %>
+    <%= f.hidden_field :builder_html, value: page.builder_html.to_s, data: { unlayer_editor_target: "html" } %>
+    <div class="unlayer-canvas-wrap">
+      <div class="unlayer-canvas" data-unlayer-editor-target="canvas"></div>
+    </div>
+  </section>
+
+  <%# ── Page settings: collapsed by default, below the canvas ── %>
+  <details class="pb-settings-panel">
+    <summary>⚙ Page Settings &amp; Metadata</summary>
+    <div class="pb-settings-inner">
+      <div class="cms-grid-two">
+        <div>
+          <%= f.label :slug %>
+          <%= f.text_field :slug, placeholder: "auto-generated-if-left-blank" %>
+        </div>
+
+        <div>
+          <%= f.label :layout_template, "Layout" %>
+          <%= f.select :layout_template, Page::LAYOUTS.map { |layout| [layout.titleize, layout] }, {}, class: "cms-select" %>
+        </div>
+      </div>
+
+      <div class="cms-grid-two">
+        <div>
+          <%= f.label :published_at, "Publish date" %>
+          <%= f.datetime_local_field :published_at %>
+        </div>
+
+        <div>
+          <%= f.label :featured_image %>
+          <%= f.file_field :featured_image, accept: "image/*" %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :summary %>
+        <%= f.text_area :summary, rows: 3 %>
+      </div>
+
+      <details class="legacy-body-wrap">
+        <summary>Legacy Body Content (fallback)</summary>
+        <div>
+          <%= f.label :body, "Rich text fallback" %>
+          <%= f.rich_textarea :body %>
+        </div>
+      </details>
+    </div>
+  </details>
+<% end %>
