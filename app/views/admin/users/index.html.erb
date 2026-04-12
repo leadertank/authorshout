@@ -1,0 +1,29 @@
+<section class="admin-shell">
+  <h1>Users</h1>
+
+  <div class="admin-grid">
+    <article class="panel">
+      <h2>Admins (Pinned First)</h2>
+      <ul class="link-list">
+        <% @admins.each do |admin| %>
+          <li>
+            <strong><%= admin.email %></strong>
+            <span>Joined <%= admin.created_at.to_date %></span>
+          </li>
+        <% end %>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <h2>Members</h2>
+      <ul class="link-list">
+        <% @members.each do |member| %>
+          <li>
+            <%= member.email %>
+            <span>Joined <%= member.created_at.to_date %></span>
+          </li>
+        <% end %>
+      </ul>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<section class="profile-shell">
+  <div class="profile-heading">
+    <h1><%= @profile.user.display_name %></h1>
+    <% if user_signed_in? && current_user == @profile.user %>
+      <%= link_to "Edit Profile", edit_my_profile_path, class: "button" %>
+    <% end %>
+  </div>
+
+  <div class="profile-grid">
+    <article class="panel panel-avatar">
+      <h2>Profile Picture</h2>
+      <% if @profile.avatar_image_source.present? %>
+        <%= image_tag @profile.avatar_image_source, alt: "#{@profile.user.display_name} profile picture", class: "avatar-image" %>
+      <% else %>
+        <div class="avatar-placeholder">No profile image yet</div>
+      <% end %>
+    </article>
+
+    <article class="panel panel-bio">
+      <h2>Bio</h2>
+      <p><%= @profile.bio.presence || "This member has not added a bio yet." %></p>
+    </article>
+
+    <article class="panel panel-book">
+      <h2>Featured Book</h2>
+      <% if @profile.book.present? %>
+        <div class="profile-book">
+          <% if @profile.book.cover_image_source.present? %>
+            <%= image_tag @profile.book.cover_image_source, alt: "#{@profile.book.title} cover", class: "book-cover profile-featured-cover" %>
+          <% end %>
+          <h3><%= @profile.book.title %></h3>
+          <p>
+            <%= link_to "Visit Book Link", @profile.book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
+          </p>
+          <div class="book-actions">
+            <%= button_to "Like (#{@profile.book.total_likes})", book_like_path(@profile.book), method: :post, class: "button button-like" %>
+          </div>
+        </div>
+      <% else %>
+        <p>No book added yet.</p>
+      <% end %>
+    </article>
+
+    <article class="panel panel-links">
+      <h2>Website & Social Links</h2>
+      <ul class="link-list">
+        <% if @profile.website.present? %>
+          <li>
+            <%= link_to "Website",
+                        @profile.website,
+                        target: "_blank",
+                        rel: "noopener",
+                        class: "social-link-pill social-website" %>
+          </li>
+        <% end %>
+        <% @profile.social_links.each do |name, url| %>
+          <li>
+            <%= link_to name,
+                        url,
+                        target: "_blank",
+                        rel: "noopener",
+                        class: "social-link-pill social-#{name.parameterize}" %>
+          </li>
+        <% end %>
+      </ul>
+      <%= render "shared/share_buttons",
+                 url: profile_url(@profile),
+                 text: "Check out #{@profile.user.display_name}'s author profile on AuthorShout" %>
+    </article>
+  </div>
+</section>

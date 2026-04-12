@@ -1,0 +1,44 @@
+class ProfilesController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :set_profile, only: [:show]
+
+  def show; end
+
+  def edit
+    @profile = current_user.profile
+    @profile.build_book if @profile.book.blank?
+  end
+
+  def update
+    @profile = current_user.profile
+
+    if @profile.update(profile_params)
+      redirect_to profile_path(@profile), notice: "Profile saved successfully."
+    else
+      @profile.build_book if @profile.book.blank?
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def set_profile
+    @profile = Profile.includes(:user, :book).find(params[:id])
+  end
+
+  def profile_params
+    params.require(:profile).permit(
+      :bio,
+      :website,
+      :x_url,
+      :facebook_url,
+      :instagram_url,
+      :threads_url,
+      :bluesky_url,
+      :youtube_url,
+      :avatar,
+      :avatar_url,
+      book_attributes: [:id, :title, :purchase_url, :cover_image, :cover_image_url]
+    )
+  end
+end

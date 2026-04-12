@@ -1,0 +1,87 @@
+<section class="form-shell">
+  <h1>Edit Member Profile</h1>
+  <p>Basic/free tier includes one profile and one book.</p>
+
+  <%= form_with model: @profile, url: my_profile_path, class: "form-stack" do |f| %>
+    <% if @profile.errors.any? %>
+      <div class="form-errors">
+        <h2>Please fix these issues:</h2>
+        <ul>
+          <% @profile.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :avatar, "Profile picture" %>
+      <%= f.file_field :avatar, accept: "image/*" %>
+    </div>
+
+    <div>
+      <%= f.label :avatar_url, "Profile picture image URL (copy/paste)" %>
+      <%= f.url_field :avatar_url, placeholder: "https://..." %>
+    </div>
+
+    <div>
+      <%= f.label :bio, "Bio / Description" %>
+      <%= f.text_area :bio, rows: 6, maxlength: 1200 %>
+    </div>
+
+    <h2>One Free-Tier Book</h2>
+    <%= f.fields_for :book do |book_fields| %>
+      <div>
+        <%= book_fields.label :title, "Book title" %>
+        <%= book_fields.text_field :title %>
+      </div>
+
+      <div>
+        <%= book_fields.label :purchase_url, "Book link" %>
+        <%= book_fields.url_field :purchase_url, placeholder: "https://..." %>
+      </div>
+
+      <div>
+        <%= book_fields.label :cover_image, "Book cover image" %>
+        <%= book_fields.file_field :cover_image, accept: "image/*" %>
+      </div>
+
+      <div>
+        <%= book_fields.label :cover_image_url, "Book cover image URL (copy/paste)" %>
+        <%= book_fields.url_field :cover_image_url, placeholder: "https://..." %>
+      </div>
+    <% end %>
+
+    <h2>Website & Social</h2>
+    <div>
+      <%= f.label :website, "Website" %>
+      <%= f.url_field :website, placeholder: "https://..." %>
+    </div>
+    <div>
+      <%= f.label :x_url, "X" %>
+      <%= f.url_field :x_url, placeholder: "https://x.com/..." %>
+    </div>
+    <div>
+      <%= f.label :facebook_url, "Facebook" %>
+      <%= f.url_field :facebook_url, placeholder: "https://facebook.com/..." %>
+    </div>
+    <div>
+      <%= f.label :instagram_url, "Instagram" %>
+      <%= f.url_field :instagram_url, placeholder: "https://instagram.com/..." %>
+    </div>
+    <div>
+      <%= f.label :threads_url, "Threads" %>
+      <%= f.url_field :threads_url, placeholder: "https://threads.net/..." %>
+    </div>
+    <div>
+      <%= f.label :bluesky_url, "Bluesky" %>
+      <%= f.url_field :bluesky_url, placeholder: "https://bsky.app/profile/..." %>
+    </div>
+    <div>
+      <%= f.label :youtube_url, "YouTube" %>
+      <%= f.url_field :youtube_url, placeholder: "https://youtube.com/..." %>
+    </div>
+
+    <%= f.submit "Save Profile", class: "button" %>
+  <% end %>
+</section>

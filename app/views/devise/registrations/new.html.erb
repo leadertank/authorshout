@@ -1,0 +1,36 @@
+<section class="auth-shell">
+  <h2>Create Your Free Author Account</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <p><%= f.label :email %></p>
+      <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+    </div>
+
+    <div class="field">
+      <p><%= f.label :password %></p>
+      <% if @minimum_password_length %>
+        <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+      <% end %>
+      <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+    </div>
+
+    <div class="field">
+      <p><%= f.label :password_confirmation %></p>
+      <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    </div>
+
+    <div class="checkbox-row">
+      <%= f.check_box :human_verification %>
+      <%= f.label :human_verification, "Check box to verify you are human" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", class: "button" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+</section>

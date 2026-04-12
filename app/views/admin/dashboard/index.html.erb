@@ -1,0 +1,78 @@
+<section class="admin-shell">
+  <h1>Admin Dashboard</h1>
+
+  <div class="stats-grid">
+    <article class="panel stat-card">
+      <h2>Members</h2>
+      <p class="stat"><%= @total_members %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Admins</h2>
+      <p class="stat"><%= @total_admins %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Books</h2>
+      <p class="stat"><%= @total_books %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Total Likes</h2>
+      <p class="stat"><%= @total_likes %></p>
+    </article>
+  </div>
+
+  <div class="admin-grid">
+    <article class="panel">
+      <h2>Member Signups (14 days)</h2>
+      <% max_value = [@member_growth.values.max.to_i, 1].max %>
+      <% @member_growth.each do |date, count| %>
+        <div class="mini-chart-row">
+          <span><%= date %></span>
+          <div class="mini-chart-bar-wrap">
+            <div class="mini-chart-bar" style="width: <%= (count.to_f / max_value * 100).round %>%"></div>
+          </div>
+          <span><%= count %></span>
+        </div>
+      <% end %>
+    </article>
+
+    <article class="panel">
+      <h2>Books Added (14 days)</h2>
+      <% max_books = [@book_growth.values.max.to_i, 1].max %>
+      <% @book_growth.each do |date, count| %>
+        <div class="mini-chart-row">
+          <span><%= date %></span>
+          <div class="mini-chart-bar-wrap">
+            <div class="mini-chart-bar" style="width: <%= (count.to_f / max_books * 100).round %>%"></div>
+          </div>
+          <span><%= count %></span>
+        </div>
+      <% end %>
+    </article>
+
+    <article class="panel">
+      <h2>Top Liked Books</h2>
+      <ul class="link-list">
+        <% @top_books.each do |book| %>
+          <li>
+            <%= link_to book.title, profile_path(book.profile), class: "text-link" %>
+            (<%= book.total_likes %> likes)
+          </li>
+        <% end %>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <h2>Recent Accounts</h2>
+      <ul class="link-list">
+        <% @recent_members.each do |member| %>
+          <li>
+            <%= member.email %>
+            <% if member.admin? %>
+              (admin)
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </article>
+  </div>
+</section>

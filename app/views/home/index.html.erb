@@ -1,0 +1,43 @@
+<div class="home-share-wrap">
+  <p class="home-share-lead">Share this page on social (Click a button below).</p>
+  <div class="header-share-row">
+    <%= render "shared/share_buttons",
+               url: root_url,
+               text: "Discover member-submitted books on AuthorShout" %>
+  </div>
+</div>
+
+<section class="books-feed">
+  <div class="section-header">
+    <h2>Latest Member Book Covers</h2>
+    <p>Books are listed by submission time. Click a cover to view the link shared by the author.</p>
+  </div>
+
+  <% if @books.any? %>
+    <div class="book-grid">
+      <% @books.each do |book| %>
+        <article class="book-card">
+          <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
+            <% if book.cover_image_source.present? %>
+              <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
+            <% else %>
+              <div class="book-cover fallback-cover">No cover uploaded</div>
+            <% end %>
+          <% end %>
+
+          <h3><%= book.title %></h3>
+          <p class="meta-line">
+            by
+            <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+          </p>
+
+          <div class="book-actions">
+            <%= button_to "Like (#{book.total_likes})", book_like_path(book), method: :post, class: "button button-like" %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No books have been added yet. Be the first member to add one.</p>
+  <% end %>
+</section>

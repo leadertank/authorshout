@@ -1,0 +1,12 @@
+<% links = social_share_links(url: url, text: text) %>
+
+<div class="share-row">
+  <% links.each do |label, link| %>
+    <%= link_to label,
+                link,
+                target: "_blank",
+                rel: "noopener",
+                class: "share-pill social-pill social-#{label.parameterize}" %>
+  <% end %>
+  <button type="button" class="share-pill social-pill social-copy copy-link-button" data-copy-url="<%= url %>">Copy Link</button>
+</div>
