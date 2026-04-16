@@ -10,6 +10,7 @@ class Post < ApplicationRecord
 	before_validation :generate_slug, if: -> { title.present? && slug.blank? }
 	before_validation :normalize_slug
 
+	scope :live, -> { published.where("published_at IS NULL OR published_at <= ?", Time.current) }
 	scope :published_first, -> { order(published_at: :desc, created_at: :desc) }
 
 	def to_param

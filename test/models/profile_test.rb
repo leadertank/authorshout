@@ -16,4 +16,20 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not profile.valid?
     assert_includes profile.errors[:avatar_url], "must be a valid URL"
   end
+
+  test "website must be a valid http url" do
+    profile = profiles(:one)
+    profile.website = "javascript:alert(1)"
+
+    assert_not profile.valid?
+    assert_includes profile.errors[:website], "must be a valid URL"
+  end
+
+  test "social links must be valid http urls" do
+    profile = profiles(:one)
+    profile.instagram_url = "ftp://example.com/profile"
+
+    assert_not profile.valid?
+    assert_includes profile.errors[:instagram_url], "must be a valid URL"
+  end
 end

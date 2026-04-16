@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.published.published_first
+    @posts = Post.live.published_first
   end
 
   def show
-    @post = Post.published.find_by!(slug: params[:slug])
+    @post = Post.live.find_by!(slug: params[:slug])
   end
 end

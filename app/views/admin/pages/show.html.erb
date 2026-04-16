@@ -18,7 +18,7 @@
     <p><strong>Layout:</strong> <%= @page.layout_template.titleize %></p>
     <p><strong>Summary:</strong> <%= @page.summary.presence || "No summary added." %></p>
     <% if @page.builder_html.present? %>
-      <div class="cms-rich-preview unlayer-rendered-content"><%= raw @page.builder_html %></div>
+      <div class="cms-rich-preview unlayer-rendered-content"><%= raw @page.sanitized_builder_html %></div>
     <% else %>
       <div class="cms-rich-preview"><%= @page.body %></div>
     <% end %>

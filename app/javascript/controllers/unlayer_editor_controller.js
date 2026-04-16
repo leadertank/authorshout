@@ -68,7 +68,7 @@ export default class extends Controller {
         stockImages: true
       },
       tools: {
-        html: { enabled: true },
+        html: { enabled: false },
         text: { enabled: true },
         image: { enabled: true },
         button: { enabled: true },

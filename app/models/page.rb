@@ -1,5 +1,7 @@
 class Page < ApplicationRecord
 	LAYOUTS = %w[standard landing showcase].freeze
+	BUILDER_BLOCKED_TAGS = %w[script iframe object embed form input textarea select option].freeze
+	BUILDER_URL_ATTRIBUTES = %w[href src xlink:href action formaction].freeze
 
 	has_rich_text :body
 	has_one_attached :featured_image
@@ -15,11 +17,21 @@ class Page < ApplicationRecord
 
 	before_validation :generate_slug, if: -> { title.present? && slug.blank? }
 	before_validation :normalize_slug
+	before_validation :sanitize_builder_html
 
+	scope :live, -> { published.where("published_at IS NULL OR published_at <= ?", Time.current) }
 	scope :published_first, -> { order(published_at: :desc, created_at: :desc) }
 
 	def to_param
 		slug
+	end
+
+	def sanitized_builder_html
+		return "" if builder_html.blank?
+
+		fragment = Loofah.fragment(builder_html)
+		fragment.scrub!(builder_html_scrubber)
+		fragment.to_s
 	end
 
 	private
@@ -30,5 +42,31 @@ class Page < ApplicationRecord
 
 	def normalize_slug
 		self.slug = slug.to_s.parameterize if slug.present?
+	end
+
+	def sanitize_builder_html
+		self.builder_html = sanitized_builder_html if builder_html.present?
+	end
+
+	def builder_html_scrubber
+		@builder_html_scrubber ||= Loofah::Scrubber.new do |node|
+			if BUILDER_BLOCKED_TAGS.include?(node.name)
+				node.remove
+				next Loofah::Scrubber::STOP
+			end
+
+			node.attribute_nodes.each do |attribute|
+				name = attribute.name.downcase
+				value = attribute.value.to_s.strip
+
+				if name.start_with?("on")
+					node.remove_attribute(attribute.name)
+				elsif BUILDER_URL_ATTRIBUTES.include?(name) && value.match?(/\Ajavascript:/i)
+					node.remove_attribute(attribute.name)
+				end
+			end
+
+			nil
+		end
 	end
 end

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def show
-    @page = Page.published.find_by!(slug: params[:slug])
+    @page = Page.live.find_by!(slug: params[:slug])
   end
 end

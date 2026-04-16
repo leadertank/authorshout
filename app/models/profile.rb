@@ -1,4 +1,15 @@
 class Profile < ApplicationRecord
+  URL_FIELDS = %i[
+    avatar_url
+    website
+    x_url
+    facebook_url
+    instagram_url
+    threads_url
+    bluesky_url
+    youtube_url
+  ].freeze
+
   belongs_to :user
   has_one :book, dependent: :destroy
   has_one_attached :avatar
@@ -7,7 +18,7 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :user, update_only: true
 
   validates :bio, length: { maximum: 1200 }
-  validate :avatar_url_must_be_valid
+  validate :public_urls_must_be_valid
 
   def avatar_image_source
     return avatar if avatar.attached?
@@ -29,14 +40,17 @@ class Profile < ApplicationRecord
 
   private
 
-  def avatar_url_must_be_valid
-    return if avatar_url.blank?
+  def public_urls_must_be_valid
+    URL_FIELDS.each do |field|
+      value = public_send(field)
+      next if value.blank?
 
-    uri = URI.parse(avatar_url)
-    return if uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+      uri = URI.parse(value)
+      next if uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
 
-    errors.add(:avatar_url, "must be a valid URL")
-  rescue URI::InvalidURIError, TypeError
-    errors.add(:avatar_url, "must be a valid URL")
+      errors.add(field, "must be a valid URL")
+    rescue URI::InvalidURIError, TypeError
+      errors.add(field, "must be a valid URL")
+    end
   end
 end
