@@ -42,7 +42,7 @@
             <%= link_to "Visit Book Link", @profile.book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
           </p>
           <div class="book-actions">
-            <%= button_to "Like (#{@profile.book.total_likes})", book_like_path(@profile.book), method: :post, class: "button button-like" %>
+            <%= render "shared/book_like_button", book: @profile.book %>
           </div>
         </div>
       <% else %>

@@ -47,7 +47,7 @@
           </p>
 
           <div class="book-actions">
-            <%= button_to "Like (#{book.total_likes})", book_like_path(book), method: :post, class: "button button-like" %>
+            <%= render "shared/book_like_button", book: book %>
           </div>
         </article>
       <% end %>

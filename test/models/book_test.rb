@@ -16,4 +16,16 @@ class BookTest < ActiveSupport::TestCase
   test "cover_image_source falls back to cover_image_url" do
     assert_equal "https://images.example.com/ada-book.jpg", books(:one).cover_image_source
   end
+
+  test "liked_by? returns true for an associated user like" do
+    assert books(:one).liked_by?(user: users(:one))
+  end
+
+  test "liked_by? returns true for a matching visitor token" do
+    assert books(:two).liked_by?(visitor_token: "visitor-123")
+  end
+
+  test "liked_by? returns false when actor has not liked the book" do
+    assert_not books(:one).liked_by?(visitor_token: "different-visitor")
+  end
 end

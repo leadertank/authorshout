@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    books_scope = Book.includes(profile: :user).with_attached_cover_image.order(created_at: :desc)
+    books_scope = Book.includes(:book_likes, profile: :user).with_attached_cover_image.order(created_at: :desc)
 
     @per_page = 8
     @total_books = books_scope.count

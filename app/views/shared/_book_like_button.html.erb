@@ -1,0 +1,8 @@
+<% liked = book_liked_by_current_actor?(book) %>
+<% label = liked ? "Liked (#{book.total_likes})" : "Like (#{book.total_likes})" %>
+
+<% if liked %>
+  <button type="button" class="button button-like button-like-disabled" disabled aria-disabled="true"><%= label %></button>
+<% else %>
+  <%= button_to label, book_like_path(book), method: :post, class: "button button-like" %>
+<% end %>

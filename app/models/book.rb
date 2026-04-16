@@ -14,6 +14,20 @@ class Book < ApplicationRecord
     likes_count || 0
   end
 
+  def liked_by?(user: nil, visitor_token: nil)
+    if user.present?
+      return book_likes.any? { |like| like.user_id == user.id } if association(:book_likes).loaded?
+
+      book_likes.exists?(user_id: user.id)
+    elsif visitor_token.present?
+      return book_likes.any? { |like| like.visitor_token == visitor_token } if association(:book_likes).loaded?
+
+      book_likes.exists?(visitor_token: visitor_token)
+    else
+      false
+    end
+  end
+
   def cover_image_source
     return cover_image if cover_image.attached?
     return cover_image_url if cover_image_url.present?

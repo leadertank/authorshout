@@ -523,6 +523,15 @@ body.page-builder-mode .unlayer-builder {
 	border-color: #0c56a7;
 }
 
+.button-like-disabled,
+.button-like[disabled] {
+	background: #d9e8fb;
+	border-color: #b7cdea;
+	color: #355980;
+	cursor: default;
+	opacity: 1;
+}
+
 .share-row {
 	display: flex;
 	flex-wrap: wrap;

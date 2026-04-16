@@ -23,7 +23,7 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
-    @profile = Profile.includes(:user, :book).find(params[:id])
+    @profile = Profile.includes(:user, book: :book_likes).find(params[:id])
   end
 
   def profile_params
