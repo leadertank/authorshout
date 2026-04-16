@@ -1,23 +1,21 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   user: one
-  bio: MyText
-  website: MyString
-  x_url: MyString
-  facebook_url: MyString
-  instagram_url: MyString
-  threads_url: MyString
-  bluesky_url: MyString
-  youtube_url: MyString
+  bio: Ada writes mathematical fiction and essays.
+  website: https://ada.example.com
+  x_url: https://x.com/ada
+  facebook_url: https://facebook.com/ada
+  instagram_url: https://instagram.com/ada
+  threads_url: https://threads.net/@ada
+  bluesky_url: https://bsky.app/profile/ada.example.com
+  youtube_url: https://youtube.com/@ada
 
 two:
   user: two
-  bio: MyText
-  website: MyString
-  x_url: MyString
-  facebook_url: MyString
-  instagram_url: MyString
-  threads_url: MyString
-  bluesky_url: MyString
-  youtube_url: MyString
+  bio: Grace shares systems programming knowledge.
+  website: https://grace.example.com
+  x_url: https://x.com/grace
+  facebook_url: https://facebook.com/grace
+  instagram_url: https://instagram.com/grace
+  threads_url: https://threads.net/@grace
+  bluesky_url: https://bsky.app/profile/grace.example.com
+  youtube_url: https://youtube.com/@grace

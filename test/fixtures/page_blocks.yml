@@ -1,25 +1,37 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   page: one
-  kind: MyString
+  kind: text
   position: 1
-  heading: MyString
-  subheading: MyString
-  body: MyText
-  button_text: MyString
-  button_url: MyString
-  media_url: MyString
-  theme: MyString
+  heading: Welcome
+  subheading: Intro section
+  body: Introductory body copy.
+  button_text: Read More
+  button_url: https://authorshout.example.com/more
+  media_url: https://images.example.com/welcome.jpg
+  theme: default
+  column_span: 12
+  row_number: 1
+  column_slot: 1
+  row_columns: 1
+  text_align: left
+  background_style: card
+  section_spacing: md
 
 two:
   page: two
-  kind: MyString
+  kind: image
   position: 1
-  heading: MyString
-  subheading: MyString
-  body: MyText
-  button_text: MyString
-  button_url: MyString
-  media_url: MyString
-  theme: MyString
+  heading: Events Hero
+  subheading: Upcoming appearances
+  body: Event teaser body.
+  button_text: RSVP
+  button_url: https://authorshout.example.com/events
+  media_url: https://images.example.com/events.jpg
+  theme: accent
+  column_span: 12
+  row_number: 1
+  column_slot: 1
+  row_columns: 1
+  text_align: center
+  background_style: full
+  section_spacing: lg

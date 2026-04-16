@@ -1,15 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  title: MyString
-  slug: MyString
+  title: Launch Post
+  slug: launch-post
   status: 1
-  excerpt: MyText
+  excerpt: Launch update excerpt.
   published_at: 2026-04-12 03:04:35
 
 two:
-  title: MyString
-  slug: MyString
+  title: Interview Post
+  slug: interview-post
   status: 1
-  excerpt: MyText
+  excerpt: Interview recap excerpt.
   published_at: 2026-04-12 03:04:35

@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   profile: one
-  title: MyString
-  purchase_url: MyString
+  title: Analytical Engine Stories
+  purchase_url: https://bookshop.example.com/analytical-engine-stories
   likes_count: 1
+  cover_image_url: https://images.example.com/ada-book.jpg
 
 two:
   profile: two
-  title: MyString
-  purchase_url: MyString
+  title: Compiler Dreams
+  purchase_url: https://bookshop.example.com/compiler-dreams
   likes_count: 1
+  cover_image_url: https://images.example.com/grace-book.jpg

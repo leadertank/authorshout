@@ -1,17 +1,15 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  title: MyString
-  slug: MyString
+  title: Welcome Page
+  slug: welcome-page
   status: 1
-  summary: MyText
-  layout_template: MyString
+  summary: Introductory landing page.
+  layout_template: standard
   published_at: 2026-04-12 03:04:34
 
 two:
-  title: MyString
-  slug: MyString
+  title: Events Page
+  slug: events-page
   status: 1
-  summary: MyText
-  layout_template: MyString
+  summary: Event showcase page.
+  layout_template: showcase
   published_at: 2026-04-12 03:04:34
