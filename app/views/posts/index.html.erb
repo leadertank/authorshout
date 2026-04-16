@@ -9,6 +9,12 @@
       <article class="panel post-card">
         <h2><%= link_to post.title, post_path(post.slug), class: "text-link" %></h2>
         <p class="meta-line"><%= post.published_at&.to_date || post.created_at.to_date %></p>
+        <p class="post-taxonomy-line">
+          <%= post.post_category&.name || "Uncategorized" %>
+          <% if post.post_tags.any? %>
+            · <%= post.post_tags.map(&:name).join(", ") %>
+          <% end %>
+        </p>
         <p><%= post.excerpt.presence || truncate(strip_tags(post.body.to_s), length: 180) %></p>
         <p><%= link_to "Read Post", post_path(post.slug), class: "button" %></p>
       </article>

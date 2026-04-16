@@ -3,7 +3,11 @@ module Admin
     before_action :set_page, only: [:show, :edit, :update, :destroy, :preview]
 
     def index
+      @filters = page_filters
       @pages = Page.order(updated_at: :desc)
+      @pages = @pages.filter_by_state(@filters[:state])
+      @pages = @pages.where(layout_template: @filters[:layout]) if @filters[:layout].present?
+      @pages = @pages.search_query(@filters[:query]) if @filters[:query].present?
     end
 
     def show; end
@@ -88,6 +92,10 @@ module Admin
           :_destroy
         ]
       )
+    end
+
+    def page_filters
+      params.permit(:query, :state, :layout)
     end
   end
 end

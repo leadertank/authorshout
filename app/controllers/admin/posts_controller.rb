@@ -1,9 +1,15 @@
 module Admin
   class PostsController < BaseController
     before_action :set_post, only: [:show, :edit, :update, :destroy, :preview]
+    before_action :load_taxonomy, only: [:index, :new, :edit, :create, :update]
 
     def index
-      @posts = Post.order(updated_at: :desc)
+      @filters = post_filters
+      @posts = Post.includes(:post_category, :post_tags).order(updated_at: :desc)
+      @posts = @posts.filter_by_state(@filters[:state])
+      @posts = @posts.search_query(@filters[:query]) if @filters[:query].present?
+      @posts = @posts.where(post_category_id: @filters[:post_category_id]) if @filters[:post_category_id].present?
+      @posts = @posts.joins(:post_tags).where(post_tags: { id: @filters[:post_tag_id] }).distinct if @filters[:post_tag_id].present?
     end
 
     def show; end
@@ -48,7 +54,16 @@ module Admin
     end
 
     def post_params
-      params.require(:post).permit(:title, :slug, :status, :excerpt, :published_at, :featured_image, :body)
+      params.require(:post).permit(:title, :slug, :status, :excerpt, :published_at, :featured_image, :body, :post_category_id, :category_name, :tag_list)
+    end
+
+    def post_filters
+      params.permit(:query, :state, :post_category_id, :post_tag_id)
+    end
+
+    def load_taxonomy
+      @post_categories = PostCategory.alphabetical
+      @post_tags = PostTag.alphabetical
     end
   end
 end

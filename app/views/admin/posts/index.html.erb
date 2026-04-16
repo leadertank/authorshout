@@ -7,12 +7,43 @@
     <%= link_to "New Post", new_admin_post_path, class: "button" %>
   </div>
 
+  <%= form_with url: admin_posts_path, method: :get, class: "panel cms-filter-form", local: true do %>
+    <div class="cms-grid-four">
+      <div>
+        <label for="query">Search</label>
+        <%= text_field_tag :query, @filters[:query], placeholder: "Title, slug, excerpt" %>
+      </div>
+
+      <div>
+        <label for="state">State</label>
+        <%= select_tag :state, options_for_select(content_state_filter_options, @filters[:state]), class: "cms-select" %>
+      </div>
+
+      <div>
+        <label for="post_category_id">Category</label>
+        <%= select_tag :post_category_id, options_from_collection_for_select(@post_categories, :id, :name, @filters[:post_category_id]), include_blank: "All categories", class: "cms-select" %>
+      </div>
+
+      <div>
+        <label for="post_tag_id">Tag</label>
+        <%= select_tag :post_tag_id, options_from_collection_for_select(@post_tags, :id, :name, @filters[:post_tag_id]), include_blank: "All tags", class: "cms-select" %>
+      </div>
+    </div>
+
+    <div class="cms-filter-actions">
+      <%= submit_tag "Filter", class: "button" %>
+      <%= link_to "Clear", admin_posts_path, class: "text-link" %>
+    </div>
+  <% end %>
+
   <div class="cms-table-wrap panel">
     <table class="cms-table">
       <thead>
         <tr>
           <th>Title</th>
           <th>State</th>
+          <th>Category</th>
+          <th>Tags</th>
           <th>Publishing</th>
           <th></th>
         </tr>
@@ -22,12 +53,20 @@
           <tr>
             <td><strong><%= post.title %></strong><br><span class="cms-slug">/blog/<%= post.slug %></span></td>
             <td><%= content_state_badge(post) %></td>
+            <td><%= post.post_category&.name || "Uncategorized" %></td>
+            <td><%= post.post_tags.any? ? post.post_tags.map(&:name).join(", ") : "No tags" %></td>
             <td><span class="cms-publish-detail"><%= content_publish_detail(post) %></span></td>
             <td class="cms-table-actions">
               <%= link_to "View", admin_post_path(post), class: "text-link" %>
               <%= link_to "Preview", preview_admin_post_path(post), class: "text-link", target: "_blank", rel: "noopener" %>
               <%= link_to "Edit", edit_admin_post_path(post), class: "text-link" %>
             </td>
+          </tr>
+        <% end %>
+
+        <% if @posts.empty? %>
+          <tr>
+            <td colspan="6" class="cms-empty-state">No posts matched this filter.</td>
           </tr>
         <% end %>
       </tbody>

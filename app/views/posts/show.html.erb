@@ -2,6 +2,12 @@
   <article class="panel content-page-hero">
     <h1><%= @post.title %></h1>
     <p class="meta-line"><%= @post.published_at&.to_date || @post.created_at.to_date %></p>
+    <p class="post-taxonomy-line">
+      <%= @post.post_category&.name || "Uncategorized" %>
+      <% if @post.post_tags.any? %>
+        · <%= @post.post_tags.map(&:name).join(", ") %>
+      <% end %>
+    </p>
     <% if @post.excerpt.present? %>
       <p class="content-page-summary"><%= @post.excerpt %></p>
     <% end %>

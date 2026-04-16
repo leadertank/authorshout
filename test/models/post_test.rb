@@ -28,4 +28,19 @@ class PostTest < ActiveSupport::TestCase
     assert_predicate scheduled_post, :scheduled?
     assert_predicate live_post, :live_now?
   end
+
+  test "category name creates or reuses a category" do
+    post = Post.create!(title: "Categorized", slug: "categorized", status: :draft, category_name: "Editorial")
+
+    assert_equal "Editorial", post.post_category.name
+    assert_equal "editorial", post.post_category.slug
+  end
+
+  test "tag list syncs comma separated tags" do
+    post = posts(:one)
+
+    post.update!(tag_list: "Launch, Community, Essays")
+
+    assert_equal ["Community", "Essays", "Launch"], post.post_tags.order(:name).pluck(:name)
+  end
 end

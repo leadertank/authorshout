@@ -1,0 +1,11 @@
+launch:
+  name: Launch
+  slug: launch
+
+interview:
+  name: Interview
+  slug: interview
+
+community:
+  name: Community
+  slug: community

@@ -1,0 +1,11 @@
+launch_primary:
+  post: one
+  post_tag: launch
+
+launch_secondary:
+  post: one
+  post_tag: community
+
+interview_primary:
+  post: two
+  post_tag: interview

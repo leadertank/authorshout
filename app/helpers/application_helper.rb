@@ -14,4 +14,8 @@ module ApplicationHelper
 
 		"Live since #{record.published_at.strftime("%b %-d, %Y %l:%M %p")}"
 	end
+
+	def content_state_filter_options
+		[["All states", ""], ["Live", "live"], ["Scheduled", "scheduled"], ["Draft", "draft"]]
+	end
 end

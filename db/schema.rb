@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_12_043000) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_16_100000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -112,6 +112,34 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_043000) do
     t.index ["status"], name: "index_pages_on_status"
   end
 
+  create_table "post_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_post_categories_on_name", unique: true
+    t.index ["slug"], name: "index_post_categories_on_slug", unique: true
+  end
+
+  create_table "post_taggings", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "post_tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id", "post_tag_id"], name: "index_post_taggings_on_post_id_and_post_tag_id", unique: true
+    t.index ["post_id"], name: "index_post_taggings_on_post_id"
+    t.index ["post_tag_id"], name: "index_post_taggings_on_post_tag_id"
+  end
+
+  create_table "post_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_post_tags_on_name", unique: true
+    t.index ["slug"], name: "index_post_tags_on_slug", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.string "slug", null: false
@@ -120,6 +148,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_043000) do
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "post_category_id"
+    t.index ["post_category_id"], name: "index_posts_on_post_category_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["status"], name: "index_posts_on_status"
   end
@@ -161,5 +191,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_043000) do
   add_foreign_key "book_likes", "users"
   add_foreign_key "books", "profiles"
   add_foreign_key "page_blocks", "pages"
+  add_foreign_key "post_taggings", "post_tags"
+  add_foreign_key "post_taggings", "posts"
+  add_foreign_key "posts", "post_categories"
   add_foreign_key "profiles", "users"
 end

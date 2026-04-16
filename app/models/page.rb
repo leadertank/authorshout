@@ -21,9 +21,26 @@ class Page < ApplicationRecord
 
 	scope :live, -> { published.where("published_at IS NULL OR published_at <= ?", Time.current) }
 	scope :published_first, -> { order(published_at: :desc, created_at: :desc) }
+	scope :search_query, ->(query) {
+		where("pages.title LIKE :query OR pages.slug LIKE :query OR pages.summary LIKE :query", query: "%#{sanitize_sql_like(query.to_s.strip)}%")
+	}
 
 	def to_param
 		slug
+	end
+
+	def self.filter_by_state(state)
+		case state.to_s
+		when "draft"
+			draft
+		when "scheduled"
+			published.where("published_at > ?", Time.current)
+		when "live"
+			live
+		else
+			all
+		end
+		
 	end
 
 	def scheduled?

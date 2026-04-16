@@ -34,6 +34,28 @@
     </div>
   </div>
 
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :post_category_id, "Category" %>
+      <%= f.select :post_category_id, options_from_collection_for_select(@post_categories, :id, :name, post.post_category_id), { include_blank: "No category" }, class: "cms-select" %>
+    </div>
+
+    <div>
+      <%= f.label :category_name, "Or create a category" %>
+      <%= f.text_field :category_name, value: post.category_name, placeholder: "Features" %>
+      <p class="cms-field-hint">
+        If provided, this overrides the dropdown and creates or reuses a category.
+        <%= "Current category: #{post.post_category.name}." if post.post_category.present? %>
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :tag_list, "Tags" %>
+    <%= f.text_field :tag_list, value: post.tag_list, placeholder: "launch, interview, marketing" %>
+    <p class="cms-field-hint">Separate tags with commas. Existing tags are reused automatically.</p>
+  </div>
+
   <div>
     <%= f.label :excerpt %>
     <%= f.text_area :excerpt, rows: 3 %>

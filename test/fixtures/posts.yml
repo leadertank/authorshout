@@ -4,6 +4,7 @@ one:
   status: 1
   excerpt: Launch update excerpt.
   published_at: 2026-04-12 03:04:35
+  post_category: news
 
 two:
   title: Interview Post
@@ -11,3 +12,4 @@ two:
   status: 1
   excerpt: Interview recap excerpt.
   published_at: 2026-04-12 03:04:35
+  post_category: features

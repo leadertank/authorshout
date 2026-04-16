@@ -7,6 +7,30 @@
     <%= link_to "New Page", new_admin_page_path, class: "button" %>
   </div>
 
+  <%= form_with url: admin_pages_path, method: :get, class: "panel cms-filter-form", local: true do %>
+    <div class="cms-grid-three">
+      <div>
+        <label for="query">Search</label>
+        <%= text_field_tag :query, @filters[:query], placeholder: "Title, slug, summary" %>
+      </div>
+
+      <div>
+        <label for="state">State</label>
+        <%= select_tag :state, options_for_select(content_state_filter_options, @filters[:state]), class: "cms-select" %>
+      </div>
+
+      <div>
+        <label for="layout">Layout</label>
+        <%= select_tag :layout, options_for_select([["All layouts", ""]] + Page::LAYOUTS.map { |layout| [layout.titleize, layout] }, @filters[:layout]), class: "cms-select" %>
+      </div>
+    </div>
+
+    <div class="cms-filter-actions">
+      <%= submit_tag "Filter", class: "button" %>
+      <%= link_to "Clear", admin_pages_path, class: "text-link" %>
+    </div>
+  <% end %>
+
   <div class="cms-table-wrap panel">
     <table class="cms-table">
       <thead>
@@ -32,6 +56,12 @@
               <%= link_to "Preview", preview_admin_page_path(page), class: "text-link", target: "_blank", rel: "noopener" %>
               <%= link_to "Edit", edit_admin_page_path(page), class: "text-link" %>
             </td>
+          </tr>
+        <% end %>
+
+        <% if @pages.empty? %>
+          <tr>
+            <td colspan="6" class="cms-empty-state">No pages matched this filter.</td>
           </tr>
         <% end %>
       </tbody>

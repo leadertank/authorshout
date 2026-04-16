@@ -1,0 +1,7 @@
+news:
+  name: News
+  slug: news
+
+features:
+  name: Features
+  slug: features

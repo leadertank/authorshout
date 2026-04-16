@@ -14,6 +14,8 @@
   <article class="panel">
     <p><strong>State:</strong> <%= content_state_badge(@post) %></p>
     <p><strong>Publishing:</strong> <span class="cms-publish-detail"><%= content_publish_detail(@post) %></span></p>
+    <p><strong>Category:</strong> <%= @post.post_category&.name || "Uncategorized" %></p>
+    <p><strong>Tags:</strong> <%= @post.post_tags.any? ? @post.post_tags.map(&:name).join(", ") : "No tags" %></p>
     <p><strong>Excerpt:</strong> <%= @post.excerpt.presence || "No excerpt added." %></p>
     <% if @post.live_now? %>
       <p><strong>Public URL:</strong> <%= link_to post_path(@post.slug), post_path(@post.slug), class: "text-link", target: "_blank", rel: "noopener" %></p>
