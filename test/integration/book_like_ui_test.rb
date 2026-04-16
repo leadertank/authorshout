@@ -26,4 +26,18 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Liked (2)", response.body
   end
+
+  test "signed in member sees current media previews on edit profile" do
+    sign_in users(:one)
+
+    get edit_my_profile_path
+
+    assert_response :success
+    assert_match "Author Details", response.body
+    assert_match "Featured Book", response.body
+    assert_match "Current Profile Preview", response.body
+    assert_match "No profile image yet", response.body
+    assert_match "Current book cover", response.body
+    assert_match "View Public Profile", response.body
+  end
 end

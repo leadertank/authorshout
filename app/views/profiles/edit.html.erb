@@ -2,7 +2,7 @@
   <h1>Edit Member Profile</h1>
   <p>Basic/free tier includes one profile and one book.</p>
 
-  <%= form_with model: @profile, url: my_profile_path, class: "form-stack" do |f| %>
+  <%= form_with model: @profile, url: my_profile_path, class: "form-stack member-profile-form" do |f| %>
     <% if @profile.errors.any? %>
       <div class="form-errors">
         <h2>Please fix these issues:</h2>
@@ -14,89 +14,162 @@
       </div>
     <% end %>
 
-    <h2>Author Name</h2>
-    <%= f.fields_for :user do |user_fields| %>
-      <%= user_fields.hidden_field :id %>
+    <div class="member-profile-layout">
+      <div class="member-profile-main">
+        <section class="member-form-section panel">
+          <div class="member-form-section-head">
+            <h2>Author Details</h2>
+            <p>Set the public name, portrait, and short bio readers will see first.</p>
+          </div>
 
-      <div>
-        <%= user_fields.label :first_name, "First name" %>
-        <%= user_fields.text_field :first_name, autocomplete: "given-name" %>
+          <%= f.fields_for :user do |user_fields| %>
+            <%= user_fields.hidden_field :id %>
+
+            <div class="cms-grid-two">
+              <div>
+                <%= user_fields.label :first_name, "First name" %>
+                <%= user_fields.text_field :first_name, autocomplete: "given-name" %>
+              </div>
+
+              <div>
+                <%= user_fields.label :last_name, "Last name" %>
+                <%= user_fields.text_field :last_name, autocomplete: "family-name" %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="member-form-grid">
+            <div>
+              <%= f.label :avatar, "Upload profile picture" %>
+              <%= f.file_field :avatar, accept: "image/*" %>
+              <p class="form-help">Square or portrait images crop best across the site.</p>
+            </div>
+
+            <div>
+              <%= f.label :avatar_url, "Or use image URL" %>
+              <%= f.url_field :avatar_url, placeholder: "https://..." %>
+              <p class="form-help">Uploaded files take priority over a pasted image URL.</p>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :bio, "Bio / Description" %>
+            <%= f.text_area :bio, rows: 6, maxlength: 1200 %>
+            <p class="form-help">Up to 1200 characters. Lead with the clearest reader-facing summary.</p>
+          </div>
+        </section>
+
+        <section class="member-form-section panel">
+          <div class="member-form-section-head">
+            <h2>Featured Book</h2>
+            <p>Free/basic tier includes one featured book with a title, link, and cover.</p>
+          </div>
+
+          <%= f.fields_for :book do |book_fields| %>
+            <div>
+              <%= book_fields.label :title, "Book title" %>
+              <%= book_fields.text_field :title %>
+            </div>
+
+            <div>
+              <%= book_fields.label :purchase_url, "Book link" %>
+              <%= book_fields.url_field :purchase_url, placeholder: "https://..." %>
+            </div>
+
+            <div class="member-form-grid">
+              <div>
+                <%= book_fields.label :cover_image, "Upload book cover" %>
+                <%= book_fields.file_field :cover_image, accept: "image/*" %>
+                <p class="form-help">Portrait covers look best on the home grid and profile page.</p>
+              </div>
+
+              <div>
+                <%= book_fields.label :cover_image_url, "Or use cover image URL" %>
+                <%= book_fields.url_field :cover_image_url, placeholder: "https://..." %>
+                <p class="form-help">Use a direct image URL whenever possible for reliable rendering.</p>
+              </div>
+            </div>
+          <% end %>
+        </section>
+
+        <section class="member-form-section panel">
+          <div class="member-form-section-head">
+            <h2>Website & Social</h2>
+            <p>Add the destinations you want readers to visit. Only valid http/https URLs are accepted.</p>
+          </div>
+
+          <div>
+            <%= f.label :website, "Website" %>
+            <%= f.url_field :website, placeholder: "https://..." %>
+          </div>
+
+          <div class="cms-grid-two">
+            <div>
+              <%= f.label :x_url, "X" %>
+              <%= f.url_field :x_url, placeholder: "https://x.com/..." %>
+            </div>
+            <div>
+              <%= f.label :facebook_url, "Facebook" %>
+              <%= f.url_field :facebook_url, placeholder: "https://facebook.com/..." %>
+            </div>
+            <div>
+              <%= f.label :instagram_url, "Instagram" %>
+              <%= f.url_field :instagram_url, placeholder: "https://instagram.com/..." %>
+            </div>
+            <div>
+              <%= f.label :threads_url, "Threads" %>
+              <%= f.url_field :threads_url, placeholder: "https://threads.net/..." %>
+            </div>
+            <div>
+              <%= f.label :bluesky_url, "Bluesky" %>
+              <%= f.url_field :bluesky_url, placeholder: "https://bsky.app/profile/..." %>
+            </div>
+            <div>
+              <%= f.label :youtube_url, "YouTube" %>
+              <%= f.url_field :youtube_url, placeholder: "https://youtube.com/..." %>
+            </div>
+          </div>
+        </section>
+
+        <div class="member-form-actions">
+          <%= f.submit "Save Profile", class: "button" %>
+          <%= link_to "View Public Profile", profile_path(@profile), class: "button member-secondary-button" %>
+        </div>
       </div>
 
-      <div>
-        <%= user_fields.label :last_name, "Last name" %>
-        <%= user_fields.text_field :last_name, autocomplete: "family-name" %>
-      </div>
-    <% end %>
+      <aside class="member-profile-sidebar">
+        <section class="panel member-preview-card">
+          <h2>Current Profile Preview</h2>
+          <p class="form-help">These previews show the images currently visible on your public profile.</p>
 
-    <div>
-      <%= f.label :avatar, "Profile picture" %>
-      <%= f.file_field :avatar, accept: "image/*" %>
-    </div>
+          <div class="member-preview-media-block">
+            <h3>Profile Picture</h3>
+            <% if @profile.avatar_image_source.present? %>
+              <%= image_tag @profile.avatar_image_source, alt: "Current profile picture", class: "member-preview-avatar" %>
+            <% else %>
+              <div class="member-preview-placeholder">No profile image yet</div>
+            <% end %>
+          </div>
 
-    <div>
-      <%= f.label :avatar_url, "Profile picture image URL (copy/paste)" %>
-      <%= f.url_field :avatar_url, placeholder: "https://..." %>
-    </div>
+          <div class="member-preview-media-block">
+            <h3>Book Cover</h3>
+            <% if @profile.book&.cover_image_source.present? %>
+              <%= image_tag @profile.book.cover_image_source, alt: "Current book cover", class: "member-preview-book-cover" %>
+            <% else %>
+              <div class="member-preview-placeholder member-preview-placeholder-book">No book cover yet</div>
+            <% end %>
+          </div>
+        </section>
 
-    <div>
-      <%= f.label :bio, "Bio / Description" %>
-      <%= f.text_area :bio, rows: 6, maxlength: 1200 %>
+        <section class="panel member-preview-card">
+          <h2>Publishing Tips</h2>
+          <ul class="member-tip-list">
+            <li>Keep your author name consistent with your book cover and social links.</li>
+            <li>Use a clean, readable cover image so it still works at smaller sizes.</li>
+            <li>Make the featured book link your highest-priority reader destination.</li>
+          </ul>
+        </section>
+      </aside>
     </div>
-
-    <h2>One Free-Tier Book</h2>
-    <%= f.fields_for :book do |book_fields| %>
-      <div>
-        <%= book_fields.label :title, "Book title" %>
-        <%= book_fields.text_field :title %>
-      </div>
-
-      <div>
-        <%= book_fields.label :purchase_url, "Book link" %>
-        <%= book_fields.url_field :purchase_url, placeholder: "https://..." %>
-      </div>
-
-      <div>
-        <%= book_fields.label :cover_image, "Book cover image" %>
-        <%= book_fields.file_field :cover_image, accept: "image/*" %>
-      </div>
-
-      <div>
-        <%= book_fields.label :cover_image_url, "Book cover image URL (copy/paste)" %>
-        <%= book_fields.url_field :cover_image_url, placeholder: "https://..." %>
-      </div>
-    <% end %>
-
-    <h2>Website & Social</h2>
-    <div>
-      <%= f.label :website, "Website" %>
-      <%= f.url_field :website, placeholder: "https://..." %>
-    </div>
-    <div>
-      <%= f.label :x_url, "X" %>
-      <%= f.url_field :x_url, placeholder: "https://x.com/..." %>
-    </div>
-    <div>
-      <%= f.label :facebook_url, "Facebook" %>
-      <%= f.url_field :facebook_url, placeholder: "https://facebook.com/..." %>
-    </div>
-    <div>
-      <%= f.label :instagram_url, "Instagram" %>
-      <%= f.url_field :instagram_url, placeholder: "https://instagram.com/..." %>
-    </div>
-    <div>
-      <%= f.label :threads_url, "Threads" %>
-      <%= f.url_field :threads_url, placeholder: "https://threads.net/..." %>
-    </div>
-    <div>
-      <%= f.label :bluesky_url, "Bluesky" %>
-      <%= f.url_field :bluesky_url, placeholder: "https://bsky.app/profile/..." %>
-    </div>
-    <div>
-      <%= f.label :youtube_url, "YouTube" %>
-      <%= f.url_field :youtube_url, placeholder: "https://youtube.com/..." %>
-    </div>
-
-    <%= f.submit "Save Profile", class: "button" %>
   <% end %>
 </section>

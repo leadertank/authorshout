@@ -749,6 +749,119 @@ body.page-builder-mode .unlayer-builder {
 	gap: 0.8rem;
 }
 
+.member-profile-form {
+	gap: 1rem;
+}
+
+.member-profile-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.95fr);
+	gap: 1rem;
+	align-items: start;
+}
+
+.member-profile-main,
+.member-profile-sidebar {
+	display: grid;
+	gap: 1rem;
+}
+
+.member-profile-sidebar {
+	position: sticky;
+	top: 1rem;
+}
+
+.member-form-section {
+	display: grid;
+	gap: 0.9rem;
+}
+
+.member-form-section-head h2,
+.member-preview-card h2,
+.member-preview-media-block h3 {
+	margin: 0;
+}
+
+.member-form-section-head p,
+.form-help {
+	margin: 0.2rem 0 0;
+	color: var(--muted);
+	font-size: 0.92rem;
+}
+
+.member-form-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.85rem;
+}
+
+.member-form-actions {
+	display: flex;
+	gap: 0.7rem;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.member-secondary-button {
+	background: #edf3fb;
+	border-color: #b6cde7;
+	color: #214a73;
+}
+
+.member-preview-card {
+	display: grid;
+	gap: 0.9rem;
+}
+
+.member-preview-media-block {
+	display: grid;
+	gap: 0.55rem;
+}
+
+.member-preview-avatar,
+.member-preview-book-cover {
+	width: min(220px, 100%);
+	max-width: 100%;
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	background: #f4efe4;
+	display: block;
+}
+
+.member-preview-avatar {
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
+.member-preview-book-cover {
+	aspect-ratio: 2 / 3;
+	object-fit: cover;
+}
+
+.member-preview-placeholder {
+	width: min(220px, 100%);
+	aspect-ratio: 1 / 1;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	text-align: center;
+	border: 1px dashed #b7c6d7;
+	border-radius: 14px;
+	background: #f8fbff;
+	color: #637385;
+}
+
+.member-preview-placeholder-book {
+	aspect-ratio: 2 / 3;
+}
+
+.member-tip-list {
+	margin: 0;
+	padding-left: 1.1rem;
+	display: grid;
+	gap: 0.55rem;
+}
+
 input,
 textarea {
 	width: 100%;
@@ -1236,6 +1349,11 @@ textarea {
 }
 
 @media (max-width: 1024px) {
+	.member-profile-layout,
+	.member-form-grid {
+		grid-template-columns: 1fr;
+	}
+
 	.book-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
@@ -1243,6 +1361,10 @@ textarea {
 	.stats-grid,
 	.cms-grid-four {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.member-profile-sidebar {
+		position: static;
 	}
 }
 
@@ -1287,10 +1409,22 @@ textarea {
 	.cms-grid-two,
 	.cms-grid-three,
 	.cms-grid-four,
+	.member-form-grid,
 	.content-block-grid,
 	.gb-settings-row,
 	.gb-inserter-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.member-form-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.member-form-actions .button,
+	.member-form-actions a.button {
+		text-align: center;
+		justify-content: center;
 	}
 
 	.span-12,
