@@ -25,6 +25,7 @@
             <td><%= post.published_at&.to_date || "Not scheduled" %></td>
             <td class="cms-table-actions">
               <%= link_to "View", admin_post_path(post), class: "text-link" %>
+              <%= link_to "Preview", preview_admin_post_path(post), class: "text-link", target: "_blank", rel: "noopener" %>
               <%= link_to "Edit", edit_admin_post_path(post), class: "text-link" %>
             </td>
           </tr>

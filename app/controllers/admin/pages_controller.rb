@@ -1,12 +1,16 @@
 module Admin
   class PagesController < BaseController
-    before_action :set_page, only: [:show, :edit, :update, :destroy]
+    before_action :set_page, only: [:show, :edit, :update, :destroy, :preview]
 
     def index
       @pages = Page.order(updated_at: :desc)
     end
 
     def show; end
+
+    def preview
+      render "pages/show"
+    end
 
     def new
       @page = Page.new(layout_template: "standard")

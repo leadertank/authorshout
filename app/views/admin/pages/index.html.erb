@@ -27,6 +27,7 @@
             <td><%= page.updated_at.to_date %></td>
             <td class="cms-table-actions">
               <%= link_to "View", admin_page_path(page), class: "text-link" %>
+              <%= link_to "Preview", preview_admin_page_path(page), class: "text-link", target: "_blank", rel: "noopener" %>
               <%= link_to "Edit", edit_admin_page_path(page), class: "text-link" %>
             </td>
           </tr>

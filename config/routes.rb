@@ -11,8 +11,16 @@ Rails.application.routes.draw do
   namespace :admin do
     get "dashboard", to: "dashboard#index"
     resources :users, only: [:index]
-    resources :pages
-    resources :posts
+    resources :pages do
+      member do
+        get :preview
+      end
+    end
+    resources :posts do
+      member do
+        get :preview
+      end
+    end
   end
 
   get "blog", to: "posts#index", as: :posts

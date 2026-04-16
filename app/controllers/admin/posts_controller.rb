@@ -1,12 +1,16 @@
 module Admin
   class PostsController < BaseController
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
+    before_action :set_post, only: [:show, :edit, :update, :destroy, :preview]
 
     def index
       @posts = Post.order(updated_at: :desc)
     end
 
     def show; end
+
+    def preview
+      render "posts/show"
+    end
 
     def new
       @post = Post.new

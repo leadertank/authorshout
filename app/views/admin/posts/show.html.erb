@@ -5,9 +5,7 @@
       <p>Slug: /blog/<%= @post.slug %></p>
     </div>
     <div class="cms-show-actions">
-      <% if @post.published? %>
-        <%= link_to "Preview", post_path(@post.slug), class: "button", target: "_blank", rel: "noopener" %>
-      <% end %>
+      <%= link_to "Preview", preview_admin_post_path(@post), class: "button", target: "_blank", rel: "noopener" %>
       <%= link_to "Edit", edit_admin_post_path(@post), class: "button" %>
       <%= button_to "Delete", admin_post_path(@post), method: :delete, class: "button", form: { data: { turbo_confirm: "Delete this post?" } } %>
     </div>
