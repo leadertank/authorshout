@@ -28,6 +28,33 @@
     </article>
   </div>
 
+  <div class="stats-grid cms-content-health-grid">
+    <article class="panel stat-card">
+      <h2>Live Pages</h2>
+      <p class="stat"><%= @live_pages %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Scheduled Pages</h2>
+      <p class="stat"><%= @scheduled_pages %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Draft Pages</h2>
+      <p class="stat"><%= @draft_pages %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Live Posts</h2>
+      <p class="stat"><%= @live_posts %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Scheduled Posts</h2>
+      <p class="stat"><%= @scheduled_posts %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Draft Posts</h2>
+      <p class="stat"><%= @draft_posts %></p>
+    </article>
+  </div>
+
   <div class="cms-quick-links panel">
     <h2>Content Management</h2>
     <div class="cms-quick-actions">
@@ -97,7 +124,10 @@
       <h2>Recently Updated Pages</h2>
       <ul class="link-list">
         <% @recent_pages.each do |page| %>
-          <li><%= link_to page.title, edit_admin_page_path(page), class: "text-link" %></li>
+          <li>
+            <%= link_to page.title, edit_admin_page_path(page), class: "text-link" %>
+            <span class="cms-inline-state"><%= page.content_state_label %></span>
+          </li>
         <% end %>
       </ul>
     </article>
@@ -106,7 +136,10 @@
       <h2>Recently Updated Posts</h2>
       <ul class="link-list">
         <% @recent_posts.each do |post| %>
-          <li><%= link_to post.title, edit_admin_post_path(post), class: "text-link" %></li>
+          <li>
+            <%= link_to post.title, edit_admin_post_path(post), class: "text-link" %>
+            <span class="cms-inline-state"><%= post.content_state_label %></span>
+          </li>
         <% end %>
       </ul>
     </article>

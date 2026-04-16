@@ -12,8 +12,9 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Status</th>
+          <th>State</th>
           <th>Layout</th>
+          <th>Publishing</th>
           <th>Updated</th>
           <th></th>
         </tr>
@@ -22,8 +23,9 @@
         <% @pages.each do |page| %>
           <tr>
             <td><strong><%= page.title %></strong><br><span class="cms-slug">/<%= page.slug %></span></td>
-            <td><%= page.status.titleize %></td>
+            <td><%= content_state_badge(page) %></td>
             <td><%= page.layout_template.titleize %></td>
+            <td><span class="cms-publish-detail"><%= content_publish_detail(page) %></span></td>
             <td><%= page.updated_at.to_date %></td>
             <td class="cms-table-actions">
               <%= link_to "View", admin_page_path(page), class: "text-link" %>

@@ -17,6 +17,21 @@ class Post < ApplicationRecord
 		slug
 	end
 
+	def scheduled?
+		published? && published_at.present? && published_at.future?
+	end
+
+	def live_now?
+		published? && (published_at.blank? || published_at <= Time.current)
+	end
+
+	def content_state_label
+		return "Draft" if draft?
+		return "Scheduled" if scheduled?
+
+		"Live"
+	end
+
 	private
 
 	def generate_slug

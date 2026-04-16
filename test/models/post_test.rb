@@ -16,4 +16,16 @@ class PostTest < ActiveSupport::TestCase
 
     assert_includes Post.live, undated_post
   end
+
+  test "content state label returns draft scheduled and live" do
+    draft_post = Post.new(title: "Draft", slug: "draft-post-label", status: :draft)
+    scheduled_post = Post.new(title: "Scheduled", slug: "scheduled-post-label", status: :published, published_at: 3.hours.from_now)
+    live_post = Post.new(title: "Live", slug: "live-post-label", status: :published, published_at: 3.hours.ago)
+
+    assert_equal "Draft", draft_post.content_state_label
+    assert_equal "Scheduled", scheduled_post.content_state_label
+    assert_equal "Live", live_post.content_state_label
+    assert_predicate scheduled_post, :scheduled?
+    assert_predicate live_post, :live_now?
+  end
 end

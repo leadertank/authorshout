@@ -12,8 +12,8 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Status</th>
-          <th>Published</th>
+          <th>State</th>
+          <th>Publishing</th>
           <th></th>
         </tr>
       </thead>
@@ -21,8 +21,8 @@
         <% @posts.each do |post| %>
           <tr>
             <td><strong><%= post.title %></strong><br><span class="cms-slug">/blog/<%= post.slug %></span></td>
-            <td><%= post.status.titleize %></td>
-            <td><%= post.published_at&.to_date || "Not scheduled" %></td>
+            <td><%= content_state_badge(post) %></td>
+            <td><span class="cms-publish-detail"><%= content_publish_detail(post) %></span></td>
             <td class="cms-table-actions">
               <%= link_to "View", admin_post_path(post), class: "text-link" %>
               <%= link_to "Preview", preview_admin_post_path(post), class: "text-link", target: "_blank", rel: "noopener" %>

@@ -985,6 +985,47 @@ textarea {
 	gap: 0.55rem;
 }
 
+.cms-state-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.18rem 0.55rem;
+	border-radius: 999px;
+	font-size: 0.76rem;
+	font-weight: 800;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	border: 1px solid transparent;
+}
+
+.cms-state-live {
+	background: #e7f6ea;
+	border-color: #b8dfbf;
+	color: #166534;
+}
+
+.cms-state-scheduled {
+	background: #eef4ff;
+	border-color: #bfd0f2;
+	color: #244a8f;
+}
+
+.cms-state-draft {
+	background: #fff3e6;
+	border-color: #eccb9f;
+	color: #9a4f00;
+}
+
+.cms-publish-detail,
+.cms-inline-state {
+	color: var(--muted);
+	font-size: 0.92rem;
+}
+
+.cms-content-health-grid {
+	margin-top: 0.85rem;
+}
+
 .cms-slug,
 .cms-kicker,
 .cms-block-label,

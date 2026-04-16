@@ -7,6 +7,12 @@ module Admin
       @total_likes = Book.sum(:likes_count)
       @total_pages = Page.count
       @total_posts = Post.count
+      @draft_pages = Page.draft.count
+      @scheduled_pages = Page.published.where("published_at > ?", Time.current).count
+      @live_pages = Page.live.count
+      @draft_posts = Post.draft.count
+      @scheduled_posts = Post.published.where("published_at > ?", Time.current).count
+      @live_posts = Post.live.count
 
       @member_growth = User.where(admin: false)
                            .where("created_at >= ?", 14.days.ago)

@@ -12,9 +12,13 @@
   </div>
 
   <article class="panel">
-    <p><strong>Status:</strong> <%= @page.status.titleize %></p>
+    <p><strong>State:</strong> <%= content_state_badge(@page) %></p>
+    <p><strong>Publishing:</strong> <span class="cms-publish-detail"><%= content_publish_detail(@page) %></span></p>
     <p><strong>Layout:</strong> <%= @page.layout_template.titleize %></p>
     <p><strong>Summary:</strong> <%= @page.summary.presence || "No summary added." %></p>
+    <% if @page.live_now? %>
+      <p><strong>Public URL:</strong> <%= link_to page_path(@page.slug), page_path(@page.slug), class: "text-link", target: "_blank", rel: "noopener" %></p>
+    <% end %>
     <% if @page.builder_html.present? %>
       <div class="cms-rich-preview unlayer-rendered-content"><%= raw @page.sanitized_builder_html %></div>
     <% else %>

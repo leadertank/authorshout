@@ -33,4 +33,16 @@ class PageTest < ActiveSupport::TestCase
     assert_not_includes sanitized, "onerror"
     assert_not_includes sanitized, "javascript:alert(2)"
   end
+
+  test "content state label returns draft scheduled and live" do
+    draft_page = Page.new(title: "Draft", slug: "draft-label", layout_template: "standard", status: :draft)
+    scheduled_page = Page.new(title: "Scheduled", slug: "scheduled-label", layout_template: "standard", status: :published, published_at: 2.hours.from_now)
+    live_page = Page.new(title: "Live", slug: "live-label", layout_template: "standard", status: :published, published_at: 2.hours.ago)
+
+    assert_equal "Draft", draft_page.content_state_label
+    assert_equal "Scheduled", scheduled_page.content_state_label
+    assert_equal "Live", live_page.content_state_label
+    assert_predicate scheduled_page, :scheduled?
+    assert_predicate live_page, :live_now?
+  end
 end

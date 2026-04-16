@@ -12,8 +12,12 @@
   </div>
 
   <article class="panel">
-    <p><strong>Status:</strong> <%= @post.status.titleize %></p>
+    <p><strong>State:</strong> <%= content_state_badge(@post) %></p>
+    <p><strong>Publishing:</strong> <span class="cms-publish-detail"><%= content_publish_detail(@post) %></span></p>
     <p><strong>Excerpt:</strong> <%= @post.excerpt.presence || "No excerpt added." %></p>
+    <% if @post.live_now? %>
+      <p><strong>Public URL:</strong> <%= link_to post_path(@post.slug), post_path(@post.slug), class: "text-link", target: "_blank", rel: "noopener" %></p>
+    <% end %>
     <div class="cms-rich-preview"><%= @post.body %></div>
   </article>
 </section>
