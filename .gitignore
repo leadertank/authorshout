@@ -1,0 +1,9 @@
+/.bundle
+/log/*.log
+/tmp/*
+!/tmp/.keep
+/tmp/pids/*.pid
+/storage/*
+!/storage/.keep
+/node_modules/
+/vendor/bundle/
