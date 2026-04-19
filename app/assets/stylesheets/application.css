@@ -1310,6 +1310,31 @@ textarea {
 	color: var(--muted);
 }
 
+.form-builder-paypal-status,
+.form-public-warning {
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	padding: 0.9rem 1rem;
+	background: #fffaf1;
+}
+
+.form-builder-paypal-status.is-ready {
+	background: #edf8ef;
+	border-color: #b8dfbf;
+}
+
+.form-builder-paypal-status.is-warning,
+.form-public-warning {
+	background: #fff7ef;
+	border-color: #eccb9f;
+}
+
+.form-builder-warning-list {
+	margin: 0.5rem 0 0;
+	padding-left: 1.1rem;
+	color: #9a4f00;
+}
+
 .cms-builder-empty {
 	border: 1px dashed #b6c6d9;
 	border-radius: 16px;

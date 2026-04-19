@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :webhooks do
+    post :paypal, to: "paypal#create"
+  end
+
   resources :forms, only: [:show], param: :slug do
     post :submit, on: :member, to: "form_submissions#create"
   end

@@ -30,4 +30,12 @@ module ApplicationHelper
 	def formatted_money(amount_cents, currency)
 		format("%<currency>s %<amount>.2f", currency: currency, amount: amount_cents.to_i / 100.0)
 	end
+
+	def form_checkout_readiness(form)
+		Payments::FormCheckoutReadiness.new(form)
+	end
+
+	def paypal_config
+		Payments::PaypalConfig.new
+	end
 end

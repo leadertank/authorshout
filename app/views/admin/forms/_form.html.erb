@@ -79,6 +79,24 @@
         <%= f.text_field :provider_plan_id, placeholder: "P-123456789" %>
       </div>
     </div>
+
+    <div class="form-builder-paypal-status <%= paypal_config.configured? ? "is-ready" : "is-warning" %>">
+      <p><strong>PayPal environment:</strong> <%= paypal_config.environment %></p>
+      <% if paypal_config.configured? %>
+        <p class="cms-field-hint">Credentials detected. You can test sandbox checkout immediately for one-time forms.</p>
+      <% else %>
+        <p class="cms-field-hint">Missing credentials: <%= paypal_config.missing_keys.join(", ") %>.</p>
+      <% end %>
+
+      <% readiness = form_checkout_readiness(form) %>
+      <% if readiness.messages.any? %>
+        <ul class="form-builder-warning-list">
+          <% readiness.messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </section>
 
   <section class="panel form-builder-shell">

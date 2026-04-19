@@ -3,6 +3,13 @@ class FormSubmissionsController < ApplicationController
 	before_action :set_submission, only: [:complete, :cancel]
 
 	def create
+		@checkout_readiness = Payments::FormCheckoutReadiness.new(@form)
+		unless @checkout_readiness.ready?
+			@form_errors = @checkout_readiness.messages
+			render "forms/show", status: :unprocessable_entity
+			return
+		end
+
 		result = Forms::SubmissionBuilder.new(form: @form, params: form_response_params, user: current_user).call
 		@submission = result.submission
 
