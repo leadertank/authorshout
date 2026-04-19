@@ -31,22 +31,6 @@ class FormSubmission < ApplicationRecord
 		)
 	end
 
-	def mark_payment_failed!(payment_reference: nil)
-		update!(
-			status: completed? ? :completed : :failed,
-			payment_status: :payment_failed,
-			payment_reference: payment_reference.presence || self.payment_reference
-		)
-	end
-
-	def mark_payment_canceled!(payment_reference: nil)
-		update!(
-			status: completed? ? :completed : :canceled,
-			payment_status: :payment_canceled,
-			payment_reference: payment_reference.presence || self.payment_reference
-		)
-	end
-
 	private
 
 	def assign_public_token

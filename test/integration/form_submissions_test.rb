@@ -31,15 +31,13 @@ class FormSubmissionsTest < ActionDispatch::IntegrationTest
     Payments::Gateway.test_gateway = fake_gateway
 
     begin
-      with_paypal_env("PAYPAL_CLIENT_ID" => "sandbox-id", "PAYPAL_CLIENT_SECRET" => "sandbox-secret") do
-        post submit_form_path(forms(:paid_application).slug), params: {
-          form_response: {
-            applicant_name: "Buyer Person",
-            applicant_email: "buyer@example.com",
-            accept_terms: "1"
-          }
+      post submit_form_path(forms(:paid_application).slug), params: {
+        form_response: {
+          applicant_name: "Buyer Person",
+          applicant_email: "buyer@example.com",
+          accept_terms: "1"
         }
-      end
+      }
     ensure
       Payments::Gateway.test_gateway = nil
     end
@@ -50,29 +48,5 @@ class FormSubmissionsTest < ActionDispatch::IntegrationTest
     assert_equal "pending", submission.status
     assert_equal "payment_pending", submission.payment_status
     assert_equal "ORDER-999", submission.payment_reference
-  end
-
-  test "paid form shows payment unavailable when paypal is not configured" do
-    with_paypal_env("PAYPAL_CLIENT_ID" => nil, "PAYPAL_CLIENT_SECRET" => nil) do
-      get form_path(forms(:paid_application).slug)
-
-      assert_response :success
-      assert_match "Payment temporarily unavailable", response.body
-      assert_match "Missing PayPal credentials", response.body
-    end
-  end
-
-  private
-
-  def with_paypal_env(overrides)
-    original = overrides.each_with_object({}) { |(key, _value), memo| memo[key] = ENV[key] }
-    overrides.each do |key, value|
-      value.nil? ? ENV.delete(key) : ENV[key] = value
-    end
-    yield
-  ensure
-    original.each do |key, value|
-      value.nil? ? ENV.delete(key) : ENV[key] = value
-    end
   end
 end

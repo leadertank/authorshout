@@ -17,13 +17,6 @@
         <% end %>
       </p>
       <p class="cms-field-hint">Your answers are saved before checkout so you can track paid, pending, and canceled entries.</p>
-
-      <% unless @checkout_readiness.ready? %>
-        <div class="form-public-warning">
-          <strong>Payment temporarily unavailable</strong>
-          <p class="cms-field-hint"><%= @checkout_readiness.messages.join(" ") %></p>
-        </div>
-      <% end %>
     </article>
   <% end %>
 
@@ -47,7 +40,7 @@
     </div>
 
     <div class="cms-form-actions">
-      <%= submit_tag @form.submit_button_text, class: "button", disabled: (@form.requires_payment? && !@checkout_readiness.ready?) %>
+      <%= submit_tag @form.submit_button_text, class: "button" %>
     </div>
   <% end %>
 </section>

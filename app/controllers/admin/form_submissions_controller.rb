@@ -31,7 +31,7 @@ module Admin
 		end
 
 		def set_submission
-			@submission = @form.form_submissions.includes(:form_payment_events).find(params[:id])
+			@submission = @form.form_submissions.find(params[:id])
 		end
 
 		def format_csv_value(value)

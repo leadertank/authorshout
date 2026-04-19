@@ -5,10 +5,6 @@ module Payments
 	class PaypalHttpClient
 		class Error < StandardError; end
 
-		def initialize(config: Payments::PaypalConfig.new)
-			@config = config
-		end
-
 		def get(path)
 			request = Net::HTTP::Get.new(path)
 			perform(request)
@@ -58,19 +54,15 @@ module Payments
 		end
 
 		def paypal_client_id
-			config.fetch!("PAYPAL_CLIENT_ID")
+			ENV.fetch("PAYPAL_CLIENT_ID")
 		end
 
 		def paypal_client_secret
-			config.fetch!("PAYPAL_CLIENT_SECRET")
+			ENV.fetch("PAYPAL_CLIENT_SECRET")
 		end
 
 		def paypal_env
-			config.environment
-		end
-
-		def config
-			@config
+			ENV.fetch("PAYPAL_ENV", "sandbox")
 		end
 	end
 end

@@ -28,20 +28,5 @@
         <% end %>
       </dl>
     </article>
-
-    <article class="panel">
-      <h2>Payment Events</h2>
-      <ul class="link-list">
-        <% @submission.form_payment_events.order(processed_at: :desc).each do |event| %>
-          <li>
-            <strong><%= event.event_type %></strong>
-            <span><%= event.status %> · <%= event.processed_at.to_fs(:long) %></span>
-          </li>
-        <% end %>
-        <% if @submission.form_payment_events.empty? %>
-          <li>No payment events recorded yet.</li>
-        <% end %>
-      </ul>
-    </article>
   </div>
 </section>

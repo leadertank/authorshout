@@ -27,22 +27,6 @@
       <% end %>
       <p><strong>Description:</strong> <%= @form.description.presence || "No description added." %></p>
       <p><strong>Success message:</strong> <%= @form.success_message.presence || "Default success flash." %></p>
-
-      <% readiness = form_checkout_readiness(@form) %>
-      <% if @form.requires_payment? %>
-        <div class="form-builder-paypal-status <%= readiness.ready? ? "is-ready" : "is-warning" %>">
-          <p><strong>PayPal environment:</strong> <%= paypal_config.environment %></p>
-          <% if readiness.ready? %>
-            <p class="cms-field-hint">Checkout is ready for this form.</p>
-          <% else %>
-            <ul class="form-builder-warning-list">
-              <% readiness.messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          <% end %>
-        </div>
-      <% end %>
     </article>
 
     <article class="panel">
