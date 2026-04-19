@@ -1,0 +1,37 @@
+free_contact:
+  title: Contact Request
+  slug: contact-request
+  status: 1
+  description: Ask for a callback.
+  success_message: Thanks for reaching out.
+  submit_button_text: Send Request
+  payment_mode: 0
+  payment_provider: paypal
+  amount_cents: 0
+  currency: USD
+
+paid_application:
+  title: Paid Application
+  slug: paid-application
+  status: 1
+  description: Premium intake form.
+  success_message: Payment confirmed.
+  submit_button_text: Continue to Payment
+  payment_mode: 1
+  payment_provider: paypal
+  amount_cents: 2500
+  currency: USD
+
+subscription_intake:
+  title: Subscription Intake
+  slug: subscription-intake
+  status: 0
+  description: Recurring membership form.
+  success_message: Subscription started.
+  submit_button_text: Start Subscription
+  payment_mode: 2
+  payment_provider: paypal
+  amount_cents: 9900
+  currency: USD
+  billing_interval: month
+  provider_plan_id: P-TEST123456

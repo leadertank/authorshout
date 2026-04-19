@@ -7,6 +7,10 @@ module Admin
       @total_likes = Book.sum(:likes_count)
       @total_pages = Page.count
       @total_posts = Post.count
+      @total_forms = Form.count
+      @total_form_submissions = FormSubmission.count
+      @paid_form_submissions = FormSubmission.paid.count
+      @subscription_forms = Form.subscription.count
       @draft_pages = Page.draft.count
       @scheduled_pages = Page.published.where("published_at > ?", Time.current).count
       @live_pages = Page.live.count
@@ -25,6 +29,8 @@ module Admin
 
       @recent_members = User.order(created_at: :desc).limit(10)
       @top_books = Book.order(likes_count: :desc, created_at: :desc).limit(10)
+      @recent_forms = Form.order(updated_at: :desc).limit(5)
+      @recent_form_submissions = FormSubmission.includes(:form).order(created_at: :desc).limit(5)
       @recent_pages = Page.order(updated_at: :desc).limit(5)
       @recent_posts = Post.order(updated_at: :desc).limit(5)
     end

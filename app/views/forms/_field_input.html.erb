@@ -1,0 +1,51 @@
+<div class="form-public-field form-public-field-width-<%= field.width %>">
+  <%= label_tag "form_response_#{field.identifier}", field.label, class: "form-public-label" %>
+  <% if field.required? %>
+    <span class="form-public-required">Required</span>
+  <% end %>
+
+  <% value = values[field.identifier] %>
+
+  <% case field.field_type %>
+  <% when "textarea" %>
+    <%= text_area_tag "form_response[#{field.identifier}]", value, rows: 5, placeholder: field.placeholder, id: "form_response_#{field.identifier}" %>
+  <% when "select" %>
+    <%= select_tag "form_response[#{field.identifier}]", options_for_select(field.options, value), include_blank: !field.required?, id: "form_response_#{field.identifier}", class: "cms-select" %>
+  <% when "radio" %>
+    <div class="form-public-choice-group">
+      <% field.options.each do |option| %>
+        <label>
+          <%= radio_button_tag "form_response[#{field.identifier}]", option, value.to_s == option %>
+          <span><%= option %></span>
+        </label>
+      <% end %>
+    </div>
+  <% when "checkbox" %>
+    <% if field.options.any? %>
+      <div class="form-public-choice-group">
+        <% selected_values = Array(value) %>
+        <% field.options.each do |option| %>
+          <label>
+            <%= check_box_tag "form_response[#{field.identifier}][]", option, selected_values.include?(option) %>
+            <span><%= option %></span>
+          </label>
+        <% end %>
+      </div>
+    <% else %>
+      <label class="form-builder-checkbox-row">
+        <%= check_box_tag "form_response[#{field.identifier}]", "1", value.to_s == "1", id: "form_response_#{field.identifier}" %>
+        <span><%= field.placeholder.presence || field.label %></span>
+      </label>
+    <% end %>
+  <% when "number" %>
+    <%= number_field_tag "form_response[#{field.identifier}]", value, placeholder: field.placeholder, id: "form_response_#{field.identifier}" %>
+  <% when "date" %>
+    <%= date_field_tag "form_response[#{field.identifier}]", value, placeholder: field.placeholder, id: "form_response_#{field.identifier}" %>
+  <% else %>
+    <%= text_field_tag "form_response[#{field.identifier}]", value, type: (field.field_type == "email" ? "email" : "text"), placeholder: field.placeholder, id: "form_response_#{field.identifier}" %>
+  <% end %>
+
+  <% if field.help_text.present? %>
+    <p class="cms-field-hint"><%= field.help_text %></p>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_16_100000) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_19_120000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -70,6 +70,80 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_16_100000) do
     t.datetime "updated_at", null: false
     t.string "cover_image_url"
     t.index ["profile_id"], name: "index_books_on_profile_id", unique: true
+  end
+
+  create_table "form_fields", force: :cascade do |t|
+    t.integer "form_id", null: false
+    t.string "label", null: false
+    t.string "identifier", null: false
+    t.string "field_type", default: "text", null: false
+    t.boolean "required", default: false, null: false
+    t.string "placeholder"
+    t.string "help_text"
+    t.text "options_text"
+    t.integer "position", default: 0, null: false
+    t.integer "width", default: 12, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["form_id", "identifier"], name: "index_form_fields_on_form_id_and_identifier", unique: true
+    t.index ["form_id", "position"], name: "index_form_fields_on_form_id_and_position"
+    t.index ["form_id"], name: "index_form_fields_on_form_id"
+  end
+
+  create_table "form_payment_events", force: :cascade do |t|
+    t.integer "form_submission_id", null: false
+    t.string "provider", null: false
+    t.string "event_type", null: false
+    t.string "external_id"
+    t.string "status"
+    t.text "payload_json"
+    t.datetime "processed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["form_submission_id"], name: "index_form_payment_events_on_form_submission_id"
+    t.index ["provider", "external_id"], name: "index_form_payment_events_on_provider_and_external_id"
+  end
+
+  create_table "form_submissions", force: :cascade do |t|
+    t.integer "form_id", null: false
+    t.integer "user_id"
+    t.string "public_token", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "payment_status", default: 0, null: false
+    t.string "payment_provider"
+    t.string "payment_reference"
+    t.string "provider_customer_reference"
+    t.string "submitter_email"
+    t.text "payload_json"
+    t.datetime "submitted_at"
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["form_id", "created_at"], name: "index_form_submissions_on_form_id_and_created_at"
+    t.index ["form_id", "payment_status"], name: "index_form_submissions_on_form_id_and_payment_status"
+    t.index ["form_id"], name: "index_form_submissions_on_form_id"
+    t.index ["public_token"], name: "index_form_submissions_on_public_token", unique: true
+    t.index ["user_id"], name: "index_form_submissions_on_user_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.text "description"
+    t.text "success_message"
+    t.string "submit_button_text", default: "Submit", null: false
+    t.integer "payment_mode", default: 0, null: false
+    t.string "payment_provider", default: "paypal", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "currency", default: "USD", null: false
+    t.string "billing_interval"
+    t.string "provider_plan_id"
+    t.text "builder_json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_forms_on_slug", unique: true
+    t.index ["status"], name: "index_forms_on_status"
   end
 
   create_table "page_blocks", force: :cascade do |t|
@@ -190,6 +264,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_16_100000) do
   add_foreign_key "book_likes", "books"
   add_foreign_key "book_likes", "users"
   add_foreign_key "books", "profiles"
+  add_foreign_key "form_fields", "forms"
+  add_foreign_key "form_payment_events", "form_submissions"
+  add_foreign_key "form_submissions", "forms"
+  add_foreign_key "form_submissions", "users"
   add_foreign_key "page_blocks", "pages"
   add_foreign_key "post_taggings", "post_tags"
   add_foreign_key "post_taggings", "posts"
