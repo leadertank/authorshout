@@ -8,7 +8,6 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_many :book_likes, dependent: :destroy
-  has_many :form_submissions, dependent: :nullify
 
   validates :human_verification, acceptance: {
     accept: "1",

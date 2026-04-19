@@ -11,13 +11,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get "dashboard", to: "dashboard#index"
     resources :users, only: [:index]
-    resources :forms do
-      resources :submissions, controller: "form_submissions", only: [:index, :show] do
-        collection do
-          get :export
-        end
-      end
-    end
     resources :pages do
       member do
         get :preview
@@ -29,12 +22,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  resources :forms, only: [:show], param: :slug do
-    post :submit, on: :member, to: "form_submissions#create"
-  end
-  get "forms/:form_slug/submissions/:token/complete", to: "form_submissions#complete", as: :form_submission_complete
-  get "forms/:form_slug/submissions/:token/cancel", to: "form_submissions#cancel", as: :form_submission_cancel
 
   get "blog", to: "posts#index", as: :posts
   get "blog/:slug", to: "posts#show", as: :post
