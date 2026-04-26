@@ -65,13 +65,13 @@
     <% if @profile.books.any? %>
       <article class="panel panel-more-books">
         <h2>Books From This Author</h2>
-        <div class="books-grid">
+        <div class="profile-books-grid">
           <% @profile.books.each do |book| %>
-            <div class="book-card">
+            <article class="book-card profile-book-card">
               <% if book.cover_image_source.present? %>
-                <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover book-grid-cover" %>
+                <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover profile-book-cover" %>
               <% else %>
-                <div class="book-cover-placeholder">No Cover</div>
+                <div class="book-cover-placeholder profile-book-cover-placeholder">No Cover</div>
               <% end %>
               <h3><%= book.title %></h3>
               <p class="book-link">
@@ -80,7 +80,7 @@
               <div class="book-actions">
                 <%= render "shared/book_like_button", book: book %>
               </div>
-            </div>
+            </article>
           <% end %>
         </div>
       </article>

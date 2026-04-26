@@ -2297,37 +2297,64 @@ textarea {
 	border-color: #a93226;
 }
 
-/* Books grid in show view */
+/* Books grid in public profile view */
 .panel-more-books {
 	grid-column: 1 / -1;
 }
 
-.panel-more-books .books-grid {
+.profile-books-grid {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: 1.1rem;
+	gap: 1rem;
 	margin-top: 1rem;
 	align-items: start;
 }
 
-.panel-more-books .book-card {
+.profile-book-card {
 	padding: 0.75rem;
 	min-width: 0;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	text-align: center;
 	gap: 0.55rem;
+	height: 100%;
 }
 
-.panel-more-books .book-grid-cover,
-.panel-more-books .book-cover-placeholder {
-	width: min(100%, 140px);
+.profile-book-cover,
+.profile-book-cover-placeholder {
+	width: 110px;
+	max-width: 100%;
+	aspect-ratio: 2 / 3;
+	object-fit: cover;
 	margin: 0 auto;
+	border-radius: 10px;
+	border: 1px solid var(--line);
 }
 
-.panel-more-books .book-card h3 {
+.profile-book-cover-placeholder {
+	background: #efe5d2;
+	display: grid;
+	place-items: center;
+	color: #675e52;
+	font-weight: 600;
+	padding: 0.5rem;
+	font-size: 0.85rem;
+}
+
+.profile-book-card h3 {
 	margin: 0.1rem 0 0;
 	font-size: 1rem;
 	line-height: 1.25;
+}
+
+.profile-book-card .book-link {
+	margin: 0.2rem 0 0;
+}
+
+.profile-book-card .book-actions {
+	width: 100%;
+	margin-top: auto;
 }
 
 .book-card .book-link {
@@ -2347,13 +2374,13 @@ textarea {
 }
 
 @media (max-width: 1200px) {
-	.panel-more-books .books-grid {
+	.profile-books-grid {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 }
 
 @media (max-width: 900px) {
-	.panel-more-books .books-grid {
+	.profile-books-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
@@ -2363,7 +2390,7 @@ textarea {
 		grid-template-columns: 1fr;
 	}
 
-	.panel-more-books .books-grid {
+	.profile-books-grid {
 		grid-template-columns: 1fr;
 	}
 	
@@ -2373,7 +2400,7 @@ textarea {
 }
 
 @media (max-width: 480px) {
-	.panel-more-books .books-grid {
+	.profile-books-grid {
 		grid-template-columns: 1fr;
 	}
 }
