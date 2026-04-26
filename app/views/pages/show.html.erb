@@ -17,7 +17,7 @@
 
   <% if @page.builder_html.present? %>
     <div class="unlayer-page-output">
-      <%= raw @page.sanitized_builder_html %>
+      <%= sanitize(@page.sanitized_builder_html) %>
     </div>
   <% elsif @page.body.present? %>
     <article class="panel content-page-body">

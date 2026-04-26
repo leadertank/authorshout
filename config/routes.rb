@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }
   root "home#index"
 
-  resources :profiles, only: [:show]
+  resources :profiles, only: [ :show ]
   get "my-profile", to: "profiles#edit", as: :edit_my_profile
   patch "my-profile", to: "profiles#update", as: :my_profile
 
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"
-    resources :users, only: [:index]
+    resources :users, only: [ :index ]
     resources :pages do
       member do
         get :preview
@@ -36,5 +36,4 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
 end

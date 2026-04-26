@@ -1,7 +1,7 @@
 module Admin
   class PostsController < BaseController
-    before_action :set_post, only: [:show, :edit, :update, :destroy, :preview]
-    before_action :load_taxonomy, only: [:index, :new, :edit, :create, :update]
+    before_action :set_post, only: [ :show, :edit, :update, :destroy, :preview ]
+    before_action :load_taxonomy, only: [ :index, :new, :edit, :create, :update ]
 
     def index
       @filters = post_filters

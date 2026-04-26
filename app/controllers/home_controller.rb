@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
     @per_page = 8
     @total_books = books_scope.count
-    @total_pages = [(@total_books.to_f / @per_page).ceil, 1].max
+    @total_pages = [ (@total_books.to_f / @per_page).ceil, 1 ].max
     @page = params[:page].to_i
     @page = 1 if @page < 1
     @page = @total_pages if @page > @total_pages

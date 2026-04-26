@@ -8,7 +8,7 @@ class CreateBookLikes < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :book_likes, [:book_id, :user_id], unique: true, where: "user_id IS NOT NULL"
-    add_index :book_likes, [:book_id, :visitor_token], unique: true, where: "visitor_token IS NOT NULL"
+    add_index :book_likes, [ :book_id, :user_id ], unique: true, where: "user_id IS NOT NULL"
+    add_index :book_likes, [ :book_id, :visitor_token ], unique: true, where: "visitor_token IS NOT NULL"
   end
 end

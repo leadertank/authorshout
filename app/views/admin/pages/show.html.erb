@@ -20,7 +20,7 @@
       <p><strong>Public URL:</strong> <%= link_to page_path(@page.slug), page_path(@page.slug), class: "text-link", target: "_blank", rel: "noopener" %></p>
     <% end %>
     <% if @page.builder_html.present? %>
-      <div class="cms-rich-preview unlayer-rendered-content"><%= raw @page.sanitized_builder_html %></div>
+      <div class="cms-rich-preview unlayer-rendered-content"><%= sanitize(@page.sanitized_builder_html) %></div>
     <% else %>
       <div class="cms-rich-preview"><%= @page.body %></div>
     <% end %>

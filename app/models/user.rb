@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    [first_name, last_name].join(" ").squish
+    [ first_name, last_name ].join(" ").squish
   end
 
   private

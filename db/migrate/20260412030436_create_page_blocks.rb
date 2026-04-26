@@ -15,6 +15,6 @@ class CreatePageBlocks < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :page_blocks, [:page_id, :position]
+    add_index :page_blocks, [ :page_id, :position ]
   end
 end

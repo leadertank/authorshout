@@ -1,6 +1,6 @@
 module Admin
   class PagesController < BaseController
-    before_action :set_page, only: [:show, :edit, :update, :destroy, :preview]
+    before_action :set_page, only: [ :show, :edit, :update, :destroy, :preview ]
 
     def index
       @filters = page_filters

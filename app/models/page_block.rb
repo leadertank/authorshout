@@ -3,9 +3,9 @@ class PageBlock < ApplicationRecord
 
   KINDS = %w[hero text image code button callout cta].freeze
   THEMES = %w[default accent muted dark].freeze
-  COLUMN_SPANS = [12, 8, 6, 4, 3].freeze
-  ROW_COLUMNS = [1, 2, 3, 4, 5].freeze
-  COLUMN_SLOTS = [1, 2, 3, 4, 5].freeze
+  COLUMN_SPANS = [ 12, 8, 6, 4, 3 ].freeze
+  ROW_COLUMNS = [ 1, 2, 3, 4, 5 ].freeze
+  COLUMN_SLOTS = [ 1, 2, 3, 4, 5 ].freeze
   TEXT_ALIGNS = %w[left center right].freeze
   BACKGROUND_STYLES = %w[card outline split full].freeze
   SECTION_SPACINGS = %w[sm md lg].freeze

@@ -41,6 +41,6 @@ class PostTest < ActiveSupport::TestCase
 
     post.update!(tag_list: "Launch, Community, Essays")
 
-    assert_equal ["Community", "Essays", "Launch"], post.post_tags.order(:name).pluck(:name)
+    assert_equal [ "Community", "Essays", "Launch" ], post.post_tags.order(:name).pluck(:name)
   end
 end

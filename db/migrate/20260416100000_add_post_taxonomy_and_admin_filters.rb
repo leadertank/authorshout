@@ -27,6 +27,6 @@ class AddPostTaxonomyAndAdminFilters < ActiveRecord::Migration[8.0]
     add_index :post_categories, :slug, unique: true
     add_index :post_tags, :name, unique: true
     add_index :post_tags, :slug, unique: true
-    add_index :post_taggings, [:post_id, :post_tag_id], unique: true
+    add_index :post_taggings, [ :post_id, :post_tag_id ], unique: true
   end
 end
