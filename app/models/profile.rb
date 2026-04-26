@@ -14,7 +14,7 @@ class Profile < ApplicationRecord
   has_many :books, dependent: :destroy
   has_one_attached :avatar
 
-  accepts_nested_attributes_for :books, allow_destroy: true
+  accepts_nested_attributes_for :books, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :user, update_only: true
 
   validates :bio, length: { maximum: 1200 }

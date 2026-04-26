@@ -34,7 +34,7 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "Author Details", response.body
-    assert_match "Featured Book", response.body
+    assert_match "Books From This Author", response.body
     assert_match "Current Profile Preview", response.body
     assert_match "No profile image yet", response.body
     assert_match "Current book cover", response.body

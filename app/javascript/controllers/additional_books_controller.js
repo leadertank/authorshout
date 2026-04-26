@@ -5,7 +5,7 @@ export default class extends Controller {
   static values = { bookCount: Number }
 
   connect() {
-    this.bookCountValue = document.querySelectorAll('.book-entry').length - 1 // exclude template
+    this.bookCountValue = this.containerTarget.querySelectorAll(".book-entry").length
   }
 
   addBook(e) {
@@ -17,25 +17,29 @@ export default class extends Controller {
     
     // Update the legend with incrementing number
     this.bookCountValue += 1
-    const legend = clone.querySelector('.book-entry-legend')
+    const legend = clone.querySelector(".book-entry-legend")
     if (legend) {
-      legend.textContent = `Book ${this.bookCountValue + 1}` // +1 because featured is book 1
+      legend.textContent = `Book ${this.bookCountValue}`
     }
 
-    // Update field names to include the index
-    const inputs = clone.querySelectorAll('input, textarea')
+    // Replace placeholder index for nested attributes.
+    const inputs = clone.querySelectorAll("input, textarea")
     inputs.forEach(input => {
       if (input.name) {
-        // Replace the [0] index with the new index
-        input.name = input.name.replace(/\[\d+\]/, `[${this.bookCountValue}]`)
+        input.name = input.name.replace(/NEW_RECORD/g, this.bookCountValue)
+      }
+
+      if (input.id) {
+        input.id = input.id.replace(/NEW_RECORD/g, this.bookCountValue)
       }
     })
 
-    // Add remove event listener to the remove button
-    const removeBtn = clone.querySelector('.remove-book-btn')
-    if (removeBtn) {
-      removeBtn.addEventListener('click', (e) => this.removeBook(e))
-    }
+    const labels = clone.querySelectorAll("label")
+    labels.forEach(label => {
+      if (label.htmlFor) {
+        label.htmlFor = label.htmlFor.replace(/NEW_RECORD/g, this.bookCountValue)
+      }
+    })
 
     // Add the new entry to the container
     this.containerTarget.appendChild(clone)
@@ -44,21 +48,20 @@ export default class extends Controller {
   removeBook(e) {
     e.preventDefault()
     
-    const bookEntry = e.target.closest('.book-entry')
+    const bookEntry = e.target.closest(".book-entry")
     
     // If this is an existing book (has an ID field), mark it for deletion
     const idField = bookEntry.querySelector('input[id*="_id"]')
     if (idField && idField.value) {
       // Mark for deletion instead of removing the DOM element
-      const destroyField = bookEntry.querySelector('.destroy-field')
+      const destroyField = bookEntry.querySelector(".destroy-field")
       if (destroyField) {
-        destroyField.value = true
-        bookEntry.style.display = 'none'
+        destroyField.value = "1"
+        bookEntry.style.display = "none"
       }
     } else {
       // New book entry, just remove it
       bookEntry.remove()
-      this.bookCountValue -= 1
     }
   }
 }

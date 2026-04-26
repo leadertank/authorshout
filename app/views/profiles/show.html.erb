@@ -32,33 +32,11 @@
       <p><%= @profile.bio.presence || "This member has not added a bio yet." %></p>
     </article>
 
-    <article class="panel panel-book">
-      <h2>Featured Book</h2>
-      <% featured_book = @profile.books.find { |book| book.featured } %>
-      <% if featured_book.present? %>
-        <div class="profile-book">
-          <% if featured_book.cover_image_source.present? %>
-            <%= image_tag featured_book.cover_image_source, alt: "#{featured_book.title} cover", class: "book-cover profile-featured-cover" %>
-          <% end %>
-          <h3><%= featured_book.title %></h3>
-          <p>
-            <%= link_to "Visit Book Link", featured_book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
-          </p>
-          <div class="book-actions">
-            <%= render "shared/book_like_button", book: featured_book %>
-          </div>
-        </div>
-      <% else %>
-        <p>No book added yet.</p>
-      <% end %>
-    </article>
-
-    <% additional_books = @profile.books.where(featured: false) %>
-    <% if additional_books.any? %>
+    <% if @profile.books.any? %>
       <article class="panel panel-more-books">
-        <h2>More Books From Author</h2>
+        <h2>Books From This Author</h2>
         <div class="books-grid">
-          <% additional_books.each do |book| %>
+          <% @profile.books.each do |book| %>
             <div class="book-card">
               <% if book.cover_image_source.present? %>
                 <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover book-grid-cover" %>

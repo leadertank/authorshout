@@ -10466,3 +10466,319 @@ Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.2
   
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
+Started GET "/" for 97.101.154.121 at 2026-04-26 22:17:47 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Authorshout'*/[0m
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books" /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:6:in 'HomeController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT 1 OFFSET 0 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:31
+  [1m[36mBook Load (9.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT 8 OFFSET 0 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (1, 2, 3, 4, 5) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' AND "active_storage_attachments"."record_id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/helpers/application_helper.rb:3:in 'ApplicationHelper#book_liked_by_current_actor?'
+  Rendered shared/_book_like_button.html.erb (Duration: 44.9ms | GC: 25.3ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 418.0ms | GC: 25.3ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/layouts/application.html.erb:51
+  Rendered shared/_follow_icons.html.erb (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 492.5ms | GC: 28.8ms)
+Completed 200 OK in 575ms (Views: 489.0ms | ActiveRecord: 19.8ms (9 queries, 0 cached) | GC: 28.8ms)
+
+
+Started GET "/my-profile" for 97.101.154.121 at 2026-04-26 22:17:58 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#edit as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:8:in 'ProfilesController#edit'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:10:in 'ProfilesController#edit'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:68
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:107
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:108:in 'Enumerable#each_with_index'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:128
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 138.9ms | GC: 0.2ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 153.9ms | GC: 0.2ms)
+Completed 200 OK in 205ms (Views: 155.9ms | ActiveRecord: 0.9ms (8 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/profiles/1" for 97.101.154.121 at 2026-04-26 22:17:59 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:15
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:57
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:61
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/book.rb:32:in 'Book#cover_image_source'
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."book_id" = 1 AND "book_likes"."user_id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/book.rb:21:in 'Book#liked_by?'
+  Rendered shared/_book_like_button.html.erb (Duration: 8.2ms | GC: 1.5ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 76.3ms | GC: 8.3ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/layouts/application.html.erb:51
+  Rendered shared/_follow_icons.html.erb (Duration: 1.0ms | GC: 0.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 90.5ms | GC: 11.8ms)
+Completed 200 OK in 139ms (Views: 96.4ms | ActiveRecord: 0.8ms (11 queries, 0 cached) | GC: 12.2ms)
+
+
+Started GET "/my-profile" for 97.101.154.121 at 2026-04-26 22:18:31 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#edit as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:8:in 'ProfilesController#edit'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:10:in 'ProfilesController#edit'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:68
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:107
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:108:in 'Enumerable#each_with_index'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:128
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 55.6ms | GC: 20.4ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 60.8ms | GC: 20.4ms)
+Completed 200 OK in 105ms (Views: 63.2ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 34.0ms)
+
+
+Started GET "/" for 97.101.154.121 at 2026-04-26 22:18:58 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books" /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:6:in 'HomeController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT 1 OFFSET 0 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:31
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT 8 OFFSET 0 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (1, 2, 3, 4, 5) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' AND "active_storage_attachments"."record_id" IN (5, 4, 3, 2, 1) /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:33
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/helpers/application_helper.rb:3:in 'ApplicationHelper#book_liked_by_current_actor?'
+  Rendered shared/_book_like_button.html.erb (Duration: 6.4ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 3.1ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 50.1ms | GC: 0.6ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='index',application='Authorshout',controller='home'*/[0m
+  ↳ app/views/layouts/application.html.erb:51
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 55.7ms | GC: 1.2ms)
+Completed 200 OK in 74ms (Views: 55.3ms | ActiveRecord: 1.6ms (9 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/profiles/1" for 97.101.154.121 at 2026-04-26 22:20:15 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:32:in 'ProfilesController#set_profile'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:15
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:57
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/show.html.erb:61
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/book.rb:32:in 'Book#cover_image_source'
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."book_id" = 1 AND "book_likes"."user_id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/book.rb:21:in 'Book#liked_by?'
+  Rendered shared/_book_like_button.html.erb (Duration: 2.6ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 14.1ms | GC: 0.3ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='show',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/layouts/application.html.erb:51
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.2ms | GC: 0.3ms)
+Completed 200 OK in 53ms (Views: 22.7ms | ActiveRecord: 0.8ms (11 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/my-profile" for 97.101.154.121 at 2026-04-26 22:20:19 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#edit as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:8:in 'ProfilesController#edit'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:10:in 'ProfilesController#edit'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:68
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:107
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:108:in 'Enumerable#each_with_index'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:128
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 56.7ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 71.4ms | GC: 0.0ms)
+Completed 200 OK in 101ms (Views: 71.3ms | ActiveRecord: 0.8ms (8 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/my-profile" for 97.101.154.121 at 2026-04-26 22:20:20 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by ProfilesController#edit as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:8:in 'ProfilesController#edit'
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/controllers/profiles_controller.rb:10:in 'ProfilesController#edit'
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:68
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:107
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = 1 AND "books"."featured" = 0 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:108:in 'Enumerable#each_with_index'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Book' AND "active_storage_attachments"."name" = 'cover_image' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/views/profiles/edit.html.erb:128
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = 1 AND "active_storage_attachments"."record_type" = 'Profile' AND "active_storage_attachments"."name" = 'avatar' LIMIT 1 /*action='edit',application='Authorshout',controller='profiles'*/[0m
+  ↳ app/models/profile.rb:24:in 'Profile#avatar_image_source'
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 36.9ms | GC: 20.7ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 41.2ms | GC: 20.7ms)
+Completed 200 OK in 70ms (Views: 44.0ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 21.6ms)
+
+
+Started GET "/admin/dashboard" for 97.101.154.121 at 2026-04-26 22:27:24 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = 0 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:4:in 'Admin::DashboardController#index'
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:5:in 'Admin::DashboardController#index'
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books" /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:6:in 'Admin::DashboardController#index'
+  [1m[36mBook Sum (0.1ms)[0m  [1m[34mSELECT SUM("books"."likes_count") FROM "books" /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:7:in 'Admin::DashboardController#index'
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:8:in 'Admin::DashboardController#index'
+  [1m[36mPost Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:9:in 'Admin::DashboardController#index'
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = 0 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:10:in 'Admin::DashboardController#index'
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = 1 AND (published_at > '2026-04-26 22:27:24.890618') /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:11:in 'Admin::DashboardController#index'
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = 1 AND (published_at IS NULL OR published_at <= '2026-04-26 22:27:24.896590') /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:12:in 'Admin::DashboardController#index'
+  [1m[36mPost Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = 0 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:13:in 'Admin::DashboardController#index'
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = 1 AND (published_at > '2026-04-26 22:27:24.909058') /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:14:in 'Admin::DashboardController#index'
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = 1 AND (published_at IS NULL OR published_at <= '2026-04-26 22:27:24.910808') /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:15:in 'Admin::DashboardController#index'
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "users" WHERE "users"."admin" = 0 AND (created_at >= '2026-04-12 22:27:24.912346') GROUP BY DATE(created_at) /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:20:in 'Admin::DashboardController#index'
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "books" WHERE (created_at >= '2026-04-12 22:27:24.919543') GROUP BY DATE(created_at) /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:24:in 'Admin::DashboardController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/dashboard/index.html.erb within layouts/application
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."likes_count" DESC, "books"."created_at" DESC LIMIT 10 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:100
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 1 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:102
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 5 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:102
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 4 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:102
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 3 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:102
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:102
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT 10 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:112
+  [1m[36mPage Load (0.2ms)[0m  [1m[34mSELECT "pages".* FROM "pages" ORDER BY "pages"."updated_at" DESC LIMIT 5 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:126
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" ORDER BY "posts"."updated_at" DESC LIMIT 5 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/admin/dashboard/index.html.erb:138
+  Rendered admin/dashboard/index.html.erb within layouts/application (Duration: 113.5ms | GC: 20.6ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.2ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = 1 LIMIT 1 /*action='index',application='Authorshout',controller='dashboard'*/[0m
+  ↳ app/views/layouts/application.html.erb:51
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 166.7ms | GC: 21.4ms)
+Completed 200 OK in 359ms (Views: 169.7ms | ActiveRecord: 5.2ms (25 queries, 0 cached) | GC: 21.6ms)
+
+
