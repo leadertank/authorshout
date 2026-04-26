@@ -558,6 +558,22 @@ body.page-builder-mode .unlayer-builder {
 	gap: 1rem;
 }
 
+.profile-sections {
+	display: grid;
+	gap: 1rem;
+}
+
+.profile-top-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.panel-links-full,
+.panel-more-books {
+	width: 100%;
+}
+
 .avatar-image,
 .avatar-placeholder {
 	width: 100%;
@@ -2316,6 +2332,10 @@ textarea {
 }
 
 @media (max-width: 768px) {
+	.profile-top-grid {
+		grid-template-columns: 1fr;
+	}
+
 	.panel-more-books .books-grid {
 		grid-template-columns: 1fr;
 	}

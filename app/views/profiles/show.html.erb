@@ -17,19 +17,49 @@
     <% end %>
   </div>
 
-  <div class="profile-grid">
-    <article class="panel panel-avatar">
+  <div class="profile-sections">
+    <div class="profile-top-grid">
+      <article class="panel panel-avatar">
       <h2>Profile Picture</h2>
       <% if @profile.avatar_image_source.present? %>
         <%= image_tag @profile.avatar_image_source, alt: "#{@profile.user.display_name} profile picture", class: "avatar-image" %>
       <% else %>
         <div class="avatar-placeholder">No profile image yet</div>
       <% end %>
-    </article>
+      </article>
 
-    <article class="panel panel-bio">
-      <h2>Bio</h2>
-      <p><%= @profile.bio.presence || "This member has not added a bio yet." %></p>
+      <article class="panel panel-bio">
+        <h2>Bio</h2>
+        <p><%= @profile.bio.presence || "This member has not added a bio yet." %></p>
+      </article>
+    </div>
+
+    <article class="panel panel-links panel-links-full">
+      <h2>Website & Social Links</h2>
+      <% if @profile.website.present? || @profile.social_links.any? %>
+        <ul class="link-list">
+          <% if website_url.present? %>
+            <li>
+              <%= link_to "Website",
+                          website_url,
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "social-link-pill social-website" %>
+            </li>
+          <% end %>
+          <% @profile.social_links.each do |name, url| %>
+            <li>
+              <%= link_to name,
+                          url,
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "social-link-pill social-#{name.parameterize}" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No website or social links added yet.</p>
+      <% end %>
     </article>
 
     <% if @profile.books.any? %>
@@ -55,31 +85,5 @@
         </div>
       </article>
     <% end %>
-
-    <article class="panel panel-links">
-      <h2>Website & Social Links</h2>
-      <% if @profile.website.present? || @profile.social_links.any? %>
-        <ul class="link-list">
-          <% if website_url.present? %>
-            <li>
-              <%= link_to "Website",
-                          website_url,
-                          target: "_blank",
-                          rel: "noopener",
-                          class: "social-link-pill social-website" %>
-            </li>
-          <% end %>
-          <% @profile.social_links.each do |name, url| %>
-            <li>
-              <%= link_to name,
-                          url,
-                          target: "_blank",
-                          rel: "noopener",
-                          class: "social-link-pill social-#{name.parameterize}" %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </article>
   </div>
 </section>
