@@ -6,7 +6,10 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile
-    @profile.build_book if @profile.book.blank?
+    # Ensure featured book exists
+    if @profile.books.where(featured: true).blank?
+      @profile.books.build(featured: true)
+    end
   end
 
   def update
@@ -15,7 +18,10 @@ class ProfilesController < ApplicationController
     if @profile.update(profile_params)
       redirect_to profile_path(@profile), notice: "Profile saved successfully."
     else
-      @profile.build_book if @profile.book.blank?
+      # Ensure featured book exists for re-render
+      if @profile.books.where(featured: true).blank?
+        @profile.books.build(featured: true)
+      end
       render :edit, status: :unprocessable_entity
     end
   end
@@ -23,7 +29,7 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
-    @profile = Profile.includes(:user, book: :book_likes).find(params[:id])
+    @profile = Profile.includes(:user, books: :book_likes).find(params[:id])
   end
 
   def profile_params
@@ -39,7 +45,7 @@ class ProfilesController < ApplicationController
       :avatar,
       :avatar_url,
       user_attributes: [:id, :first_name, :last_name],
-      book_attributes: [:id, :title, :purchase_url, :cover_image, :cover_image_url]
+      books_attributes: [:id, :title, :purchase_url, :cover_image, :cover_image_url, :featured, :_destroy]
     )
   end
 end

@@ -32,23 +32,49 @@
 
     <article class="panel panel-book">
       <h2>Featured Book</h2>
-      <% if @profile.book.present? %>
+      <% featured_book = @profile.books.find { |book| book.featured } %>
+      <% if featured_book.present? %>
         <div class="profile-book">
-          <% if @profile.book.cover_image_source.present? %>
-            <%= image_tag @profile.book.cover_image_source, alt: "#{@profile.book.title} cover", class: "book-cover profile-featured-cover" %>
+          <% if featured_book.cover_image_source.present? %>
+            <%= image_tag featured_book.cover_image_source, alt: "#{featured_book.title} cover", class: "book-cover profile-featured-cover" %>
           <% end %>
-          <h3><%= @profile.book.title %></h3>
+          <h3><%= featured_book.title %></h3>
           <p>
-            <%= link_to "Visit Book Link", @profile.book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
+            <%= link_to "Visit Book Link", featured_book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
           </p>
           <div class="book-actions">
-            <%= render "shared/book_like_button", book: @profile.book %>
+            <%= render "shared/book_like_button", book: featured_book %>
           </div>
         </div>
       <% else %>
         <p>No book added yet.</p>
       <% end %>
     </article>
+
+    <% additional_books = @profile.books.where(featured: false) %>
+    <% if additional_books.any? %>
+      <article class="panel panel-more-books">
+        <h2>More Books From Author</h2>
+        <div class="books-grid">
+          <% additional_books.each do |book| %>
+            <div class="book-card">
+              <% if book.cover_image_source.present? %>
+                <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover book-grid-cover" %>
+              <% else %>
+                <div class="book-cover-placeholder">No Cover</div>
+              <% end %>
+              <h3><%= book.title %></h3>
+              <p class="book-link">
+                <%= link_to "View Book", book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
+              </p>
+              <div class="book-actions">
+                <%= render "shared/book_like_button", book: book %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </article>
+    <% end %>
 
     <article class="panel panel-links">
       <h2>Website & Social Links</h2>

@@ -2,7 +2,7 @@
   <h1>Edit Member Profile</h1>
   <p>Basic/free tier includes one profile and one book.</p>
 
-  <%= form_with model: @profile, url: my_profile_path, class: "form-stack member-profile-form" do |f| %>
+  <%= form_with model: @profile, url: my_profile_path, class: "form-stack member-profile-form", data: { controller: "additional-books" } do |f| %>
     <% if @profile.errors.any? %>
       <div class="form-errors">
         <h2>Please fix these issues:</h2>
@@ -62,10 +62,13 @@
         <section class="member-form-section panel">
           <div class="member-form-section-head">
             <h2>Featured Book</h2>
-            <p>Free/basic tier includes one featured book with a title, link, and cover.</p>
+            <p>Your primary book featured prominently on your profile.</p>
           </div>
 
-          <%= f.fields_for :book do |book_fields| %>
+          <% featured_book = @profile.books.find { |book| book.featured } %>
+          <%= f.fields_for :books, featured_book do |book_fields| %>
+            <%= book_fields.hidden_field :featured, value: true %>
+            
             <div>
               <%= book_fields.label :title, "Book title" %>
               <%= book_fields.text_field :title %>
@@ -81,6 +84,7 @@
                 <%= book_fields.label :cover_image, "Upload book cover" %>
                 <%= book_fields.file_field :cover_image, accept: "image/*" %>
                 <p class="form-help">Portrait covers look best on the home grid and profile page.</p>
+                <!-- TODO Phase 2: Integrate Digital Ocean Spaces for direct uploads -->
               </div>
 
               <div>
@@ -90,6 +94,101 @@
               </div>
             </div>
           <% end %>
+        </section>
+
+        <section class="member-form-section panel">
+          <div class="member-form-section-head">
+            <h2>More Books From Author</h2>
+            <p>Add unlimited additional books to showcase your catalog. They'll appear in a 4-column grid on your profile.</p>
+          </div>
+
+          <div id="additional-books-container" data-additional-books-target="container">
+            <% additional_books = @profile.books.where(featured: false) %>
+            <% if additional_books.any? %>
+              <% additional_books.each_with_index do |book, index| %>
+                <%= f.fields_for :books, book do |book_fields| %>
+                  <fieldset class="book-entry book-entry-existing">
+                    <legend class="book-entry-legend">Book <%= index + 1 %></legend>
+                    
+                    <div class="book-entry-grid">
+                      <div>
+                        <%= book_fields.label :title, "Book title" %>
+                        <%= book_fields.text_field :title %>
+                      </div>
+
+                      <div>
+                        <%= book_fields.label :purchase_url, "Book link" %>
+                        <%= book_fields.url_field :purchase_url, placeholder: "https://..." %>
+                      </div>
+
+                      <div class="member-form-grid">
+                        <div>
+                          <%= book_fields.label :cover_image, "Upload book cover" %>
+                          <%= book_fields.file_field :cover_image, accept: "image/*" %>
+                          <% if book.cover_image.attached? %>
+                            <p class="form-help">Current cover: <%= link_to "View", book.cover_image, target: "_blank" %></p>
+                          <% end %>
+                          <!-- TODO Phase 2: Integrate Digital Ocean Spaces for direct uploads -->
+                        </div>
+
+                        <div>
+                          <%= book_fields.label :cover_image_url, "Or use cover image URL" %>
+                          <%= book_fields.url_field :cover_image_url, placeholder: "https://..." %>
+                          <p class="form-help">Use a direct image URL whenever possible for reliable rendering.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="book-entry-actions">
+                      <%= book_fields.submit "Remove Book", name: "commit", value: "Remove", class: "button button-danger" %>
+                    </div>
+                  </fieldset>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <button type="button" id="add-book-btn" class="button button-outline" data-additional-books-target="addBtn" data-action="click->additional-books#addBook">+ Add Another Book</button>
+          
+          <template id="book-template" data-additional-books-target="template">
+            <%= f.fields_for :books, Book.new do |book_fields| %>
+              <fieldset class="book-entry book-entry-new">
+                <legend class="book-entry-legend">New Book</legend>
+                
+                <div class="book-entry-grid">
+                  <div>
+                    <%= book_fields.label :title, "Book title" %>
+                    <%= book_fields.text_field :title %>
+                  </div>
+
+                  <div>
+                    <%= book_fields.label :purchase_url, "Book link" %>
+                    <%= book_fields.url_field :purchase_url, placeholder: "https://..." %>
+                  </div>
+
+                  <div class="member-form-grid">
+                    <div>
+                      <%= book_fields.label :cover_image, "Upload book cover" %>
+                      <%= book_fields.file_field :cover_image, accept: "image/*" %>
+                      <p class="form-help">Portrait covers look best on the home grid and profile page.</p>
+                      <!-- TODO Phase 2: Integrate Digital Ocean Spaces for direct uploads -->
+                    </div>
+
+                    <div>
+                      <%= book_fields.label :cover_image_url, "Or use cover image URL" %>
+                      <%= book_fields.url_field :cover_image_url, placeholder: "https://..." %>
+                      <p class="form-help">Use a direct image URL whenever possible for reliable rendering.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="book-entry-actions">
+                  <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
+                  <button type="button" class="button button-danger remove-book-btn">Remove</button>
+                </div>
+              </fieldset>
+            <% end %>
+          </template>
         </section>
 
         <section class="member-form-section panel">
@@ -153,8 +252,9 @@
 
           <div class="member-preview-media-block">
             <h3>Book Cover</h3>
-            <% if @profile.book&.cover_image_source.present? %>
-              <%= image_tag @profile.book.cover_image_source, alt: "Current book cover", class: "member-preview-book-cover" %>
+            <% featured_preview = @profile.books.find { |book| book.featured } %>
+            <% if featured_preview&.cover_image_source.present? %>
+              <%= image_tag featured_preview.cover_image_source, alt: "Current book cover", class: "member-preview-book-cover" %>
             <% else %>
               <div class="member-preview-placeholder member-preview-placeholder-book">No book cover yet</div>
             <% end %>

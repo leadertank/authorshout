@@ -11,10 +11,10 @@ class Profile < ApplicationRecord
   ].freeze
 
   belongs_to :user
-  has_one :book, dependent: :destroy
+  has_many :books, dependent: :destroy
   has_one_attached :avatar
 
-  accepts_nested_attributes_for :book, update_only: true
+  accepts_nested_attributes_for :books, allow_destroy: true
   accepts_nested_attributes_for :user, update_only: true
 
   validates :bio, length: { maximum: 1200 }

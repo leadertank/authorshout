@@ -4,6 +4,7 @@ one:
   purchase_url: https://bookshop.example.com/analytical-engine-stories
   likes_count: 1
   cover_image_url: https://images.example.com/ada-book.jpg
+  featured: true
 
 two:
   profile: two
@@ -11,3 +12,4 @@ two:
   purchase_url: https://bookshop.example.com/compiler-dreams
   likes_count: 1
   cover_image_url: https://images.example.com/grace-book.jpg
+  featured: true

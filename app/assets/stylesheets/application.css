@@ -2204,3 +2204,130 @@ textarea {
 	}
 }
 
+/* Book entry form styles */
+
+#additional-books-container {
+	display: grid;
+	gap: 2rem;
+	margin-bottom: 1.5rem;
+}
+
+.book-entry {
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	padding: 1.2rem;
+	background: #fafaf8;
+	display: grid;
+	gap: 1rem;
+}
+
+.book-entry-legend {
+	font-weight: 700;
+	color: var(--ink);
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+}
+
+.book-entry-grid {
+	display: grid;
+	gap: 1rem;
+}
+
+.book-entry-actions {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: flex-end;
+	padding-top: 0.5rem;
+	border-top: 1px solid var(--line);
+}
+
+.book-entry-existing {
+	background: #fefdf8;
+}
+
+.book-entry-new {
+	background: #f0f9ff;
+	border-color: #b7d4e7;
+}
+
+.button-outline {
+	background: transparent;
+	color: var(--accent-dark);
+	border: 2px solid var(--accent-dark);
+	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.button-outline:hover {
+	background: var(--accent);
+	color: #fff;
+	border-color: var(--accent);
+}
+
+.button-danger {
+	background: #e74c3c;
+	border-color: #c0392b;
+	color: #fff;
+	padding: 0.4rem 0.8rem;
+	font-size: 0.9rem;
+}
+
+.button-danger:hover {
+	background: #c0392b;
+	border-color: #a93226;
+}
+
+/* Books grid in show view */
+.panel-more-books {
+	grid-column: 1 / -1;
+}
+
+.panel-more-books .books-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.book-card .book-link {
+	margin: 0.5rem 0;
+}
+
+.book-cover-placeholder {
+	width: 100%;
+	aspect-ratio: 2 / 3;
+	background: #efe5d2;
+	border-radius: 10px;
+	border: 1px solid var(--line);
+	display: grid;
+	place-items: center;
+	color: #675e52;
+	font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+	.panel-more-books .books-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 768px) {
+	.panel-more-books .books-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	
+	.book-entry-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 480px) {
+	.panel-more-books .books-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
