@@ -1,4 +1,14 @@
 module ApplicationHelper
+  UNLAYER_ALLOWED_TAGS = %w[
+    a abbr article b blockquote br center code col colgroup dd div dl dt em footer h1 h2 h3 h4 h5 h6
+    header hr i img li ol p section small span strong style sub sup table tbody td tfoot th thead tr u ul
+  ].freeze
+
+  UNLAYER_ALLOWED_ATTRIBUTES = %w[
+    align alt bgcolor border cellpadding cellspacing class colspan dir height href id rel role rowspan
+    src style target title valign width
+  ].freeze
+
   def book_liked_by_current_actor?(book)
     book.liked_by?(user: current_user, visitor_token: current_visitor_token)
   end
@@ -28,5 +38,13 @@ module ApplicationHelper
     nil
   rescue URI::InvalidURIError, TypeError
     nil
+  end
+
+  def sanitize_unlayer_html(html)
+    sanitize(
+      html,
+      tags: UNLAYER_ALLOWED_TAGS,
+      attributes: UNLAYER_ALLOWED_ATTRIBUTES
+    )
   end
 end
