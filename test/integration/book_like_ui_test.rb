@@ -34,6 +34,34 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "removing an existing book persists across profile and home pages" do
+    sign_in users(:one)
+
+    book = books(:one)
+
+    patch my_profile_path, params: {
+      profile: {
+        books_attributes: {
+          "0" => {
+            id: book.id,
+            _destroy: "1"
+          }
+        }
+      }
+    }
+
+    assert_redirected_to profile_path(profiles(:one))
+    assert_not Book.exists?(book.id)
+
+    get profile_path(profiles(:one))
+    assert_response :success
+    assert_no_match "Analytical Engine Stories", response.body
+
+    get root_path
+    assert_response :success
+    assert_no_match "Analytical Engine Stories", response.body
+  end
+
   test "signed in member sees current media previews on edit profile" do
     sign_in users(:one)
 

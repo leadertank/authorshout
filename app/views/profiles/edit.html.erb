@@ -101,6 +101,7 @@
                     </div>
 
                     <div class="book-entry-actions">
+                      <%= book_fields.hidden_field :id %>
                       <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
                       <button type="button" class="button button-danger remove-book-btn" data-action="click->additional-books#removeBook">Remove</button>
                     </div>
