@@ -36,6 +36,24 @@
                 <%= user_fields.text_field :last_name, autocomplete: "family-name" %>
               </div>
             </div>
+
+            <div>
+              <%= user_fields.label :email, "Email address" %>
+              <%= user_fields.email_field :email, autocomplete: "email" %>
+            </div>
+
+            <div class="cms-grid-two">
+              <div>
+                <%= user_fields.label :password, "New password" %>
+                <%= user_fields.password_field :password, autocomplete: "new-password" %>
+                <p class="form-help">Leave blank to keep your current password.</p>
+              </div>
+
+              <div>
+                <%= user_fields.label :password_confirmation, "Confirm new password" %>
+                <%= user_fields.password_field :password_confirmation, autocomplete: "new-password" %>
+              </div>
+            </div>
           <% end %>
 
           <div class="member-form-grid">

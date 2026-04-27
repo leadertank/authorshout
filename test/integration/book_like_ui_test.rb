@@ -75,4 +75,25 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_match "Book Covers", response.body
     assert_match "View Public Profile", response.body
   end
+
+  test "member can update email and password from profile edit" do
+    sign_in users(:one)
+
+    patch my_profile_path, params: {
+      profile: {
+        user_attributes: {
+          id: users(:one).id,
+          email: "ada.updated@example.com",
+          password: "NewPassword123!",
+          password_confirmation: "NewPassword123!"
+        }
+      }
+    }
+
+    assert_redirected_to profile_path(profiles(:one))
+
+    users(:one).reload
+    assert_equal "ada.updated@example.com", users(:one).email
+    assert users(:one).valid_password?("NewPassword123!")
+  end
 end

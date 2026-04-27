@@ -50,7 +50,7 @@ class ProfilesController < ApplicationController
       :youtube_url,
       :avatar,
       :avatar_url,
-      user_attributes: [ :id, :first_name, :last_name ],
+      user_attributes: [ :id, :first_name, :last_name, :email, :password, :password_confirmation ],
       books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :_destroy ]
     )
   end

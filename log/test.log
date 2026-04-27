@@ -11279,3 +11279,1146 @@ Processing by Admin::PostsController#preview as HTML
   Rendered layout layouts/application.html.erb (Duration: 16.2ms | GC: 0.6ms)
 Completed 200 OK in 19ms (Views: 16.5ms | ActiveRecord: 0.3ms (5 queries, 0 cached) | GC: 0.6ms)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.7ms)[0m  [1m[31mDELETE FROM "action_text_rich_texts";
+DELETE FROM "book_likes";
+DELETE FROM "books";
+DELETE FROM "page_blocks";
+DELETE FROM "pages";
+DELETE FROM "post_categories";
+DELETE FROM "post_taggings";
+DELETE FROM "post_tags";
+DELETE FROM "posts";
+DELETE FROM "profiles";
+DELETE FROM "users";
+INSERT INTO "book_likes" ("id", "book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, NULL, '2026-04-27 01:25:36.625300', '2026-04-27 01:25:36.625300'), (298486374, 298486374, NULL, 'visitor-123', '2026-04-27 01:25:36.625300', '2026-04-27 01:25:36.625300');
+INSERT INTO "books" ("id", "profile_id", "title", "purchase_url", "likes_count", "created_at", "updated_at", "cover_image_url", "featured") VALUES (980190962, 980190962, 'Analytical Engine Stories', 'https://bookshop.example.com/analytical-engine-stories', 1, '2026-04-27 01:25:36.628437', '2026-04-27 01:25:36.628437', 'https://images.example.com/ada-book.jpg', 1), (298486374, 298486374, 'Compiler Dreams', 'https://bookshop.example.com/compiler-dreams', 1, '2026-04-27 01:25:36.628437', '2026-04-27 01:25:36.628437', 'https://images.example.com/grace-book.jpg', 1);
+INSERT INTO "page_blocks" ("id", "page_id", "kind", "position", "heading", "subheading", "body", "button_text", "button_url", "media_url", "theme", "created_at", "updated_at", "column_span", "text_align", "background_style", "section_spacing", "row_number", "column_slot", "row_columns") VALUES (980190962, 980190962, 'text', 1, 'Welcome', 'Intro section', 'Introductory body copy.', 'Read More', 'https://authorshout.example.com/more', 'https://images.example.com/welcome.jpg', 'default', '2026-04-27 01:25:36.629589', '2026-04-27 01:25:36.629589', 12, 'left', 'card', 'md', 1, 1, 1), (298486374, 298486374, 'image', 1, 'Events Hero', 'Upcoming appearances', 'Event teaser body.', 'RSVP', 'https://authorshout.example.com/events', 'https://images.example.com/events.jpg', 'accent', '2026-04-27 01:25:36.629589', '2026-04-27 01:25:36.629589', 12, 'center', 'full', 'lg', 1, 1, 1);
+INSERT INTO "pages" ("id", "title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (980190962, 'Welcome Page', 'welcome-page', 1, 'Introductory landing page.', 'standard', '2026-04-12 03:04:34', '2026-04-27 01:25:36.633614', '2026-04-27 01:25:36.633614', NULL, NULL), (298486374, 'Events Page', 'events-page', 1, 'Event showcase page.', 'showcase', '2026-04-12 03:04:34', '2026-04-27 01:25:36.633614', '2026-04-27 01:25:36.633614', NULL, NULL);
+INSERT INTO "post_categories" ("id", "name", "slug", "created_at", "updated_at") VALUES (500406608, 'News', 'news', '2026-04-27 01:25:36.638942', '2026-04-27 01:25:36.638942'), (1069603861, 'Features', 'features', '2026-04-27 01:25:36.638942', '2026-04-27 01:25:36.638942');
+INSERT INTO "post_taggings" ("id", "post_id", "post_tag_id", "created_at", "updated_at") VALUES (33122210, 980190962, 968316918, '2026-04-27 01:25:36.647680', '2026-04-27 01:25:36.647680'), (324727852, 980190962, 459292723, '2026-04-27 01:25:36.647680', '2026-04-27 01:25:36.647680'), (423950104, 298486374, 253574199, '2026-04-27 01:25:36.647680', '2026-04-27 01:25:36.647680');
+INSERT INTO "post_tags" ("id", "name", "slug", "created_at", "updated_at") VALUES (968316918, 'Launch', 'launch', '2026-04-27 01:25:36.651641', '2026-04-27 01:25:36.651641'), (253574199, 'Interview', 'interview', '2026-04-27 01:25:36.651641', '2026-04-27 01:25:36.651641'), (459292723, 'Community', 'community', '2026-04-27 01:25:36.651641', '2026-04-27 01:25:36.651641');
+INSERT INTO "posts" ("id", "title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (980190962, 'Launch Post', 'launch-post', 1, 'Launch update excerpt.', '2026-04-12 03:04:35', '2026-04-27 01:25:36.655709', '2026-04-27 01:25:36.655709', 500406608), (298486374, 'Interview Post', 'interview-post', 1, 'Interview recap excerpt.', '2026-04-12 03:04:35', '2026-04-27 01:25:36.655709', '2026-04-27 01:25:36.655709', 1069603861);
+INSERT INTO "profiles" ("id", "user_id", "bio", "website", "x_url", "facebook_url", "instagram_url", "threads_url", "bluesky_url", "youtube_url", "created_at", "updated_at", "avatar_url") VALUES (980190962, 980190962, 'Ada writes mathematical fiction and essays.', 'https://ada.example.com', 'https://x.com/ada', 'https://facebook.com/ada', 'https://instagram.com/ada', 'https://threads.net/@ada', 'https://bsky.app/profile/ada.example.com', 'https://youtube.com/@ada', '2026-04-27 01:25:36.656941', '2026-04-27 01:25:36.656941', NULL), (298486374, 298486374, 'Grace shares systems programming knowledge.', 'https://grace.example.com', 'https://x.com/grace', 'https://facebook.com/grace', 'https://instagram.com/grace', 'https://threads.net/@grace', 'https://bsky.app/profile/grace.example.com', 'https://youtube.com/@grace', '2026-04-27 01:25:36.656941', '2026-04-27 01:25:36.656941', NULL);
+INSERT INTO "users" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "admin", "first_name", "last_name") VALUES (980190962, 'ada@example.com', '$2a$04$kd9yCK2T82dfokOoK6CxZu5aMC/shk52D7Ul3hbHO0fR/8O0/UKpu', NULL, NULL, NULL, '2026-04-27 01:25:36.658299', '2026-04-27 01:25:36.658299', 0, 'Ada', 'Lovelace'), (298486374, 'admin@example.com', '$2a$04$5ue9iKzCUW58cZcxmabgGu5c.rOzlOIRf1jUEz4.PL/5rNzPkpWje', NULL, NULL, NULL, '2026-04-27 01:25:36.658299', '2026-04-27 01:25:36.658299', 1, 'Grace', 'Hopper')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (7.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.4ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------------------
+AdminUserManagementTest: test_admin_can_create_a_member_from_users_dashboard
+----------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/admin/users" for 127.0.0.1 at 2026-04-27 01:25:36 +0000
+Processing by Admin::UsersController#create as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "admin", "first_name", "last_name") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-04-27 01:25:36.929318"], ["updated_at", "2026-04-27 01:25:36.929318"], ["admin", 0], ["first_name", nil], ["last_name", nil]]
+  [1m[36mProfile Create (0.2ms)[0m  [1m[32mINSERT INTO "profiles" ("user_id", "bio", "website", "x_url", "facebook_url", "instagram_url", "threads_url", "bluesky_url", "youtube_url", "created_at", "updated_at", "avatar_url") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["user_id", 980190963], ["bio", nil], ["website", nil], ["x_url", nil], ["facebook_url", nil], ["instagram_url", nil], ["threads_url", nil], ["bluesky_url", nil], ["youtube_url", nil], ["created_at", "2026-04-27 01:25:36.962725"], ["updated_at", "2026-04-27 01:25:36.962725"], ["avatar_url", nil]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/users
+Completed 302 Found in 61ms (ActiveRecord: 0.8ms (4 queries, 0 cached) | GC: 30.3ms)
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started GET "/admin/users" for 127.0.0.1 at 2026-04-27 01:25:36 +0000
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 0]]
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 72.8ms | GC: 4.1ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 102.1ms | GC: 9.4ms)
+Completed 200 OK in 131ms (Views: 107.4ms | ActiveRecord: 0.5ms (4 queries, 0 cached) | GC: 21.2ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------------
+BookLikeUiTest: test_removing_an_existing_book_persists_across_profile_and_home_pages
+-------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#update as HTML
+  Parameters: {"profile" => {"books_attributes" => {"0" => {"id" => "980190962", "_destroy" => "1"}}}}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = ? AND "books"."id" = ?[0m  [["profile_id", 980190962], ["id", 980190962]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = ?[0m  [["book_id", 980190962]]
+  [1m[36mBookLike Destroy (0.1ms)[0m  [1m[31mDELETE FROM "book_likes" WHERE "book_likes"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  [1m[36mBook Destroy (0.6ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profiles/ada-lovelace
+Completed 302 Found in 72ms (ActiveRecord: 1.5ms (6 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mProfile Load (0.2ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  Rendered profiles/show.html.erb within layouts/application (Duration: 13.2ms | GC: 0.9ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 26.1ms | GC: 1.3ms)
+Completed 200 OK in 64ms (Views: 26.5ms | ActiveRecord: 0.8ms (6 queries, 0 cached) | GC: 1.3ms)
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (1.2ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = ?[0m  [["book_id", 298486374]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ?[0m  [["id", 298486374]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 298486374]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374]]
+  [1m[36mCACHE User Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 3.8ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 35.0ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.5ms | GC: 0.0ms)
+Completed 200 OK in 45ms (Views: 39.2ms | ActiveRecord: 1.7ms (9 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+BookLikeUiTest: test_guest_sees_liked_state_after_liking_a_book_from_home
+-------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/books/980190962/like" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by BookLikesController#create as HTML
+  Parameters: {"book_id" => "980190962"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBookLike Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["visitor_token", "[FILTERED]"], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Create (0.2ms)[0m  [1m[32mINSERT INTO "book_likes" ("book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["book_id", 980190962], ["user_id", nil], ["visitor_token", "[FILTERED]"], ["created_at", "2026-04-27 01:25:37.468724"], ["updated_at", "2026-04-27 01:25:37.468724"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBook Update All (0.1ms)[0m  [1m[33mUPDATE "books" SET "likes_count" = COALESCE("likes_count", 0) + ? WHERE "books"."id" = ?[0m  [["likes_count", 1], ["id", 980190962]]
+Redirected to http://www.example.com/
+Completed 302 Found in 78ms (ActiveRecord: 1.4ms (4 queries, 0 cached) | GC: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (1.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (?, ?)[0m  [["book_id", 298486374], ["book_id", 980190962]]
+  [1m[36mProfile Load (0.4ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (4.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374], ["record_id", 980190962]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 20.0ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 21.7ms | GC: 0.0ms)
+Completed 200 OK in 23ms (Views: 16.8ms | ActiveRecord: 5.5ms (7 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------------
+BookLikeUiTest: test_signed_in_member_sees_current_media_previews_on_edit_profile
+---------------------------------------------------------------------------------
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#edit as HTML
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Load (1.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = ?[0m  [["profile_id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 13.5ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.6ms | GC: 0.0ms)
+Completed 200 OK in 30ms (Views: 22.9ms | ActiveRecord: 1.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------
+BookLikeUiTest: test_signed_in_member_sees_liked_state_for_already_liked_book
+-----------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (?, ?)[0m  [["book_id", 298486374], ["book_id", 980190962]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374], ["record_id", 980190962]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 12.2ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.3ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 15.2ms | ActiveRecord: 0.7ms (8 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------
+BookLikeUiTest: test_profile_page_shows_liked_state_for_current_guest_visitor
+-----------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/books/980190962/like" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by BookLikesController#create as HTML
+  Parameters: {"book_id" => "980190962"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBookLike Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["visitor_token", "[FILTERED]"], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Create (0.2ms)[0m  [1m[32mINSERT INTO "book_likes" ("book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["book_id", 980190962], ["user_id", nil], ["visitor_token", "[FILTERED]"], ["created_at", "2026-04-27 01:25:37.633549"], ["updated_at", "2026-04-27 01:25:37.633549"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBook Update All (0.0ms)[0m  [1m[33mUPDATE "books" SET "likes_count" = COALESCE("likes_count", 0) + ? WHERE "books"."id" = ?[0m  [["likes_count", 1], ["id", 980190962]]
+Redirected to http://www.example.com/
+Completed 302 Found in 16ms (ActiveRecord: 1.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.3ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 2.5ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 11.8ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.5ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 16.9ms | ActiveRecord: 0.8ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+BookLikeUiTest: test_profile_route_uses_first_and_last_name_slug
+----------------------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 7.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 9.4ms | ActiveRecord: 0.5ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------
+BookLikeUiTest: test_member_can_update_email_and_password_from_profile_edit
+---------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:37 +0000
+Processing by ProfilesController#update as HTML
+  Parameters: {"profile" => {"user_attributes" => {"id" => "980190962", "email" => "[FILTERED]", "password" => "[FILTERED]", "password_confirmation" => "[FILTERED]"}}}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "email" = ?, "encrypted_password" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["updated_at", "2026-04-27 01:25:37.719731"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profiles/ada-lovelace
+Completed 302 Found in 43ms (ActiveRecord: 0.6ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.6ms)[0m  [1m[31mDELETE FROM "action_text_rich_texts";
+DELETE FROM "book_likes";
+DELETE FROM "books";
+DELETE FROM "page_blocks";
+DELETE FROM "pages";
+DELETE FROM "post_categories";
+DELETE FROM "post_taggings";
+DELETE FROM "post_tags";
+DELETE FROM "posts";
+DELETE FROM "profiles";
+DELETE FROM "users";
+INSERT INTO "book_likes" ("id", "book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, NULL, '2026-04-27 01:25:40.880990', '2026-04-27 01:25:40.880990'), (298486374, 298486374, NULL, 'visitor-123', '2026-04-27 01:25:40.880990', '2026-04-27 01:25:40.880990');
+INSERT INTO "books" ("id", "profile_id", "title", "purchase_url", "likes_count", "created_at", "updated_at", "cover_image_url", "featured") VALUES (980190962, 980190962, 'Analytical Engine Stories', 'https://bookshop.example.com/analytical-engine-stories', 1, '2026-04-27 01:25:40.884746', '2026-04-27 01:25:40.884746', 'https://images.example.com/ada-book.jpg', 1), (298486374, 298486374, 'Compiler Dreams', 'https://bookshop.example.com/compiler-dreams', 1, '2026-04-27 01:25:40.884746', '2026-04-27 01:25:40.884746', 'https://images.example.com/grace-book.jpg', 1);
+INSERT INTO "page_blocks" ("id", "page_id", "kind", "position", "heading", "subheading", "body", "button_text", "button_url", "media_url", "theme", "created_at", "updated_at", "column_span", "text_align", "background_style", "section_spacing", "row_number", "column_slot", "row_columns") VALUES (980190962, 980190962, 'text', 1, 'Welcome', 'Intro section', 'Introductory body copy.', 'Read More', 'https://authorshout.example.com/more', 'https://images.example.com/welcome.jpg', 'default', '2026-04-27 01:25:40.886756', '2026-04-27 01:25:40.886756', 12, 'left', 'card', 'md', 1, 1, 1), (298486374, 298486374, 'image', 1, 'Events Hero', 'Upcoming appearances', 'Event teaser body.', 'RSVP', 'https://authorshout.example.com/events', 'https://images.example.com/events.jpg', 'accent', '2026-04-27 01:25:40.886756', '2026-04-27 01:25:40.886756', 12, 'center', 'full', 'lg', 1, 1, 1);
+INSERT INTO "pages" ("id", "title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (980190962, 'Welcome Page', 'welcome-page', 1, 'Introductory landing page.', 'standard', '2026-04-12 03:04:34', '2026-04-27 01:25:40.893108', '2026-04-27 01:25:40.893108', NULL, NULL), (298486374, 'Events Page', 'events-page', 1, 'Event showcase page.', 'showcase', '2026-04-12 03:04:34', '2026-04-27 01:25:40.893108', '2026-04-27 01:25:40.893108', NULL, NULL);
+INSERT INTO "post_categories" ("id", "name", "slug", "created_at", "updated_at") VALUES (500406608, 'News', 'news', '2026-04-27 01:25:40.901893', '2026-04-27 01:25:40.901893'), (1069603861, 'Features', 'features', '2026-04-27 01:25:40.901893', '2026-04-27 01:25:40.901893');
+INSERT INTO "post_taggings" ("id", "post_id", "post_tag_id", "created_at", "updated_at") VALUES (33122210, 980190962, 968316918, '2026-04-27 01:25:40.907210', '2026-04-27 01:25:40.907210'), (324727852, 980190962, 459292723, '2026-04-27 01:25:40.907210', '2026-04-27 01:25:40.907210'), (423950104, 298486374, 253574199, '2026-04-27 01:25:40.907210', '2026-04-27 01:25:40.907210');
+INSERT INTO "post_tags" ("id", "name", "slug", "created_at", "updated_at") VALUES (968316918, 'Launch', 'launch', '2026-04-27 01:25:40.910917', '2026-04-27 01:25:40.910917'), (253574199, 'Interview', 'interview', '2026-04-27 01:25:40.910917', '2026-04-27 01:25:40.910917'), (459292723, 'Community', 'community', '2026-04-27 01:25:40.910917', '2026-04-27 01:25:40.910917');
+INSERT INTO "posts" ("id", "title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (980190962, 'Launch Post', 'launch-post', 1, 'Launch update excerpt.', '2026-04-12 03:04:35', '2026-04-27 01:25:40.915128', '2026-04-27 01:25:40.915128', 500406608), (298486374, 'Interview Post', 'interview-post', 1, 'Interview recap excerpt.', '2026-04-12 03:04:35', '2026-04-27 01:25:40.915128', '2026-04-27 01:25:40.915128', 1069603861);
+INSERT INTO "profiles" ("id", "user_id", "bio", "website", "x_url", "facebook_url", "instagram_url", "threads_url", "bluesky_url", "youtube_url", "created_at", "updated_at", "avatar_url") VALUES (980190962, 980190962, 'Ada writes mathematical fiction and essays.', 'https://ada.example.com', 'https://x.com/ada', 'https://facebook.com/ada', 'https://instagram.com/ada', 'https://threads.net/@ada', 'https://bsky.app/profile/ada.example.com', 'https://youtube.com/@ada', '2026-04-27 01:25:40.917290', '2026-04-27 01:25:40.917290', NULL), (298486374, 298486374, 'Grace shares systems programming knowledge.', 'https://grace.example.com', 'https://x.com/grace', 'https://facebook.com/grace', 'https://instagram.com/grace', 'https://threads.net/@grace', 'https://bsky.app/profile/grace.example.com', 'https://youtube.com/@grace', '2026-04-27 01:25:40.917290', '2026-04-27 01:25:40.917290', NULL);
+INSERT INTO "users" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "admin", "first_name", "last_name") VALUES (980190962, 'ada@example.com', '$2a$04$x0u7NBqKu5RnE2MAfO4bROZrDEVlsBrhPsBMGANr3mQercMcmIyJm', NULL, NULL, NULL, '2026-04-27 01:25:40.920105', '2026-04-27 01:25:40.920105', 0, 'Ada', 'Lovelace'), (298486374, 'admin@example.com', '$2a$04$XVdlWq9ydf5ppssrZfZxf.shQhA.E64HZIUuAd09H7tg2lVnKtZZS', NULL, NULL, NULL, '2026-04-27 01:25:40.920105', '2026-04-27 01:25:40.920105', 1, 'Grace', 'Hopper')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (5.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.5ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------------------
+AdminContentFiltersTest: test_admin_can_filter_pages_by_state_and_layout
+------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "draft-showcase"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Showcase"], ["slug", "draft-showcase"], ["status", 0], ["summary", nil], ["layout_template", "showcase"], ["published_at", nil], ["created_at", "2026-04-27 01:25:41.114540"], ["updated_at", "2026-04-27 01:25:41.114540"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "live-standard"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Live Standard"], ["slug", "live-standard"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", "2026-04-26 01:25:41.117606"], ["created_at", "2026-04-27 01:25:41.118660"], ["updated_at", "2026-04-27 01:25:41.118660"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin/pages?state=draft&layout=showcase&query=Draft" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Admin::PagesController#index as HTML
+  Parameters: {"state" => "draft", "layout" => "showcase", "query" => "Draft"}
+  Rendering layout layouts/application.html.erb
+  Rendering admin/pages/index.html.erb within layouts/application
+  [1m[36mPage Load (0.2ms)[0m  [1m[34mSELECT "pages".* FROM "pages" WHERE "pages"."status" = ? AND "pages"."layout_template" = ? AND (pages.title LIKE ? OR pages.slug LIKE ? OR pages.summary LIKE ?) ORDER BY "pages"."updated_at" DESC[0m  [["status", 0], ["layout_template", "showcase"], [nil, "%Draft%"], [nil, "%Draft%"], [nil, "%Draft%"]]
+  Rendered admin/pages/index.html.erb within layouts/application (Duration: 7.2ms | GC: 3.6ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 47.6ms | GC: 10.3ms)
+Completed 200 OK in 74ms (Views: 51.5ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 20.6ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------------
+AdminContentFiltersTest: test_admin_can_filter_posts_by_state_category_tag_and_search
+-------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPostCategory Load (0.2ms)[0m  [1m[34mSELECT "post_categories".* FROM "post_categories" WHERE "post_categories"."slug" = ? LIMIT ?[0m  [["slug", "product"], ["LIMIT", 1]]
+  [1m[36mPost Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "product-launch-notes"], ["LIMIT", 1]]
+  [1m[36mPostCategory Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_categories" WHERE "post_categories"."name" = ? LIMIT ?[0m  [["name", "Product"], ["LIMIT", 1]]
+  [1m[36mPostCategory Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_categories" WHERE "post_categories"."slug" = ? LIMIT ?[0m  [["slug", "product"], ["LIMIT", 1]]
+  [1m[36mPostCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "post_categories" ("name", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Product"], ["slug", "product"], ["created_at", "2026-04-27 01:25:41.313944"], ["updated_at", "2026-04-27 01:25:41.313944"]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Product Launch Notes"], ["slug", "product-launch-notes"], ["status", 1], ["excerpt", "Release planning"], ["published_at", "2026-04-26 01:25:41.295347"], ["created_at", "2026-04-27 01:25:41.326005"], ["updated_at", "2026-04-27 01:25:41.326005"], ["post_category_id", 1069603862]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "launch"], ["LIMIT", 1]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "roadmap"], ["LIMIT", 1]]
+  [1m[36mPostTag Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_tags" WHERE "post_tags"."name" = ? LIMIT ?[0m  [["name", "Roadmap"], ["LIMIT", 1]]
+  [1m[36mPostTag Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "roadmap"], ["LIMIT", 1]]
+  [1m[36mPostTag Create (0.2ms)[0m  [1m[32mINSERT INTO "post_tags" ("name", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Roadmap"], ["slug", "roadmap"], ["created_at", "2026-04-27 01:25:41.358140"], ["updated_at", "2026-04-27 01:25:41.358140"]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" INNER JOIN "post_taggings" ON "post_tags"."id" = "post_taggings"."post_tag_id" WHERE "post_taggings"."post_id" = ? ORDER BY "post_tags"."name" ASC[0m  [["post_id", 980190963]]
+  [1m[36mPostTagging Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_taggings" WHERE "post_taggings"."post_tag_id" = ? AND "post_taggings"."post_id" = ? LIMIT ?[0m  [["post_tag_id", 968316918], ["post_id", 980190963], ["LIMIT", 1]]
+  [1m[36mPostTagging Create (0.6ms)[0m  [1m[32mINSERT INTO "post_taggings" ("post_id", "post_tag_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["post_id", 980190963], ["post_tag_id", 968316918], ["created_at", "2026-04-27 01:25:41.390879"], ["updated_at", "2026-04-27 01:25:41.390879"]]
+  [1m[36mPostTagging Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_taggings" WHERE "post_taggings"."post_tag_id" = ? AND "post_taggings"."post_id" = ? LIMIT ?[0m  [["post_tag_id", 968316919], ["post_id", 980190963], ["LIMIT", 1]]
+  [1m[36mPostTagging Create (0.2ms)[0m  [1m[32mINSERT INTO "post_taggings" ("post_id", "post_tag_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["post_id", 980190963], ["post_tag_id", 968316919], ["created_at", "2026-04-27 01:25:41.398178"], ["updated_at", "2026-04-27 01:25:41.398178"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPostTag Load (0.2ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" INNER JOIN "post_taggings" ON "post_tags"."id" = "post_taggings"."post_tag_id" WHERE "post_taggings"."post_id" = ? AND "post_tags"."slug" = ? ORDER BY "post_tags"."name" ASC LIMIT ?[0m  [["post_id", 980190963], ["slug", "launch"], ["LIMIT", 1]]
+Started GET "/admin/posts?state=live&post_category_id=1069603862&post_tag_id=968316918&query=Launch" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Admin::PostsController#index as HTML
+  Parameters: {"state" => "live", "post_category_id" => "1069603862", "post_tag_id" => "968316918", "query" => "Launch"}
+  Rendering layout layouts/application.html.erb
+  Rendering admin/posts/index.html.erb within layouts/application
+  [1m[36mPostCategory Load (0.1ms)[0m  [1m[34mSELECT "post_categories".* FROM "post_categories" ORDER BY "post_categories"."name" ASC[0m
+  [1m[36mPostTag Load (0.5ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" ORDER BY "post_tags"."name" ASC[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[34mSELECT DISTINCT "posts"."id" AS t0_r0, "posts"."title" AS t0_r1, "posts"."slug" AS t0_r2, "posts"."status" AS t0_r3, "posts"."excerpt" AS t0_r4, "posts"."published_at" AS t0_r5, "posts"."created_at" AS t0_r6, "posts"."updated_at" AS t0_r7, "posts"."post_category_id" AS t0_r8, "post_categories"."id" AS t1_r0, "post_categories"."name" AS t1_r1, "post_categories"."slug" AS t1_r2, "post_categories"."created_at" AS t1_r3, "post_categories"."updated_at" AS t1_r4, "post_tags"."id" AS t2_r0, "post_tags"."name" AS t2_r1, "post_tags"."slug" AS t2_r2, "post_tags"."created_at" AS t2_r3, "post_tags"."updated_at" AS t2_r4 FROM "posts" INNER JOIN "post_taggings" ON "post_taggings"."post_id" = "posts"."id" INNER JOIN "post_tags" ON "post_tags"."id" = "post_taggings"."post_tag_id" LEFT OUTER JOIN "post_categories" ON "post_categories"."id" = "posts"."post_category_id" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND (posts.title LIKE ? OR posts.slug LIKE ? OR posts.excerpt LIKE ?) AND "posts"."post_category_id" = ? AND "post_tags"."id" = ? ORDER BY "posts"."updated_at" DESC[0m  [["status", 1], [nil, "2026-04-27 01:25:41.454589"], [nil, "%Launch%"], [nil, "%Launch%"], [nil, "%Launch%"], ["post_category_id", 1069603862], ["id", 968316918]]
+  Rendered admin/posts/index.html.erb within layouts/application (Duration: 41.2ms | GC: 0.9ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.6ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 62.5ms | GC: 1.1ms)
+Completed 200 OK in 66ms (Views: 61.6ms | ActiveRecord: 1.6ms (4 queries, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------
+AdminImpersonationTest: test_admin_can_impersonate_a_member_and_switch_back
+---------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/admin/users" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Admin::UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 0]]
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 5.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.3ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.8ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 11.3ms | ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+Started GET "/users/masquerade?masquerade=eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2F1dGhvcnNob3V0L1VzZXIvOTgwMTkwOTYyP2V4cGlyZXNfaW49NjAiLCJleHAiOiIyMDI2LTA0LTI3VDAxOjI2OjQxLjU4NFoiLCJwdXIiOiJtYXNxdWVyYWRlIn19--c21eaca0515019ee3f79c0fb462241c752cdbc85&masqueraded_resource_class=User" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Users::MasqueradesController#show as HTML
+  Parameters: {"masquerade" => "eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2F1dGhvcnNob3V0L1VzZXIvOTgwMTkwOTYyP2V4cGlyZXNfaW49NjAiLCJleHAiOiIyMDI2LTA0LTI3VDAxOjI2OjQxLjU4NFoiLCJwdXIiOiJtYXNxdWVyYWRlIn19--c21eaca0515019ee3f79c0fb462241c752cdbc85", "masqueraded_resource_class" => "User"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+Redirected to http://www.example.com/profiles/ada-lovelace
+Completed 302 Found in 37ms (ActiveRecord: 0.3ms (4 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.4ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (1.6ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (3.8ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 60.3ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.3ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 69.5ms | GC: 0.0ms)
+Completed 200 OK in 92ms (Views: 64.3ms | ActiveRecord: 6.5ms (7 queries, 1 cached) | GC: 0.0ms)
+Started GET "/users/masquerade/back" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Users::MasqueradesController#back as HTML
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+Redirected to http://www.example.com/admin/dashboard
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (2 queries, 2 cached) | GC: 0.0ms)
+Started GET "/admin/dashboard" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = ?[0m  [["admin", 0]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = ?[0m  [["admin", 1]]
+  [1m[36mBook Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  [1m[36mBook Sum (0.9ms)[0m  [1m[34mSELECT SUM("books"."likes_count") FROM "books"[0m
+  [1m[36mPage Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages"[0m
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts"[0m
+  [1m[36mPage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ?[0m  [["status", 0]]
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ? AND (published_at > ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:41.753088"]]
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:41.758626"]]
+  [1m[36mPost Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ?[0m  [["status", 0]]
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ? AND (published_at > ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:41.759784"]]
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:41.760224"]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "users" WHERE "users"."admin" = ? AND (created_at >= ?) GROUP BY DATE(created_at)[0m  [["admin", 0], [nil, "2026-04-13 01:25:41.760855"]]
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "books" WHERE (created_at >= ?) GROUP BY DATE(created_at)[0m  [[nil, "2026-04-13 01:25:41.762273"]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/dashboard/index.html.erb within layouts/application
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."likes_count" DESC, "books"."created_at" DESC LIMIT ?[0m  [["LIMIT", 10]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mProfile Load (0.7ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT ?[0m  [["LIMIT", 10]]
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" ORDER BY "pages"."updated_at" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" ORDER BY "posts"."updated_at" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  Rendered admin/dashboard/index.html.erb within layouts/application (Duration: 42.4ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 48.6ms | GC: 0.0ms)
+Completed 200 OK in 75ms (Views: 47.7ms | ActiveRecord: 5.3ms (24 queries, 4 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------
+UserTest: test_display_name_prefers_full_name
+---------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------
+UserTest: test_creates_a_profile_after_create
+---------------------------------------------
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "admin", "first_name", "last_name") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-04-27 01:25:41.824862"], ["updated_at", "2026-04-27 01:25:41.824862"], ["admin", 0], ["first_name", nil], ["last_name", nil]]
+  [1m[36mProfile Create (0.1ms)[0m  [1m[32mINSERT INTO "profiles" ("user_id", "bio", "website", "x_url", "facebook_url", "instagram_url", "threads_url", "bluesky_url", "youtube_url", "created_at", "updated_at", "avatar_url") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["user_id", 980190963], ["bio", nil], ["website", nil], ["x_url", nil], ["facebook_url", nil], ["instagram_url", nil], ["threads_url", nil], ["bluesky_url", nil], ["youtube_url", nil], ["created_at", "2026-04-27 01:25:41.834196"], ["updated_at", "2026-04-27 01:25:41.834196"], ["avatar_url", nil]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+UserTest: test_display_name_falls_back_to_email_prefix
+------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------------
+ContentSecurityPolicyTest: test_admin_page_builder_csp_allows_unlayer_editor_resources
+--------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+Started GET "/admin/pages/new" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by Admin::PagesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/pages/new.html.erb within layouts/application
+  Rendered admin/pages/_form.html.erb (Duration: 36.2ms | GC: 0.0ms)
+  Rendered admin/pages/new.html.erb within layouts/application (Duration: 36.9ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 41.8ms | GC: 0.0ms)
+Completed 200 OK in 66ms (Views: 42.0ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------------------------
+ContentSecurityPolicyTest: test_public_pages_send_a_content_security_policy_header
+----------------------------------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:41 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (?, ?)[0m  [["book_id", 298486374], ["book_id", 980190962]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374], ["record_id", 980190962]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 30.3ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 35.5ms | GC: 0.0ms)
+Completed 200 OK in 40ms (Views: 35.4ms | ActiveRecord: 0.9ms (7 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------
+PageTest: test_sanitized_builder_html_removes_dangerous_tags_and_attributes
+---------------------------------------------------------------------------
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" WHERE "pages"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+PageTest: test_content_state_label_returns_draft_scheduled_and_live
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+PageTest: test_live_scope_includes_published_pages_without_a_publish_date
+-------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "undated-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Undated Page"], ["slug", "undated-page"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", nil], ["created_at", "2026-04-27 01:25:41.969839"], ["updated_at", "2026-04-27 01:25:41.969839"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "pages"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:41.975049"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+PageTest: test_live_scope_excludes_future_published_pages
+---------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "live-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Live Page"], ["slug", "live-page"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", "2026-04-27 00:25:41.976767"], ["created_at", "2026-04-27 01:25:41.977386"], ["updated_at", "2026-04-27 01:25:41.977386"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "future-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.2ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Future Page"], ["slug", "future-page"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", "2026-04-28 01:25:41.980986"], ["created_at", "2026-04-27 01:25:41.984202"], ["updated_at", "2026-04-27 01:25:41.984202"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "draft-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Page"], ["slug", "draft-page"], ["status", 0], ["summary", nil], ["layout_template", "standard"], ["published_at", nil], ["created_at", "2026-04-27 01:25:41.986539"], ["updated_at", "2026-04-27 01:25:41.986539"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "pages"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:41.988164"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPage Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "pages"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:41.988777"], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mPage Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "pages"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:41.991002"], ["id", 980190965], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+BookTest: test_cover_image_source_falls_back_to_cover_image_url
+---------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+BookTest: test_liked_by?_returns_true_for_an_associated_user_like
+-----------------------------------------------------------------
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."book_id" = ? AND "book_likes"."user_id" = ? LIMIT ?[0m  [["book_id", 980190962], ["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------------
+BookTest: test_liked_by?_returns_true_for_a_matching_visitor_token
+------------------------------------------------------------------
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."book_id" = ? AND "book_likes"."visitor_token" = ? LIMIT ?[0m  [["book_id", 298486374], ["visitor_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+BookTest: test_purchase_url_must_be_a_valid_http_url
+----------------------------------------------------
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------------------
+BookTest: test_liked_by?_returns_false_when_actor_has_not_liked_the_book
+------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."book_id" = ? AND "book_likes"."visitor_token" = ? LIMIT ?[0m  [["book_id", 980190962], ["visitor_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+BookTest: test_total_likes_returns_cached_likes_count
+-----------------------------------------------------
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------------------
+AdminUserManagementTest: test_admin_can_create_a_member_from_users_dashboard
+----------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/admin/users" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::UsersController#create as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "admin", "first_name", "last_name") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-04-27 01:25:42.028327"], ["updated_at", "2026-04-27 01:25:42.028327"], ["admin", 0], ["first_name", nil], ["last_name", nil]]
+  [1m[36mProfile Create (0.1ms)[0m  [1m[32mINSERT INTO "profiles" ("user_id", "bio", "website", "x_url", "facebook_url", "instagram_url", "threads_url", "bluesky_url", "youtube_url", "created_at", "updated_at", "avatar_url") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["user_id", 980190963], ["bio", nil], ["website", nil], ["x_url", nil], ["facebook_url", nil], ["instagram_url", nil], ["threads_url", nil], ["bluesky_url", nil], ["youtube_url", nil], ["created_at", "2026-04-27 01:25:42.034252"], ["updated_at", "2026-04-27 01:25:42.034252"], ["avatar_url", nil]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/users
+Completed 302 Found in 15ms (ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started GET "/admin/users" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."admin" = ? ORDER BY "users"."created_at" ASC[0m  [["admin", 0]]
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 5.0ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 8.4ms | ActiveRecord: 0.1ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------------------
+AdminContentStateTest: test_dashboard_and_content_lists_show_draft_scheduled_and_live_states
+--------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "draft-admin-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Admin Page"], ["slug", "draft-admin-page"], ["status", 0], ["summary", nil], ["layout_template", "standard"], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.061386"], ["updated_at", "2026-04-27 01:25:42.061386"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "scheduled-admin-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Scheduled Admin Page"], ["slug", "scheduled-admin-page"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", "2026-04-28 01:25:42.063622"], ["created_at", "2026-04-27 01:25:42.064235"], ["updated_at", "2026-04-27 01:25:42.064235"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "live-admin-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Live Admin Page"], ["slug", "live-admin-page"], ["status", 1], ["summary", nil], ["layout_template", "standard"], ["published_at", "2026-04-26 01:25:42.064829"], ["created_at", "2026-04-27 01:25:42.065549"], ["updated_at", "2026-04-27 01:25:42.065549"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "draft-admin-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Admin Post"], ["slug", "draft-admin-post"], ["status", 0], ["excerpt", nil], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.068543"], ["updated_at", "2026-04-27 01:25:42.068543"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "scheduled-admin-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Scheduled Admin Post"], ["slug", "scheduled-admin-post"], ["status", 1], ["excerpt", nil], ["published_at", "2026-04-28 01:25:42.071684"], ["created_at", "2026-04-27 01:25:42.075424"], ["updated_at", "2026-04-27 01:25:42.075424"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "live-admin-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Live Admin Post"], ["slug", "live-admin-post"], ["status", 1], ["excerpt", nil], ["published_at", "2026-04-26 01:25:42.076955"], ["created_at", "2026-04-27 01:25:42.078202"], ["updated_at", "2026-04-27 01:25:42.078202"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin/dashboard" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = ?[0m  [["admin", 0]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."admin" = ?[0m  [["admin", 1]]
+  [1m[36mBook Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  [1m[36mBook Sum (0.0ms)[0m  [1m[34mSELECT SUM("books"."likes_count") FROM "books"[0m
+  [1m[36mPage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages"[0m
+  [1m[36mPost Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts"[0m
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ?[0m  [["status", 0]]
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ? AND (published_at > ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:42.093093"]]
+  [1m[36mPage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pages" WHERE "pages"."status" = ? AND (published_at IS NULL OR published_at <= ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:42.096234"]]
+  [1m[36mPost Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ?[0m  [["status", 0]]
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ? AND (published_at > ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:42.097351"]]
+  [1m[36mPost Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?)[0m  [["status", 1], [nil, "2026-04-27 01:25:42.098406"]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "users" WHERE "users"."admin" = ? AND (created_at >= ?) GROUP BY DATE(created_at)[0m  [["admin", 0], [nil, "2026-04-13 01:25:42.099507"]]
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", DATE(created_at) AS "date_created_at" FROM "books" WHERE (created_at >= ?) GROUP BY DATE(created_at)[0m  [[nil, "2026-04-13 01:25:42.102653"]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/dashboard/index.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."likes_count" DESC, "books"."created_at" DESC LIMIT ?[0m  [["LIMIT", 10]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mProfile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT ?[0m  [["LIMIT", 10]]
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" ORDER BY "pages"."updated_at" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" ORDER BY "posts"."updated_at" DESC LIMIT ?[0m  [["LIMIT", 5]]
+  Rendered admin/dashboard/index.html.erb within layouts/application (Duration: 27.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 30.4ms | GC: 0.0ms)
+Completed 200 OK in 59ms (Views: 34.2ms | ActiveRecord: 1.4ms (23 queries, 0 cached) | GC: 0.0ms)
+Started GET "/admin/pages" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::PagesController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/pages/index.html.erb within layouts/application
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" ORDER BY "pages"."updated_at" DESC[0m
+  Rendered admin/pages/index.html.erb within layouts/application (Duration: 8.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 12.9ms | ActiveRecord: 0.1ms (3 queries, 1 cached) | GC: 0.0ms)
+Started GET "/admin/posts" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::PostsController#index as HTML
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/posts/index.html.erb within layouts/application
+  [1m[36mPostCategory Load (0.0ms)[0m  [1m[34mSELECT "post_categories".* FROM "post_categories" ORDER BY "post_categories"."name" ASC[0m
+  [1m[36mPostTag Load (0.0ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" ORDER BY "post_tags"."name" ASC[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" ORDER BY "posts"."updated_at" DESC[0m
+  [1m[36mPostCategory Load (0.1ms)[0m  [1m[34mSELECT "post_categories".* FROM "post_categories" WHERE "post_categories"."id" IN (?, ?)[0m  [["id", 1069603861], ["id", 500406608]]
+  [1m[36mPostTagging Load (0.1ms)[0m  [1m[34mSELECT "post_taggings".* FROM "post_taggings" WHERE "post_taggings"."post_id" IN (?, ?, ?, ?, ?)[0m  [["post_id", 980190965], ["post_id", 980190964], ["post_id", 980190963], ["post_id", 298486374], ["post_id", 980190962]]
+  [1m[36mPostTag Load (0.2ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."id" IN (?, ?, ?) ORDER BY "post_tags"."name" ASC[0m  [["id", 253574199], ["id", 968316918], ["id", 459292723]]
+  Rendered admin/posts/index.html.erb within layouts/application (Duration: 31.4ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 34.5ms | GC: 0.0ms)
+Completed 200 OK in 38ms (Views: 34.2ms | ActiveRecord: 0.6ms (8 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+BookLikeUiTest: test_guest_sees_liked_state_after_liking_a_book_from_home
+-------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/books/980190962/like" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by BookLikesController#create as HTML
+  Parameters: {"book_id" => "980190962"}
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBookLike Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["visitor_token", "[FILTERED]"], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Create (0.2ms)[0m  [1m[32mINSERT INTO "book_likes" ("book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["book_id", 980190962], ["user_id", nil], ["visitor_token", "[FILTERED]"], ["created_at", "2026-04-27 01:25:42.218012"], ["updated_at", "2026-04-27 01:25:42.218012"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBook Update All (0.0ms)[0m  [1m[33mUPDATE "books" SET "likes_count" = COALESCE("likes_count", 0) + ? WHERE "books"."id" = ?[0m  [["likes_count", 1], ["id", 980190962]]
+Redirected to http://www.example.com/
+Completed 302 Found in 15ms (ActiveRecord: 0.5ms (4 queries, 0 cached) | GC: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (?, ?)[0m  [["book_id", 298486374], ["book_id", 980190962]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374], ["record_id", 980190962]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 17.9ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.4ms | GC: 0.0ms)
+Completed 200 OK in 22ms (Views: 19.3ms | ActiveRecord: 0.5ms (7 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+BookLikeUiTest: test_profile_route_uses_first_and_last_name_slug
+----------------------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 21.7ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.5ms | GC: 0.0ms)
+Completed 200 OK in 55ms (Views: 23.9ms | ActiveRecord: 0.7ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------
+BookLikeUiTest: test_profile_page_shows_liked_state_for_current_guest_visitor
+-----------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/books/980190962/like" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by BookLikesController#create as HTML
+  Parameters: {"book_id" => "980190962"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBookLike Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["visitor_token", "[FILTERED]"], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Create (0.2ms)[0m  [1m[32mINSERT INTO "book_likes" ("book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["book_id", 980190962], ["user_id", nil], ["visitor_token", "[FILTERED]"], ["created_at", "2026-04-27 01:25:42.332339"], ["updated_at", "2026-04-27 01:25:42.332339"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBook Update All (0.1ms)[0m  [1m[33mUPDATE "books" SET "likes_count" = COALESCE("likes_count", 0) + ? WHERE "books"."id" = ?[0m  [["likes_count", 1], ["id", 980190962]]
+Redirected to http://www.example.com/
+Completed 302 Found in 5ms (ActiveRecord: 0.5ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered profiles/show.html.erb within layouts/application (Duration: 15.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.5ms | GC: 0.0ms)
+Completed 200 OK in 34ms (Views: 17.3ms | ActiveRecord: 0.6ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------------
+BookLikeUiTest: test_removing_an_existing_book_persists_across_profile_and_home_pages
+-------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#update as HTML
+  Parameters: {"profile" => {"books_attributes" => {"0" => {"id" => "980190962", "_destroy" => "1"}}}}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = ? AND "books"."id" = ?[0m  [["profile_id", 980190962], ["id", 980190962]]
+  [1m[36mBookLike Load (0.3ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = ?[0m  [["book_id", 980190962]]
+  [1m[36mBookLike Destroy (0.2ms)[0m  [1m[31mDELETE FROM "book_likes" WHERE "book_likes"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  [1m[36mBook Destroy (0.1ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profiles/ada-lovelace
+Completed 302 Found in 33ms (ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/profiles/ada-lovelace" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#show as HTML
+  Parameters: {"id" => "ada-lovelace"}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT DISTINCT "profiles"."id" FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) LIMIT ?[0m  [[nil, "ada-lovelace"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT "profiles"."id" AS t0_r0, "profiles"."user_id" AS t0_r1, "profiles"."bio" AS t0_r2, "profiles"."website" AS t0_r3, "profiles"."x_url" AS t0_r4, "profiles"."facebook_url" AS t0_r5, "profiles"."instagram_url" AS t0_r6, "profiles"."threads_url" AS t0_r7, "profiles"."bluesky_url" AS t0_r8, "profiles"."youtube_url" AS t0_r9, "profiles"."created_at" AS t0_r10, "profiles"."updated_at" AS t0_r11, "profiles"."avatar_url" AS t0_r12, "users"."id" AS t1_r0, "users"."email" AS t1_r1, "users"."encrypted_password" AS t1_r2, "users"."reset_password_token" AS t1_r3, "users"."reset_password_sent_at" AS t1_r4, "users"."remember_created_at" AS t1_r5, "users"."created_at" AS t1_r6, "users"."updated_at" AS t1_r7, "users"."admin" AS t1_r8, "users"."first_name" AS t1_r9, "users"."last_name" AS t1_r10, "books"."id" AS t2_r0, "books"."profile_id" AS t2_r1, "books"."title" AS t2_r2, "books"."purchase_url" AS t2_r3, "books"."likes_count" AS t2_r4, "books"."created_at" AS t2_r5, "books"."updated_at" AS t2_r6, "books"."cover_image_url" AS t2_r7, "books"."featured" AS t2_r8, "book_likes"."id" AS t3_r0, "book_likes"."book_id" AS t3_r1, "book_likes"."user_id" AS t3_r2, "book_likes"."visitor_token" AS t3_r3, "book_likes"."created_at" AS t3_r4, "book_likes"."updated_at" AS t3_r5 FROM "profiles" INNER JOIN "users" ON "users"."id" = "profiles"."user_id" LEFT OUTER JOIN "books" ON "books"."profile_id" = "profiles"."id" LEFT OUTER JOIN "book_likes" ON "book_likes"."book_id" = "books"."id" WHERE (LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?) AND "profiles"."id" = ?[0m  [[nil, "ada-lovelace"], ["id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/show.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  Rendered profiles/show.html.erb within layouts/application (Duration: 3.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.9ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 5.2ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.0ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" = ?[0m  [["book_id", 298486374]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ?[0m  [["id", 298486374]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ?[0m  [["id", 298486374]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_book_like_button.html.erb (Duration: 4.6ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 12.7ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Profile Load (0.0ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.8ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 16.8ms | ActiveRecord: 0.4ms (9 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------
+BookLikeUiTest: test_member_can_update_email_and_password_from_profile_edit
+---------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#update as HTML
+  Parameters: {"profile" => {"user_attributes" => {"id" => "980190962", "email" => "[FILTERED]", "password" => "[FILTERED]", "password_confirmation" => "[FILTERED]"}}}
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "email" = ?, "encrypted_password" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["updated_at", "2026-04-27 01:25:42.473460"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profiles/ada-lovelace
+Completed 302 Found in 20ms (ActiveRecord: 0.3ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProfile Load (0.7ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------
+BookLikeUiTest: test_signed_in_member_sees_liked_state_for_already_liked_book
+-----------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by HomeController#index as HTML
+  [1m[36mBook Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered shared/_share_buttons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mBook Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "books" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT ? OFFSET ?[0m  [["LIMIT", 8], ["OFFSET", 0]]
+  [1m[36mBookLike Load (0.1ms)[0m  [1m[34mSELECT "book_likes".* FROM "book_likes" WHERE "book_likes"."book_id" IN (?, ?)[0m  [["book_id", 298486374], ["book_id", 980190962]]
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 298486374], ["id", 980190962]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Book"], ["name", "cover_image"], ["record_id", 298486374], ["record_id", 980190962]]
+  Rendered shared/_book_like_button.html.erb (Duration: 1.1ms | GC: 0.7ms)
+  Rendered shared/_book_like_button.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 8.6ms | GC: 0.7ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.2ms | GC: 0.7ms)
+Completed 200 OK in 46ms (Views: 11.5ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 29.8ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------------------------
+BookLikeUiTest: test_signed_in_member_sees_current_media_previews_on_edit_profile
+---------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/my-profile" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by ProfilesController#edit as HTML
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."profile_id" = ?[0m  [["profile_id", 980190962]]
+  Rendering layout layouts/application.html.erb
+  Rendering profiles/edit.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Book"], ["name", "cover_image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190962], ["record_type", "Profile"], ["name", "avatar"], ["LIMIT", 1]]
+  Rendered profiles/edit.html.erb within layouts/application (Duration: 18.9ms | GC: 0.9ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.4ms | GC: 0.9ms)
+Completed 200 OK in 24ms (Views: 20.5ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 1.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+AdminPreviewsTest: test_non_admin_cannot_access_preview_routes
+--------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" WHERE "pages"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/admin/pages/welcome-page/preview" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::PagesController#preview as HTML
+  Parameters: {"id" => "welcome-page"}
+Redirected to http://www.example.com/
+Filter chain halted as :require_admin! rendered or redirected
+Completed 302 Found in 6ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+AdminPreviewsTest: test_admin_can_preview_a_draft_page
+------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "draft-preview-page"], ["LIMIT", 1]]
+  [1m[36mPage Create (0.1ms)[0m  [1m[32mINSERT INTO "pages" ("title", "slug", "status", "summary", "layout_template", "published_at", "created_at", "updated_at", "builder_json", "builder_html") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Preview Page"], ["slug", "draft-preview-page"], ["status", 0], ["summary", "Draft summary"], ["layout_template", "standard"], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.602215"], ["updated_at", "2026-04-27 01:25:42.602215"], ["builder_json", nil], ["builder_html", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin/pages/draft-preview-page/preview" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::PagesController#preview as HTML
+  Parameters: {"id" => "draft-preview-page"}
+  [1m[36mPage Load (0.1ms)[0m  [1m[34mSELECT "pages".* FROM "pages" WHERE "pages"."slug" = ? LIMIT ?[0m  [["slug", "draft-preview-page"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering pages/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190963], ["record_type", "Page"], ["name", "featured_image"], ["LIMIT", 1]]
+  [1m[36mActionText::RichText Load (0.1ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = ? AND "action_text_rich_texts"."record_type" = ? AND "action_text_rich_texts"."name" = ? LIMIT ?[0m  [["record_id", 980190963], ["record_type", "Page"], ["name", "body"], ["LIMIT", 1]]
+  [1m[36mPageBlock Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "page_blocks" WHERE "page_blocks"."page_id" = ? LIMIT ?[0m  [["page_id", 980190963], ["LIMIT", 1]]
+  Rendered pages/show.html.erb within layouts/application (Duration: 26.7ms | GC: 0.9ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.5ms | GC: 0.9ms)
+Completed 200 OK in 41ms (Views: 37.2ms | ActiveRecord: 0.3ms (5 queries, 0 cached) | GC: 0.9ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------
+AdminPreviewsTest: test_admin_can_preview_a_future_post
+-------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 298486374], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "future-preview-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Future Preview Post"], ["slug", "future-preview-post"], ["status", 1], ["excerpt", "Coming soon"], ["published_at", "2026-04-29 01:25:42.650374"], ["created_at", "2026-04-27 01:25:42.653718"], ["updated_at", "2026-04-27 01:25:42.653718"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin/posts/future-preview-post/preview" for 127.0.0.1 at 2026-04-27 01:25:42 +0000
+Processing by Admin::PostsController#preview as HTML
+  Parameters: {"id" => "future-preview-post"}
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "future-preview-post"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  [1m[36mPostTag Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_tags" INNER JOIN "post_taggings" ON "post_tags"."id" = "post_taggings"."post_tag_id" WHERE "post_taggings"."post_id" = ? LIMIT ?[0m  [["post_id", 980190963], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 980190963], ["record_type", "Post"], ["name", "featured_image"], ["LIMIT", 1]]
+  [1m[36mActionText::RichText Load (0.1ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = ? AND "action_text_rich_texts"."record_type" = ? AND "action_text_rich_texts"."name" = ? LIMIT ?[0m  [["record_id", 980190963], ["record_type", "Post"], ["name", "body"], ["LIMIT", 1]]
+  Rendered posts/show.html.erb within layouts/application (Duration: 16.2ms | GC: 0.6ms)
+  Rendered shared/_follow_icons.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."user_id" = ? LIMIT ?[0m  [["user_id", 298486374], ["LIMIT", 1]]
+  Rendered shared/_follow_icons.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 18.8ms | GC: 0.6ms)
+Completed 200 OK in 21ms (Views: 19.0ms | ActiveRecord: 0.4ms (5 queries, 0 cached) | GC: 0.6ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+ProfileTest: test_website_must_be_a_valid_http_url
+--------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+ProfileTest: test_avatar_url_must_be_a_valid_http_url
+-----------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------
+ProfileTest: test_social_links_returns_only_present_values
+----------------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+ProfileTest: test_social_links_must_be_valid_http_urls
+------------------------------------------------------
+  [1m[36mProfile Load (0.1ms)[0m  [1m[34mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+PostTest: test_category_name_creates_or_reuses_a_category
+---------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPostCategory Load (0.2ms)[0m  [1m[34mSELECT "post_categories".* FROM "post_categories" WHERE "post_categories"."slug" = ? LIMIT ?[0m  [["slug", "editorial"], ["LIMIT", 1]]
+  [1m[36mPost Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "categorized"], ["LIMIT", 1]]
+  [1m[36mPostCategory Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_categories" WHERE "post_categories"."name" = ? LIMIT ?[0m  [["name", "Editorial"], ["LIMIT", 1]]
+  [1m[36mPostCategory Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "post_categories" WHERE "post_categories"."slug" = ? LIMIT ?[0m  [["slug", "editorial"], ["LIMIT", 1]]
+  [1m[36mPostCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "post_categories" ("name", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Editorial"], ["slug", "editorial"], ["created_at", "2026-04-27 01:25:42.771376"], ["updated_at", "2026-04-27 01:25:42.771376"]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Categorized"], ["slug", "categorized"], ["status", 0], ["excerpt", nil], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.772903"], ["updated_at", "2026-04-27 01:25:42.772903"], ["post_category_id", 1069603862]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+PostTest: test_live_scope_includes_published_posts_without_a_publish_date
+-------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "undated-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Undated Post"], ["slug", "undated-post"], ["status", 1], ["excerpt", nil], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.779769"], ["updated_at", "2026-04-27 01:25:42.779769"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "posts"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:42.782527"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+PostTest: test_live_scope_excludes_future_published_posts
+---------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "live-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Live Post"], ["slug", "live-post"], ["status", 1], ["excerpt", nil], ["published_at", "2026-04-26 23:25:42.791386"], ["created_at", "2026-04-27 01:25:42.793961"], ["updated_at", "2026-04-27 01:25:42.793961"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "future-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Future Post"], ["slug", "future-post"], ["status", 1], ["excerpt", nil], ["published_at", "2026-04-29 01:25:42.795771"], ["created_at", "2026-04-27 01:25:42.796770"], ["updated_at", "2026-04-27 01:25:42.796770"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."slug" = ? LIMIT ?[0m  [["slug", "draft-post"], ["LIMIT", 1]]
+  [1m[36mPost Create (0.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "slug", "status", "excerpt", "published_at", "created_at", "updated_at", "post_category_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Draft Post"], ["slug", "draft-post"], ["status", 0], ["excerpt", nil], ["published_at", nil], ["created_at", "2026-04-27 01:25:42.798399"], ["updated_at", "2026-04-27 01:25:42.798399"], ["post_category_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPost Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "posts"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:42.799399"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPost Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "posts"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:42.800156"], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mPost Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."status" = ? AND (published_at IS NULL OR published_at <= ?) AND "posts"."id" = ? LIMIT ?[0m  [["status", 1], [nil, "2026-04-27 01:25:42.800656"], ["id", 980190965], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+PostTest: test_tag_list_syncs_comma_separated_tags
+--------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "launch"], ["LIMIT", 1]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "community"], ["LIMIT", 1]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "essays"], ["LIMIT", 1]]
+  [1m[36mPostTag Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_tags" WHERE "post_tags"."name" = ? LIMIT ?[0m  [["name", "Essays"], ["LIMIT", 1]]
+  [1m[36mPostTag Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_tags" WHERE "post_tags"."slug" = ? LIMIT ?[0m  [["slug", "essays"], ["LIMIT", 1]]
+  [1m[36mPostTag Create (0.1ms)[0m  [1m[32mINSERT INTO "post_tags" ("name", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Essays"], ["slug", "essays"], ["created_at", "2026-04-27 01:25:42.814222"], ["updated_at", "2026-04-27 01:25:42.814222"]]
+  [1m[36mPostTag Load (0.1ms)[0m  [1m[34mSELECT "post_tags".* FROM "post_tags" INNER JOIN "post_taggings" ON "post_tags"."id" = "post_taggings"."post_tag_id" WHERE "post_taggings"."post_id" = ? ORDER BY "post_tags"."name" ASC[0m  [["post_id", 980190962]]
+  [1m[36mPostTagging Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "post_taggings" WHERE "post_taggings"."post_tag_id" = ? AND "post_taggings"."post_id" = ? LIMIT ?[0m  [["post_tag_id", 968316919], ["post_id", 980190962], ["LIMIT", 1]]
+  [1m[36mPostTagging Create (0.1ms)[0m  [1m[32mINSERT INTO "post_taggings" ("post_id", "post_tag_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["post_id", 980190962], ["post_tag_id", 968316919], ["created_at", "2026-04-27 01:25:42.829072"], ["updated_at", "2026-04-27 01:25:42.829072"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPostTag Pluck (0.1ms)[0m  [1m[34mSELECT "post_tags"."name" FROM "post_tags" INNER JOIN "post_taggings" ON "post_tags"."id" = "post_taggings"."post_tag_id" WHERE "post_taggings"."post_id" = ? ORDER BY "post_tags"."name" ASC[0m  [["post_id", 980190962]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+PostTest: test_content_state_label_returns_draft_scheduled_and_live
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+BookLikeTest: test_requires_either_user_or_visitor_token
+--------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" IS NULL AND "book_likes"."book_id" = ? LIMIT ?[0m  [["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------------------
+BookLikeTest: test_increments_likes_count_after_create_for_visitor_likes
+------------------------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBookLike Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."visitor_token" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["visitor_token", "[FILTERED]"], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Create (0.1ms)[0m  [1m[32mINSERT INTO "book_likes" ("book_id", "user_id", "visitor_token", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["book_id", 980190962], ["user_id", nil], ["visitor_token", "[FILTERED]"], ["created_at", "2026-04-27 01:25:42.872272"], ["updated_at", "2026-04-27 01:25:42.872272"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBook Update All (0.1ms)[0m  [1m[33mUPDATE "books" SET "likes_count" = COALESCE("likes_count", 0) + ? WHERE "books"."id" = ?[0m  [["likes_count", 1], ["id", 980190962]]
+  [1m[36mBook Load (0.0ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+BookLikeTest: test_prevents_duplicate_user_likes_per_book
+---------------------------------------------------------
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mBookLike Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "book_likes" WHERE "book_likes"."user_id" = ? AND "book_likes"."book_id" = ? LIMIT ?[0m  [["user_id", 980190962], ["book_id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
