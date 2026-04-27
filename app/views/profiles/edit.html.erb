@@ -213,23 +213,21 @@
           </div>
 
           <div class="member-preview-media-block">
-            <h3>Book Cover</h3>
-            <% preview_book = @profile.books.find { |book| book.cover_image_source.present? } || @profile.books.first %>
-            <% if preview_book&.cover_image_source.present? %>
-              <%= image_tag preview_book.cover_image_source, alt: "Current book cover", class: "member-preview-book-cover" %>
+            <h3>Book Covers</h3>
+            <% if @profile.books.any? %>
+              <div class="member-preview-books-grid">
+                <% @profile.books.each do |book| %>
+                  <% if book.cover_image_source.present? %>
+                    <%= image_tag book.cover_image_source, alt: "#{book.title} cover preview", class: "member-preview-mini-cover" %>
+                  <% else %>
+                    <div class="member-preview-mini-placeholder">No cover</div>
+                  <% end %>
+                <% end %>
+              </div>
             <% else %>
               <div class="member-preview-placeholder member-preview-placeholder-book">No book cover yet</div>
             <% end %>
           </div>
-        </section>
-
-        <section class="panel member-preview-card">
-          <h2>Publishing Tips</h2>
-          <ul class="member-tip-list">
-            <li>Keep your author name consistent with your book cover and social links.</li>
-            <li>Use a clean, readable cover image so it still works at smaller sizes.</li>
-            <li>Add your newest or best-selling books first so readers see them immediately.</li>
-          </ul>
         </section>
       </aside>
     </div>
