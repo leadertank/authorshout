@@ -19,8 +19,11 @@
       <ul class="link-list">
         <% @members.each do |member| %>
           <li>
-            <%= member.email %>
-            <span>Joined <%= member.created_at.to_date %></span>
+            <div>
+              <%= member.email %>
+              <span>Joined <%= member.created_at.to_date %></span>
+            </div>
+            <%= link_to "Login as user", masquerade_path(member), class: "button" %>
           </li>
         <% end %>
       </ul>

@@ -13696,3 +13696,17 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 33ms (Views: 17.9ms | ActiveRecord: 0.7ms (9 queries, 0 cached) | GC: 1.1ms)
 
 
+Started GET "/" for 97.101.154.121 at 2026-04-27 00:39:43 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+  
+NameError (uninitialized constant Devise::Models::Masqueradable):
+  
+app/models/user.rb:6:in '<class:User>'
+app/models/user.rb:1:in '<main>'
+config/routes.rb:2:in 'block in <main>'
+config/routes.rb:1:in '<main>'
+Started GET "/favicon.ico" for 97.101.154.121 at 2026-04-27 00:39:44 +0000
+Cannot render console from 97.101.154.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1, ::ffff:127.0.0.0/::ffff:127.255.255.255
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  

@@ -48,6 +48,10 @@
           <nav class="site-nav" data-main-nav>
             <%= link_to "Home", root_path %>
             <% if user_signed_in? %>
+              <% if user_masquerade? %>
+                <span>Impersonating <%= current_user.email %></span>
+                <%= link_to "Return to Admin", back_masquerade_path(current_user), class: "button" %>
+              <% end %>
               <%= link_to "My Profile", profile_path(current_user.profile) %>
               <%= link_to "Edit Profile", edit_my_profile_path %>
               <% if current_user.admin? %>

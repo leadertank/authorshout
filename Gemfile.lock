@@ -108,6 +108,10 @@ GEM
       railties (>= 7.0)
       responders
       warden (~> 1.2.3)
+    devise_masquerade (2.1.4)
+      devise (>= 4.7.0)
+      globalid (>= 0.3.6)
+      railties (>= 5.2.0)
     dotenv (3.2.0)
     drb (2.2.3)
     ed25519 (1.4.0)
@@ -396,6 +400,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  devise_masquerade
   image_processing (~> 1.12)
   importmap-rails
   jbuilder
