@@ -34,6 +34,22 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "profile route resolves slug for member with partial name" do
+    user = User.create!(
+      email: "support-only@example.com",
+      password: "Password123!",
+      password_confirmation: "Password123!",
+      first_name: "Support",
+      last_name: nil,
+      human_verification: "1"
+    )
+
+    assert_equal "/profiles/support", profile_path(user.profile)
+
+    get "/profiles/support"
+    assert_response :success
+  end
+
   test "removing an existing book persists across profile and home pages" do
     sign_in users(:one)
 

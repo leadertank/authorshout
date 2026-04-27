@@ -29,10 +29,7 @@ class ProfilesController < ApplicationController
     @profile = scope.find_by(id: requested)
     if @profile.blank?
       slug = requested.parameterize
-      @profile = scope.joins(:user).find_by(
-        "LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?",
-        slug
-      )
+      @profile = scope.detect { |profile| profile.to_param == slug }
     end
 
     raise ActiveRecord::RecordNotFound if @profile.blank?
