@@ -23,7 +23,19 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
-    @profile = Profile.includes(:user, books: :book_likes).find(params[:id])
+    requested = params[:id].to_s
+    scope = Profile.includes(:user, books: :book_likes)
+
+    @profile = scope.find_by(id: requested)
+    if @profile.blank?
+      slug = requested.parameterize
+      @profile = scope.joins(:user).find_by(
+        "LOWER(REPLACE(COALESCE(users.first_name, '') || '-' || COALESCE(users.last_name, ''), ' ', '-')) = ?",
+        slug
+      )
+    end
+
+    raise ActiveRecord::RecordNotFound if @profile.blank?
   end
 
   def profile_params

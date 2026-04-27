@@ -20,7 +20,6 @@
   <div class="profile-sections">
     <div class="profile-top-grid">
       <article class="panel panel-avatar">
-      <h2>Profile Picture</h2>
       <% if @profile.avatar_image_source.present? %>
         <%= image_tag @profile.avatar_image_source, alt: "#{@profile.user.display_name} profile picture", class: "avatar-image" %>
       <% else %>
@@ -29,7 +28,7 @@
       </article>
 
       <article class="panel panel-bio">
-        <h2>Bio</h2>
+        <h2>Author's Bio</h2>
         <p><%= @profile.bio.presence || "This member has not added a bio yet." %></p>
       </article>
     </div>

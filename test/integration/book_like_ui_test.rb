@@ -27,6 +27,13 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_match "Liked (2)", response.body
   end
 
+  test "profile route uses first and last name slug" do
+    assert_equal "/profiles/ada-lovelace", profile_path(profiles(:one))
+
+    get "/profiles/ada-lovelace"
+    assert_response :success
+  end
+
   test "signed in member sees current media previews on edit profile" do
     sign_in users(:one)
 

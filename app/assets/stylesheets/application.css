@@ -574,10 +574,15 @@ body.page-builder-mode .unlayer-builder {
 	width: 100%;
 }
 
+.panel-avatar {
+	display: grid;
+	place-items: center;
+}
+
 .avatar-image,
 .avatar-placeholder {
 	width: 100%;
-	max-width: 180px;
+	max-width: 220px;
 	aspect-ratio: 1 / 1;
 	border-radius: 12px;
 	border: 1px solid var(--line);

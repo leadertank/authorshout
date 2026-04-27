@@ -38,6 +38,13 @@ class Profile < ApplicationRecord
     }.select { |_, value| value.present? }
   end
 
+  def to_param
+    name_slug = [ user.first_name, user.last_name ].join("-").parameterize
+    return name_slug if name_slug.present?
+
+    user.display_name.to_s.parameterize.presence || id.to_s
+  end
+
   private
 
   def public_urls_must_be_valid
