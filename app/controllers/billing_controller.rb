@@ -36,7 +36,7 @@ class BillingController < ApplicationController
       client_reference_id: Pay::Stripe.to_client_reference_id(current_user)
     )
 
-    render_external_redirect(checkout_session.url, "Stripe Checkout")
+    redirect_to checkout_session.url, allow_other_host: true, status: :see_other
   rescue StandardError => e
     redirect_to billing_path, alert: "Unable to start checkout: #{e.message}"
   end
@@ -51,7 +51,7 @@ class BillingController < ApplicationController
 
     current_user.set_payment_processor(:stripe)
     portal_session = current_user.payment_processor.billing_portal(return_url: billing_url)
-    render_external_redirect(portal_session.url, "Stripe Billing Portal")
+    redirect_to portal_session.url, allow_other_host: true, status: :see_other
   rescue StandardError => e
     redirect_to billing_path, alert: "Unable to open billing portal: #{e.message}"
   end
@@ -82,15 +82,5 @@ class BillingController < ApplicationController
 
     ENV["STRIPE_SECRET_KEY"] ||= stripe_secret_key
     Stripe.api_key = stripe_secret_key
-  end
-
-  def render_external_redirect(url, destination_label)
-    if request.format.html?
-      @external_redirect_url = url
-      @external_destination_label = destination_label
-      render :external_redirect
-    else
-      redirect_to url, allow_other_host: true, status: :see_other
-    end
   end
 end

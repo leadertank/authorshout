@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   patch "my-profile", to: "profiles#update", as: :my_profile
 
   resource :billing, only: [ :show ], controller: :billing do
+    get :checkout
+    get :portal
     post :checkout
     post :portal
   end
