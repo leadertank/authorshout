@@ -9,6 +9,12 @@ class BillingController < ApplicationController
   def checkout
     price_id = paid_price_id.to_s
     if price_id.blank?
+      if user_masquerade? && current_user.present? && !current_user.admin?
+        current_user.update!(manual_paid: true)
+        redirect_to billing_path, notice: "Stripe checkout is not configured yet. Applied PAID access for impersonation testing."
+        return
+      end
+
       redirect_to billing_path, alert: "Paid plan is not configured yet. Add STRIPE_PAID_PRICE_ID (or credentials stripe.paid_price_id)."
       return
     end

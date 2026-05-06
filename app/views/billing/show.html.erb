@@ -18,7 +18,13 @@
           <%= button_to "Upgrade to PAID", checkout_billing_path, method: :post, class: "button" %>
         </div>
       <% else %>
-        <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_PAID_PRICE_ID.</p>
+        <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_PAID_PRICE_ID (or credentials stripe.paid_price_id).</p>
+        <% if user_masquerade? %>
+          <p class="form-help">Impersonation testing is enabled: the upgrade action will grant PAID access without Stripe checkout.</p>
+          <div class="member-form-actions">
+            <%= button_to "Simulate Upgrade (Impersonation)", checkout_billing_path, method: :post, class: "button" %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </section>
