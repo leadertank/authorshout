@@ -6,4 +6,9 @@ Pay.setup do |config|
   config.enabled_processors = [ :stripe ]
 end
 
-Stripe.api_key = ENV["STRIPE_SECRET_KEY"].presence || Rails.application.credentials.dig(:stripe, :secret_key).presence
+resolved_stripe_secret = ENV["STRIPE_SECRET_KEY"].presence ||
+  Rails.application.credentials.dig(:stripe, :secret_key).presence ||
+  Rails.application.credentials[:secret_key].presence
+
+ENV["STRIPE_SECRET_KEY"] ||= resolved_stripe_secret if resolved_stripe_secret.present?
+Stripe.api_key = resolved_stripe_secret

@@ -13,6 +13,8 @@ class BillingController < ApplicationController
       return
     end
 
+    ensure_stripe_api_key!
+
     price_id = paid_price_id.to_s
     if price_id.blank?
       if user_masquerade? && current_user.present? && !current_user.admin?
@@ -45,6 +47,8 @@ class BillingController < ApplicationController
       return
     end
 
+    ensure_stripe_api_key!
+
     current_user.set_payment_processor(:stripe)
     portal_session = current_user.payment_processor.billing_portal(return_url: billing_url)
     redirect_to portal_session.url, allow_other_host: true
@@ -55,14 +59,28 @@ class BillingController < ApplicationController
   private
 
   def paid_price_id
-    ENV["STRIPE_PAID_PRICE_ID"].presence || Rails.application.credentials.dig(:stripe, :paid_price_id).presence
+    ENV["STRIPE_PAID_PRICE_ID"].presence ||
+      Rails.application.credentials.dig(:stripe, :paid_price_id).presence ||
+      Rails.application.credentials[:paid_price_id].presence
   end
 
   def paid_price_display
-    ENV["STRIPE_PAID_PRICE_DISPLAY"].presence || Rails.application.credentials.dig(:stripe, :paid_price_display).presence || "$7.00"
+    ENV["STRIPE_PAID_PRICE_DISPLAY"].presence ||
+      Rails.application.credentials.dig(:stripe, :paid_price_display).presence ||
+      Rails.application.credentials[:paid_price_display].presence ||
+      "$7.00"
   end
 
   def stripe_secret_key
-    ENV["STRIPE_SECRET_KEY"].presence || Rails.application.credentials.dig(:stripe, :secret_key).presence
+    ENV["STRIPE_SECRET_KEY"].presence ||
+      Rails.application.credentials.dig(:stripe, :secret_key).presence ||
+      Rails.application.credentials[:secret_key].presence
+  end
+
+  def ensure_stripe_api_key!
+    return if stripe_secret_key.blank?
+
+    ENV["STRIPE_SECRET_KEY"] ||= stripe_secret_key
+    Stripe.api_key = stripe_secret_key
   end
 end
