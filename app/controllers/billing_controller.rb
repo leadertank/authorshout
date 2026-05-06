@@ -2,14 +2,14 @@ class BillingController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @paid_price_display = ENV.fetch("STRIPE_PAID_PRICE_DISPLAY", "$7.00")
-    @paid_price_id_configured = ENV["STRIPE_PAID_PRICE_ID"].present?
+    @paid_price_display = paid_price_display
+    @paid_price_id_configured = paid_price_id.present?
   end
 
   def checkout
-    price_id = ENV["STRIPE_PAID_PRICE_ID"].to_s
+    price_id = paid_price_id.to_s
     if price_id.blank?
-      redirect_to billing_path, alert: "Paid plan is not configured yet. Add STRIPE_PAID_PRICE_ID first."
+      redirect_to billing_path, alert: "Paid plan is not configured yet. Add STRIPE_PAID_PRICE_ID (or credentials stripe.paid_price_id)."
       return
     end
 
@@ -33,5 +33,15 @@ class BillingController < ApplicationController
     redirect_to portal_session.url, allow_other_host: true
   rescue StandardError => e
     redirect_to billing_path, alert: "Unable to open billing portal: #{e.message}"
+  end
+
+  private
+
+  def paid_price_id
+    ENV["STRIPE_PAID_PRICE_ID"].presence || Rails.application.credentials.dig(:stripe, :paid_price_id).presence
+  end
+
+  def paid_price_display
+    ENV["STRIPE_PAID_PRICE_DISPLAY"].presence || Rails.application.credentials.dig(:stripe, :paid_price_display).presence || "$7.00"
   end
 end

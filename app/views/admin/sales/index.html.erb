@@ -1,6 +1,10 @@
 <section class="admin-shell">
   <h1>Sales Dashboard</h1>
 
+  <% unless @paid_price_id_configured %>
+    <p class="flash flash-alert">Paid checkout is not configured. Set STRIPE_PAID_PRICE_ID or credentials stripe.paid_price_id.</p>
+  <% end %>
+
   <div class="stats-grid">
     <article class="panel stat-card">
       <h2>Total Signups</h2>

@@ -8,6 +8,7 @@ module Admin
       @paid_members = @members.select(&:paid_member?).count
       @free_members = @total_signups - @paid_members
       @total_revenue_cents = Pay::Charge.where("amount > 0").sum(:amount)
+      @paid_price_id_configured = paid_price_id.present?
 
       load_stripe_catalog
     end
@@ -81,11 +82,11 @@ module Admin
     end
 
     def require_stripe_configuration!
-      raise "STRIPE_PRIVATE_KEY is missing" if ENV["STRIPE_PRIVATE_KEY"].blank?
+      raise "Stripe private key is missing" if stripe_private_key.blank?
     end
 
     def load_stripe_catalog
-      return @stripe_products = [] if ENV["STRIPE_PRIVATE_KEY"].blank?
+      return @stripe_products = [] if stripe_private_key.blank?
 
       products = Stripe::Product.list(limit: 100).data
       @stripe_products = products.map do |product|
@@ -98,6 +99,14 @@ module Admin
     rescue StandardError
       @stripe_products = []
       flash.now[:alert] = "Could not load Stripe catalog. Check Stripe credentials."
+    end
+
+    def stripe_private_key
+      ENV["STRIPE_PRIVATE_KEY"].presence || Rails.application.credentials.dig(:stripe, :private_key).presence
+    end
+
+    def paid_price_id
+      ENV["STRIPE_PAID_PRICE_ID"].presence || Rails.application.credentials.dig(:stripe, :paid_price_id).presence
     end
   end
 end
