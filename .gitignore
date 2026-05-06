@@ -7,3 +7,6 @@
 !/storage/.keep
 /node_modules/
 /vendor/bundle/
+
+/config/credentials/development.key
+/config/credentials/development.yml.enc
