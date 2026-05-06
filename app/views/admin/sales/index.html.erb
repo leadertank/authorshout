@@ -1,0 +1,115 @@
+<section class="admin-shell">
+  <h1>Sales Dashboard</h1>
+
+  <div class="stats-grid">
+    <article class="panel stat-card">
+      <h2>Total Signups</h2>
+      <p class="stat"><%= @total_signups %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Paid Members</h2>
+      <p class="stat"><%= @paid_members %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Free Members</h2>
+      <p class="stat"><%= @free_members %></p>
+    </article>
+    <article class="panel stat-card">
+      <h2>Total Revenue</h2>
+      <p class="stat"><%= number_to_currency(@total_revenue_cents.to_i / 100.0) %></p>
+    </article>
+  </div>
+
+  <section class="panel">
+    <h2>Members & Plan Overrides</h2>
+    <p class="form-help">Manual override forces paid access even without an active Stripe subscription.</p>
+
+    <ul class="link-list">
+      <% @members.each do |member| %>
+        <li>
+          <div>
+            <strong><%= member.display_name %></strong>
+            <span><%= member.email %> • Joined <%= member.created_at.to_date %> • Plan <%= member.plan_label %></span>
+          </div>
+
+          <%= form_with url: admin_sales_member_path(member), method: :patch, class: "inline-form" do |f| %>
+            <%= hidden_field_tag :manual_paid, (!member.manual_paid?).to_s %>
+            <%= f.submit(member.manual_paid? ? "Set FREE" : "Set PAID", class: "button button-outline") %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Create Product in Stripe</h2>
+    <%= form_with scope: :product, url: admin_sales_products_path, class: "form-stack" do |f| %>
+      <div class="cms-grid-two">
+        <div>
+          <%= f.label :name, "Product name" %>
+          <%= f.text_field :name, required: true %>
+        </div>
+
+        <div>
+          <%= f.label :price, "Monthly price (USD)" %>
+          <%= f.number_field :price, step: "0.01", min: 0, required: true %>
+        </div>
+      </div>
+
+      <div class="cms-grid-two">
+        <div>
+          <%= f.label :description, "Description" %>
+          <%= f.text_field :description %>
+        </div>
+
+        <div>
+          <%= f.label :interval, "Billing interval" %>
+          <%= f.select :interval, options_for_select([["Month", "month"], ["Year", "year"]], "month") %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.submit "Create Stripe Product", class: "button" %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="panel">
+    <h2>Stripe Catalog</h2>
+    <% if @stripe_products.any? %>
+      <ul class="link-list">
+        <% @stripe_products.each do |entry| %>
+          <% product = entry[:product] %>
+          <% prices = entry[:prices] %>
+          <li>
+            <div>
+              <strong><%= product.name %></strong>
+              <span>ID: <%= product.id %></span>
+              <% if prices.any? %>
+                <% prices.each do |price| %>
+                  <span>
+                    Active Price: <%= price.id %>
+                    (<%= number_to_currency(price.unit_amount.to_i / 100.0) %>/<%= price.recurring&.interval || "one-time" %>)
+                  </span>
+                <% end %>
+              <% else %>
+                <span>No active prices</span>
+              <% end %>
+            </div>
+
+            <%= form_with scope: :product, url: admin_sales_product_path(product.id), method: :patch, class: "inline-form" do |f| %>
+              <%= f.hidden_field :name, value: product.name %>
+              <%= f.hidden_field :description, value: product.description %>
+              <%= f.hidden_field :active, value: product.active %>
+              <%= f.hidden_field :interval, value: "month" %>
+              <%= f.number_field :price, step: "0.01", min: 0, placeholder: "New monthly price" %>
+              <%= f.submit "Create New Price", class: "button button-outline" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="form-help">No Stripe products found or Stripe is not configured.</p>
+    <% end %>
+  </section>
+</section>

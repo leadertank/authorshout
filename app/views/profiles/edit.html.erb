@@ -1,6 +1,6 @@
 <section class="form-shell">
   <h1>Edit Member Profile</h1>
-  <p>Basic/free tier includes one profile with support for multiple books.</p>
+  <p>FREE members can add 1 book. PAID members can add unlimited books.</p>
 
   <%= form_with model: @profile, url: my_profile_path, class: "form-stack member-profile-form", data: { controller: "additional-books" } do |f| %>
     <% if @profile.errors.any? %>
@@ -80,8 +80,22 @@
         <section class="member-form-section panel">
           <div class="member-form-section-head">
             <h2>Books From This Author</h2>
-            <p>Add unlimited books to showcase your catalog. They appear in a 3-column grid on your profile.</p>
+            <% if current_user.paid_member? %>
+              <p>PAID plan active. Add unlimited books to showcase your full catalog.</p>
+            <% else %>
+              <p>FREE plan includes 1 book. Upgrade to PAID for unlimited books.</p>
+            <% end %>
           </div>
+
+          <% if @book_limit.present? %>
+            <p class="form-help">
+              Current plan limit: <strong><%= @book_limit %> book</strong>.
+              <% if @book_limit_reached %>
+                You have reached your limit.
+                <%= link_to "Upgrade to PAID", billing_path, class: "text-link" %>
+              <% end %>
+            </p>
+          <% end %>
 
           <div id="additional-books-container" data-additional-books-target="container">
             <% @profile.books.each_with_index do |book, index| %>
@@ -128,7 +142,13 @@
             <% end %>
           </div>
 
-          <button type="button" id="add-book-btn" class="button button-outline" data-additional-books-target="addBtn" data-action="click->additional-books#addBook">+ Add Another Book</button>
+          <% if @book_limit_reached %>
+            <div class="book-entry-actions">
+              <%= link_to "Upgrade to Add Unlimited Books", billing_path, class: "button" %>
+            </div>
+          <% else %>
+            <button type="button" id="add-book-btn" class="button button-outline" data-additional-books-target="addBtn" data-action="click->additional-books#addBook">+ Add Another Book</button>
+          <% end %>
           
           <template id="book-template" data-additional-books-target="template">
             <%= f.fields_for :books, Book.new, child_index: "NEW_RECORD" do |book_fields| %>

@@ -214,6 +214,8 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
+    pay (11.6.1)
+      rails (>= 7.0.0)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -405,6 +407,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  pay (~> 11.6)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)

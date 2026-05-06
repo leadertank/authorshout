@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :book_likes, dependent: :destroy
 
+  pay_customer default_payment_processor: :stripe
+
   validates :human_verification, acceptance: {
     accept: "1",
     message: "must be checked before creating an account"
@@ -24,6 +26,25 @@ class User < ApplicationRecord
 
   def full_name
     [ first_name, last_name ].join(" ").squish
+  end
+
+  def paid_member?
+    return true if admin?
+    return true if manual_paid?
+
+    pay_subscriptions.active.where(name: "authorshout-pro").exists?
+  end
+
+  def free_member?
+    !paid_member?
+  end
+
+  def book_limit
+    paid_member? ? nil : 1
+  end
+
+  def plan_label
+    paid_member? ? "PAID" : "FREE"
   end
 
   private

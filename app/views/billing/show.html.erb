@@ -1,0 +1,25 @@
+<section class="form-shell">
+  <h1>Billing & Membership</h1>
+
+  <section class="panel">
+    <h2>Current Plan: <%= current_user.plan_label %></h2>
+
+    <% if current_user.paid_member? %>
+      <p>You have unlimited books and full member profile editing.</p>
+      <div class="member-form-actions">
+        <%= button_to "Manage Subscription", portal_billing_path, method: :post, class: "button" %>
+      </div>
+    <% else %>
+      <p>You are currently on FREE and can publish up to 1 book.</p>
+      <p>Upgrade to PAID (<%= @paid_price_display %>/month) for unlimited books.</p>
+
+      <% if @paid_price_id_configured %>
+        <div class="member-form-actions">
+          <%= button_to "Upgrade to PAID", checkout_billing_path, method: :post, class: "button" %>
+        </div>
+      <% else %>
+        <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_PAID_PRICE_ID.</p>
+      <% end %>
+    <% end %>
+  </section>
+</section>

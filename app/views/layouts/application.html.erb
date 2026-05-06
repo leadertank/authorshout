@@ -54,8 +54,10 @@
               <% end %>
               <%= link_to "My Profile", profile_path(current_user.profile) %>
               <%= link_to "Edit Profile", edit_my_profile_path %>
+              <%= link_to "Billing", billing_path %>
               <% if current_user.admin? %>
                 <%= link_to "Admin Dashboard", admin_dashboard_path %>
+                <%= link_to "Sales", admin_sales_path %>
                 <%= link_to "Pages CMS", admin_pages_path %>
                 <%= link_to "Posts CMS", admin_posts_path %>
                 <%= link_to "Users", admin_users_path %>

@@ -19,6 +19,7 @@ class Profile < ApplicationRecord
 
   validates :bio, length: { maximum: 1200 }
   validate :public_urls_must_be_valid
+  validate :book_limit_for_plan
 
   def avatar_image_source
     return avatar if avatar.attached?
@@ -59,5 +60,14 @@ class Profile < ApplicationRecord
     rescue URI::InvalidURIError, TypeError
       errors.add(field, "must be a valid URL")
     end
+  end
+
+  def book_limit_for_plan
+    return if user.blank? || user.paid_member?
+
+    remaining_books = books.reject(&:marked_for_destruction?)
+    return if remaining_books.size <= 1
+
+    errors.add(:books, "Free plan allows 1 book. Upgrade to PAID for unlimited books.")
   end
 end

@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
   def edit
     @profile = current_user.profile
     @profile.books.build if @profile.books.blank?
+    set_plan_state
   end
 
   def update
@@ -16,6 +17,7 @@ class ProfilesController < ApplicationController
       redirect_to profile_path(@profile), notice: "Profile saved successfully."
     else
       @profile.books.build if @profile.books.blank?
+      set_plan_state
       render :edit, status: :unprocessable_entity
     end
   end
@@ -50,5 +52,10 @@ class ProfilesController < ApplicationController
       user_attributes: [ :id, :first_name, :last_name, :email, :password, :password_confirmation ],
       books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :_destroy ]
     )
+  end
+
+  def set_plan_state
+    @book_limit = current_user.book_limit
+    @book_limit_reached = @book_limit.present? && @profile.books.reject(&:marked_for_destruction?).size >= @book_limit
   end
 end

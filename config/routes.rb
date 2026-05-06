@@ -6,10 +6,19 @@ Rails.application.routes.draw do
   get "my-profile", to: "profiles#edit", as: :edit_my_profile
   patch "my-profile", to: "profiles#update", as: :my_profile
 
+  resource :billing, only: [ :show ], controller: :billing do
+    post :checkout
+    post :portal
+  end
+
   post "books/:book_id/like", to: "book_likes#create", as: :book_like
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"
+    get "sales", to: "sales#index"
+    patch "sales/members/:id", to: "sales#update_member", as: :sales_member
+    post "sales/products", to: "sales#create_product", as: :sales_products
+    patch "sales/products/:id", to: "sales#update_product", as: :sales_product
     resources :users, only: [ :index, :create ]
     resources :pages do
       member do

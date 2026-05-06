@@ -112,4 +112,24 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_equal "ada.updated@example.com", users(:one).email
     assert users(:one).valid_password?("NewPassword123!")
   end
+
+  test "free member cannot add more than one book" do
+    sign_in users(:one)
+
+    patch my_profile_path, params: {
+      profile: {
+        books_attributes: {
+          "0" => {
+            title: "Second Book",
+            purchase_url: "https://bookshop.example.com/second-book"
+          }
+        }
+      }
+    }
+
+    assert_response :unprocessable_entity
+    assert_match "Free plan allows 1 book", response.body
+    assert_match "Upgrade to PAID", response.body
+    assert_equal 1, profiles(:one).books.count
+  end
 end
