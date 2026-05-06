@@ -6,19 +6,23 @@
 
     <% if current_user.paid_member? %>
       <p>You have unlimited books and full member profile editing.</p>
-      <div class="member-form-actions">
-        <%= button_to "Manage Subscription", portal_billing_path, method: :post, class: "button" %>
-      </div>
+      <% if @stripe_secret_configured %>
+        <div class="member-form-actions">
+          <%= button_to "Manage Subscription", portal_billing_path, method: :post, class: "button" %>
+        </div>
+      <% else %>
+        <p class="form-help">Billing portal is not configured yet. Ask admin to set STRIPE_SECRET_KEY (or credentials stripe.secret_key).</p>
+      <% end %>
     <% else %>
       <p>You are currently on FREE and can publish up to 1 book.</p>
       <p>Upgrade to PAID (<%= @paid_price_display %>/month) for unlimited books.</p>
 
-      <% if @paid_price_id_configured %>
+      <% if @paid_price_id_configured && @stripe_secret_configured %>
         <div class="member-form-actions">
           <%= button_to "Upgrade to PAID", checkout_billing_path, method: :post, class: "button" %>
         </div>
       <% else %>
-        <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_PAID_PRICE_ID (or credentials stripe.paid_price_id).</p>
+        <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_SECRET_KEY and STRIPE_PAID_PRICE_ID (or credentials stripe.secret_key and stripe.paid_price_id).</p>
         <% if user_masquerade? %>
           <p class="form-help">Impersonation testing is enabled: the upgrade action will grant PAID access without Stripe checkout.</p>
           <div class="member-form-actions">

@@ -4,9 +4,15 @@ class BillingController < ApplicationController
   def show
     @paid_price_display = paid_price_display
     @paid_price_id_configured = paid_price_id.present?
+    @stripe_secret_configured = stripe_secret_key.present?
   end
 
   def checkout
+    unless stripe_secret_key.present?
+      redirect_to billing_path, alert: "Stripe is not configured yet. Add STRIPE_SECRET_KEY (or credentials stripe.secret_key)."
+      return
+    end
+
     price_id = paid_price_id.to_s
     if price_id.blank?
       if user_masquerade? && current_user.present? && !current_user.admin?
@@ -34,6 +40,11 @@ class BillingController < ApplicationController
   end
 
   def portal
+    unless stripe_secret_key.present?
+      redirect_to billing_path, alert: "Billing portal is not configured yet. Add STRIPE_SECRET_KEY (or credentials stripe.secret_key)."
+      return
+    end
+
     current_user.set_payment_processor(:stripe)
     portal_session = current_user.payment_processor.billing_portal(return_url: billing_url)
     redirect_to portal_session.url, allow_other_host: true
@@ -49,5 +60,9 @@ class BillingController < ApplicationController
 
   def paid_price_display
     ENV["STRIPE_PAID_PRICE_DISPLAY"].presence || Rails.application.credentials.dig(:stripe, :paid_price_display).presence || "$7.00"
+  end
+
+  def stripe_secret_key
+    ENV["STRIPE_SECRET_KEY"].presence || Rails.application.credentials.dig(:stripe, :secret_key).presence
   end
 end
