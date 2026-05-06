@@ -36,7 +36,7 @@ class BillingController < ApplicationController
       client_reference_id: Pay::Stripe.to_client_reference_id(current_user)
     )
 
-    redirect_to checkout_session.url, allow_other_host: true
+    redirect_to checkout_session.url, allow_other_host: true, status: :see_other
   rescue StandardError => e
     redirect_to billing_path, alert: "Unable to start checkout: #{e.message}"
   end
@@ -51,7 +51,7 @@ class BillingController < ApplicationController
 
     current_user.set_payment_processor(:stripe)
     portal_session = current_user.payment_processor.billing_portal(return_url: billing_url)
-    redirect_to portal_session.url, allow_other_host: true
+    redirect_to portal_session.url, allow_other_host: true, status: :see_other
   rescue StandardError => e
     redirect_to billing_path, alert: "Unable to open billing portal: #{e.message}"
   end
