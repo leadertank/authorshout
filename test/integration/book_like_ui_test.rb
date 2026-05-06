@@ -89,6 +89,7 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_match "Current Profile Preview", response.body
     assert_match "No profile image yet", response.body
     assert_match "Book Covers", response.body
+    assert_match(/Save Books (&|&amp;) Profile/, response.body)
     assert_match "View Public Profile", response.body
   end
 

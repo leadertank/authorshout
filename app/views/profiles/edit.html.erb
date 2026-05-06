@@ -149,6 +149,10 @@
           <% else %>
             <button type="button" id="add-book-btn" class="button button-outline" data-additional-books-target="addBtn" data-action="click->additional-books#addBook">+ Add Another Book</button>
           <% end %>
+
+          <div class="book-entry-actions">
+            <%= f.submit "Save Books & Profile", class: "button" %>
+          </div>
           
           <template id="book-template" data-additional-books-target="template">
             <%= f.fields_for :books, Book.new, child_index: "NEW_RECORD" do |book_fields| %>
