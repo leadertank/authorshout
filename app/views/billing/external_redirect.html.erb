@@ -1,0 +1,15 @@
+<section class="form-shell">
+  <section class="panel">
+    <h1>Continue to <%= @external_destination_label %></h1>
+    <p>If your browser did not redirect automatically, use the button below.</p>
+
+    <div class="member-form-actions">
+      <a class="button" href="<%= @external_redirect_url %>" target="_blank" rel="noopener">Open <%= @external_destination_label %></a>
+      <a class="button member-secondary-button" href="<%= billing_path %>">Back to Billing</a>
+    </div>
+  </section>
+</section>
+
+<script>
+  window.location.replace("<%= j @external_redirect_url %>");
+</script>

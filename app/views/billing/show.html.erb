@@ -8,7 +8,7 @@
       <p>You have unlimited books and full member profile editing.</p>
       <% if @stripe_secret_configured %>
         <div class="member-form-actions">
-          <%= button_to "Manage Subscription", portal_billing_path, method: :post, class: "button", form: { data: { turbo: false }, target: "_blank" } %>
+          <%= button_to "Manage Subscription", portal_billing_path, method: :post, class: "button", form: { data: { turbo: false } } %>
         </div>
       <% else %>
         <p class="form-help">Billing portal is not configured yet. Ask admin to set STRIPE_SECRET_KEY (or credentials stripe.secret_key).</p>
@@ -19,14 +19,14 @@
 
       <% if @paid_price_id_configured && @stripe_secret_configured %>
         <div class="member-form-actions">
-          <%= button_to "Upgrade to PAID", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false }, target: "_blank" } %>
+          <%= button_to "Upgrade to PAID", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false } } %>
         </div>
       <% else %>
         <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_SECRET_KEY and STRIPE_PAID_PRICE_ID (or credentials stripe.secret_key and stripe.paid_price_id).</p>
         <% if user_masquerade? %>
           <p class="form-help">Impersonation testing is enabled: the upgrade action will grant PAID access without Stripe checkout.</p>
           <div class="member-form-actions">
-            <%= button_to "Simulate Upgrade (Impersonation)", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false }, target: "_blank" } %>
+            <%= button_to "Simulate Upgrade (Impersonation)", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false } } %>
           </div>
         <% end %>
       <% end %>
