@@ -31,13 +31,17 @@
   <% if @books.any? %>
     <div class="book-grid">
       <% @books.each do |book| %>
-        <article class="book-card">
+        <article class="book-card<%= " book-card-featured" if book.featured? %>">
           <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
             <% if book.cover_image_source.present? %>
               <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
             <% else %>
               <div class="book-cover fallback-cover">No cover uploaded</div>
             <% end %>
+          <% end %>
+
+          <% if book.featured? %>
+            <span class="book-featured-badge">&#9733; Featured</span>
           <% end %>
 
           <h3 class="book-card-title"><%= book.title %></h3>

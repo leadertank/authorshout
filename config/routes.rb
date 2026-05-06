@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post "webhooks/stripe", to: "pay/webhooks/stripe#create"
+
   devise_for :users, controllers: { sessions: "users/sessions", masquerades: "users/masquerades" }
   root "home#index"
 

@@ -2334,6 +2334,50 @@ textarea {
 	border-color: #a93226;
 }
 
+/* Featured book badge — home feed + profile */
+.book-featured-badge {
+	display: inline-block;
+	background: var(--accent);
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	border-radius: 999px;
+	padding: 0.18em 0.7em;
+	margin: 0.4rem 0 0;
+}
+
+.book-card-featured {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+/* Featured books section on public profile */
+.panel-featured-books {
+	grid-column: 1 / -1;
+}
+
+.profile-featured-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 1.5rem;
+	margin-top: 1rem;
+	align-items: start;
+}
+
+.profile-book-card-featured {
+	border: 2px solid var(--accent);
+}
+
+/* Book entry featured checkbox row in edit form */
+.book-entry-featured {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+
 /* Books grid in public profile view */
 .panel-more-books {
 	grid-column: 1 / -1;

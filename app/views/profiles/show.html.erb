@@ -62,27 +62,57 @@
     </article>
 
     <% if @profile.books.any? %>
-      <article class="panel panel-more-books">
-        <h2>Books From This Author</h2>
-        <div class="profile-books-grid">
-          <% @profile.books.each do |book| %>
-            <article class="book-card profile-book-card">
-              <% if book.cover_image_source.present? %>
-                <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover profile-book-cover" %>
-              <% else %>
-                <div class="book-cover-placeholder profile-book-cover-placeholder">No Cover</div>
-              <% end %>
-              <h3><%= book.title %></h3>
-              <p class="book-link">
-                <%= link_to "View Book", book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
-              </p>
-              <div class="book-actions">
-                <%= render "shared/book_like_button", book: book %>
-              </div>
-            </article>
-          <% end %>
-        </div>
-      </article>
+      <% featured_books = @profile.books.select(&:featured?) %>
+      <% other_books    = @profile.books.reject(&:featured?) %>
+
+      <% if featured_books.any? %>
+        <article class="panel panel-featured-books">
+          <h2>Featured Book<%= "s" if featured_books.size > 1 %></h2>
+          <div class="profile-featured-grid">
+            <% featured_books.each do |book| %>
+              <article class="book-card profile-book-card profile-book-card-featured">
+                <% if book.cover_image_source.present? %>
+                  <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover profile-featured-cover" %>
+                <% else %>
+                  <div class="book-cover book-cover-placeholder profile-featured-cover fallback-cover">No Cover</div>
+                <% end %>
+                <span class="book-featured-badge">&#9733; Featured</span>
+                <h3><%= book.title %></h3>
+                <p class="book-link">
+                  <%= link_to "View Book", book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
+                </p>
+                <div class="book-actions">
+                  <%= render "shared/book_like_button", book: book %>
+                </div>
+              </article>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
+
+      <% if other_books.any? %>
+        <article class="panel panel-more-books">
+          <h2><%= featured_books.any? ? "More Books" : "Books From This Author" %></h2>
+          <div class="profile-books-grid">
+            <% other_books.each do |book| %>
+              <article class="book-card profile-book-card">
+                <% if book.cover_image_source.present? %>
+                  <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover profile-book-cover" %>
+                <% else %>
+                  <div class="book-cover-placeholder profile-book-cover-placeholder">No Cover</div>
+                <% end %>
+                <h3><%= book.title %></h3>
+                <p class="book-link">
+                  <%= link_to "View Book", book.purchase_url, class: "text-link", target: "_blank", rel: "noopener" %>
+                </p>
+                <div class="book-actions">
+                  <%= render "shared/book_like_button", book: book %>
+                </div>
+              </article>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
     <% end %>
   </div>
 </section>

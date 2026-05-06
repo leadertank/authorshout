@@ -132,6 +132,11 @@
                       </div>
                     </div>
 
+                    <div class="book-entry-featured">
+                      <%= book_fields.check_box :featured %>
+                      <%= book_fields.label :featured, "Mark as featured book" %>
+                    </div>
+
                     <div class="book-entry-actions">
                       <%= book_fields.hidden_field :id %>
                       <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
@@ -184,6 +189,11 @@
                       <p class="form-help">Use a direct image URL whenever possible for reliable rendering.</p>
                     </div>
                   </div>
+                </div>
+
+                <div class="book-entry-featured">
+                  <%= book_fields.check_box :featured %>
+                  <%= book_fields.label :featured, "Mark as featured book" %>
                 </div>
 
                 <div class="book-entry-actions">

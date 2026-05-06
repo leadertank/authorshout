@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
 
   def set_profile
     requested = params[:id].to_s
-    scope = Profile.includes(:user, books: :book_likes)
+    scope = Profile.includes(:user, books: :book_likes).merge(Book.order(featured: :desc, created_at: :asc))
 
     @profile = scope.find_by(id: requested)
     if @profile.blank?
@@ -50,7 +50,7 @@ class ProfilesController < ApplicationController
       :avatar,
       :avatar_url,
       user_attributes: [ :id, :first_name, :last_name, :email, :password, :password_confirmation ],
-      books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :_destroy ]
+      books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :featured, :_destroy ]
     )
   end
 
