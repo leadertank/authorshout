@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_07_165653) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_07_181959) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -67,7 +67,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_165653) do
     t.datetime "support_emailed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "form_key", default: "8th-annual-author-shout-book-awards", null: false
     t.index ["created_at"], name: "index_awards_submissions_on_created_at"
+    t.index ["form_key"], name: "index_awards_submissions_on_form_key"
     t.index ["payment_status"], name: "index_awards_submissions_on_payment_status"
     t.index ["public_token"], name: "index_awards_submissions_on_public_token", unique: true
     t.index ["stripe_checkout_session_id"], name: "index_awards_submissions_on_stripe_checkout_session_id"

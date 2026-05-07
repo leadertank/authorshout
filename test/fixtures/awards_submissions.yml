@@ -8,6 +8,7 @@ one:
   x_url: https://x.com/ada
   facebook_url: https://facebook.com/ada
   instagram_url: https://instagram.com/ada
+  form_key: 8th-annual-author-shout-book-awards
   public_token: token-ada-123
   payment_status: 1
   stripe_checkout_session_id: cs_test_123

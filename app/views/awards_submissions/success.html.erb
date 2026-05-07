@@ -7,7 +7,7 @@
     <li><strong>Author:</strong> <%= @awards_submission.submitter_name %></li>
     <li><strong>Email:</strong> <%= @awards_submission.author_email %></li>
     <li><strong>Book:</strong> <%= @awards_submission.book_title %></li>
-    <li><strong>Paid:</strong> <%= @awards_submission.paid_at&.to_s(:long) || "Yes" %></li>
+    <li><strong>Paid:</strong> <%= @awards_submission.paid_at.present? ? l(@awards_submission.paid_at, format: :long) : "Yes" %></li>
   </ul>
 
   <p class="form-help">Need to submit another book? <%= link_to "Enter another submission", new_awards_submission_path, class: "text-link" %>.</p>

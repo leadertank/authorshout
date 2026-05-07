@@ -1,4 +1,9 @@
 class AwardsSubmission < ApplicationRecord
+  DEFAULT_FORM_KEY = "8th-annual-author-shout-book-awards"
+  FORM_LABELS = {
+    DEFAULT_FORM_KEY => "8th Annual Author Shout Book Awards"
+  }.freeze
+
   enum :payment_status, {
     pending: 0,
     paid: 1,
@@ -6,6 +11,7 @@ class AwardsSubmission < ApplicationRecord
   }, default: :pending
 
   before_validation :ensure_public_token
+  before_validation :ensure_form_key
 
   validates :first_name, presence: true, length: { maximum: 120 }
   validates :last_name, presence: true, length: { maximum: 120 }
@@ -20,9 +26,14 @@ class AwardsSubmission < ApplicationRecord
   validate :instagram_url_must_be_valid
 
   scope :most_recent_first, -> { order(created_at: :desc) }
+  scope :for_form, ->(form_key) { where(form_key: form_key) }
 
   def submitter_name
     "#{first_name} #{last_name}".strip
+  end
+
+  def form_label
+    FORM_LABELS.fetch(form_key, form_key.to_s.humanize)
   end
 
   private
@@ -31,6 +42,10 @@ class AwardsSubmission < ApplicationRecord
     return if public_token.present?
 
     self.public_token = SecureRandom.hex(12)
+  end
+
+  def ensure_form_key
+    self.form_key = DEFAULT_FORM_KEY if form_key.blank?
   end
 
   def validate_optional_url(attribute)

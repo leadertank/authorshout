@@ -2,8 +2,36 @@
   <h1>Book Awards Submissions</h1>
 
   <section class="panel">
+    <%= form_with url: admin_awards_submissions_path, method: :get, class: "admin-users-search-form" do |f| %>
+      <div>
+        <%= f.label :form_key, "Form/Product" %>
+        <%= f.select :form_key,
+          options_for_select(@form_keys.map { |key| [AwardsSubmission::FORM_LABELS.fetch(key, key.humanize), key] }, @selected_form_key),
+          { include_blank: "All forms" }
+        %>
+      </div>
+
+      <div>
+        <%= f.label :status, "Payment status" %>
+        <%= f.select :status,
+          options_for_select([
+            ["Paid", "paid"],
+            ["Pending", "pending"],
+            ["Failed", "failed"]
+          ], @selected_status),
+          { include_blank: "All statuses" }
+        %>
+      </div>
+
+      <div class="admin-users-search-actions">
+        <%= f.submit "Apply Filters", class: "button" %>
+        <%= link_to "Reset", admin_awards_submissions_path, class: "button button-outline" %>
+      </div>
+    <% end %>
+
     <div class="admin-users-search-actions">
-      <%= link_to "Download CSV", admin_awards_submissions_path(format: :csv), class: "button" %>
+      <%= link_to "Download CSV", admin_awards_submissions_path(format: :csv, form_key: @selected_form_key, status: @selected_status), class: "button" %>
+      <%= button_to "Delete Pending/Failed", delete_non_paid_admin_awards_submissions_path(form_key: @selected_form_key, status: @selected_status), method: :delete, class: "button button-danger", form: { data: { turbo_confirm: "Delete all pending and failed submissions in the current filtered view? This cannot be undone." } } %>
     </div>
 
     <% if @awards_submissions.any? %>
@@ -11,17 +39,20 @@
         <table class="cms-table admin-users-table">
           <thead>
             <tr>
+              <th>Form</th>
               <th>Submitted</th>
               <th>Payment</th>
               <th>Author</th>
               <th>Email</th>
               <th>Book</th>
               <th>Links</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <% @awards_submissions.each do |submission| %>
               <tr>
+                <td><%= submission.form_label %></td>
                 <td><%= submission.created_at.to_date %></td>
                 <td>
                   <% if submission.paid? %>
@@ -43,6 +74,9 @@
                   <div class="form-help">X: <%= submission.x_url.presence || "-" %></div>
                   <div class="form-help">Facebook: <%= submission.facebook_url.presence || "-" %></div>
                   <div class="form-help">Instagram: <%= submission.instagram_url.presence || "-" %></div>
+                </td>
+                <td>
+                  <%= button_to "Delete", admin_awards_submission_path(submission, form_key: @selected_form_key, status: @selected_status), method: :delete, class: "button button-danger", form: { data: { turbo_confirm: "Delete this submission? This cannot be undone." } } %>
                 </td>
               </tr>
             <% end %>

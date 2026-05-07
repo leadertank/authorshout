@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redirecting to Stripe</title>
+    <%= javascript_tag nonce: true do %>
+      (function() {
+        var checkoutUrl = <%= raw(@checkout_url.to_json) %>;
+        try {
+          if (window.top && window.top !== window) {
+            window.top.location.replace(checkoutUrl);
+          } else {
+            window.location.replace(checkoutUrl);
+          }
+        } catch (_error) {
+          window.location.replace(checkoutUrl);
+        }
+      })();
+    <% end %>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        JavaScript is required to continue automatically.
+        <a href="<%= @checkout_url %>">Continue to Stripe Checkout</a>
+      </p>
+    </noscript>
+  </body>
+</html>

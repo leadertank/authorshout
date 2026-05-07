@@ -36,29 +36,32 @@ class AwardsSubmissionsController < ApplicationController
       cancel_url: new_awards_submission_url(token: @awards_submission.public_token),
       metadata: {
         awards_submission_token: @awards_submission.public_token,
-        form_name: "8th Annual Author Shout Book Awards"
+        form_name: AwardsSubmission::FORM_LABELS.fetch(AwardsSubmission::DEFAULT_FORM_KEY),
+        form_key: AwardsSubmission::DEFAULT_FORM_KEY
       }
     )
 
     @awards_submission.update!(stripe_checkout_session_id: checkout_session.id)
-
-    redirect_to checkout_session.url, allow_other_host: true, status: :see_other
+    @checkout_url = checkout_session.url
+    render :checkout_redirect, layout: false
   rescue StandardError => error
     Rails.logger.error("Awards submission checkout failed: #{error.class}: #{error.message}")
-    flash.now[:alert] = "We could not start checkout right now. Please try again."
+    flash.now[:alert] = "We could not start checkout: #{error.message}"
     render :new, status: :unprocessable_entity
   end
 
   def success
     @awards_submission = AwardsSubmission.find_by!(public_token: params[:token].to_s)
 
-    if params[:session_id].blank?
+    session_id = resolve_checkout_session_id(@awards_submission)
+
+    if session_id.blank?
       redirect_to new_awards_submission_path(token: @awards_submission.public_token), alert: "Checkout was not completed yet."
       return
     end
 
     ensure_stripe_api_key!
-    checkout_session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    checkout_session = Stripe::Checkout::Session.retrieve(session_id)
 
     if checkout_session.payment_status == "paid"
       mark_submission_paid!(@awards_submission, checkout_session)
@@ -71,7 +74,10 @@ class AwardsSubmissionsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to new_awards_submission_path, alert: "Submission not found. Please complete the form again."
   rescue StandardError => error
-    Rails.logger.error("Awards submission success handling failed: #{error.class}: #{error.message}")
+    Rails.logger.error(
+      "Awards submission success handling failed: #{error.class}: #{error.message}; " \
+      "token=#{params[:token]} session_id=#{params[:session_id]}"
+    )
     redirect_to new_awards_submission_path, alert: "We could not verify payment right now. Please contact support if you were charged."
   end
 
@@ -119,6 +125,14 @@ class AwardsSubmissionsController < ApplicationController
 
     updates[:paid_at] = Time.current if submission.paid_at.blank?
     submission.update!(updates)
+  end
+
+  def resolve_checkout_session_id(submission)
+    session_id = params[:session_id].to_s
+    session_id = "" if session_id.include?("CHECKOUT_SESSION_ID")
+    session_id = submission.stripe_checkout_session_id if session_id.blank?
+
+    session_id.presence
   end
 
   def send_support_email_once!(submission)

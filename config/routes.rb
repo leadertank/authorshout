@@ -36,7 +36,11 @@ Rails.application.routes.draw do
         patch :toggle_featured_author
       end
     end
-      resources :awards_submissions, only: [ :index ]
+    resources :awards_submissions, only: [ :index, :destroy ] do
+      collection do
+        delete :delete_non_paid
+      end
+    end
     resources :pages do
       member do
         get :preview
