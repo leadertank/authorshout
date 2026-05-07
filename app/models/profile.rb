@@ -20,6 +20,7 @@ class Profile < ApplicationRecord
   validates :bio, length: { maximum: 1200 }
   validate :public_urls_must_be_valid
   validate :book_limit_for_plan
+  validate :featured_book_limit
 
   def avatar_image_source
     return avatar if avatar.attached?
@@ -69,5 +70,19 @@ class Profile < ApplicationRecord
     return if remaining_books.size <= 1
 
     errors.add(:books, "Free plan allows 1 book. Upgrade to PAID for unlimited books.")
+  end
+
+  def featured_book_limit
+    return if user.blank?
+
+    remaining_books = books.reject(&:marked_for_destruction?)
+    featured_count = remaining_books.count(&:featured?)
+
+    eligible_for_featured = user.paid_member? || user.featured_author?
+    return unless eligible_for_featured
+
+    return if featured_count <= 1
+
+    errors.add(:books, "You can feature only 1 book at a time.")
   end
 end

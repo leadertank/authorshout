@@ -13,6 +13,26 @@ module ApplicationHelper
     book.liked_by?(user: current_user, visitor_token: current_visitor_token)
   end
 
+  def author_name_with_verified_badge(user, profile: nil, linked: false, link_class: "text-link")
+    name_node = if linked && profile.present?
+      link_to(user.display_name, profile_path(profile), class: link_class)
+    else
+      content_tag(:span, user.display_name)
+    end
+
+    return name_node unless user.verified_featured_author?
+
+    badge = content_tag(
+      :span,
+      "\u2713",
+      class: "verified-author-badge",
+      title: "Verified Featured Author",
+      aria: { label: "Verified Featured Author" }
+    )
+
+    content_tag(:span, safe_join([ name_node, badge ], " "), class: "verified-author-name")
+  end
+
   def content_state_badge(record)
     content_tag(:span, record.content_state_label, class: "cms-state-badge cms-state-#{record.content_state_label.parameterize}")
   end

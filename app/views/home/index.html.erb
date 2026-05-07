@@ -7,10 +7,55 @@
   </div>
 </div>
 
+<% if @featured_books.any? %>
+  <section class="panel featured-books-panel" data-controller="featured-carousel">
+    <div class="section-header">
+      <h2>Featured Books</h2>
+    </div>
+
+    <div class="featured-carousel-shell">
+      <button type="button" class="featured-carousel-nav" data-featured-carousel-target="prev" data-action="click->featured-carousel#prev" aria-label="Previous featured book">&#10094;</button>
+
+      <div class="featured-carousel-viewport">
+        <div class="featured-carousel-track" data-featured-carousel-target="track">
+          <% @featured_books.each_slice(4) do |books_group| %>
+            <section class="featured-carousel-slide" data-featured-carousel-target="slide">
+              <div class="featured-grid">
+                <% books_group.each do |book| %>
+                  <article class="book-card featured-book-card">
+                    <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "featured-cover-link" do %>
+                      <% if book.cover_image_source.present? %>
+                        <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "featured-cover-image" %>
+                      <% else %>
+                        <div class="featured-cover-image fallback-cover">No cover uploaded</div>
+                      <% end %>
+                    <% end %>
+
+                    <span class="book-featured-badge">&#9733; Featured</span>
+                    <h3 class="book-card-title"><%= book.title %></h3>
+                    <p class="meta-line book-card-author">
+                      by <%= author_name_with_verified_badge(book.user, profile: book.profile, linked: true) %>
+                    </p>
+                    <div class="book-actions">
+                      <%= render "shared/book_like_button", book: book %>
+                    </div>
+                  </article>
+                <% end %>
+              </div>
+            </section>
+          <% end %>
+        </div>
+      </div>
+
+      <button type="button" class="featured-carousel-nav" data-featured-carousel-target="next" data-action="click->featured-carousel#next" aria-label="Next featured book">&#10095;</button>
+    </div>
+  </section>
+<% end %>
+
 <section class="books-feed">
   <div class="section-header">
     <h2>Latest Member Book Covers</h2>
-    <p>Books are listed by submission time. Click a cover to view the link shared by the author.</p>
+    <p>Latest submissions from the full member community.</p>
   </div>
 
   <div class="books-pager">
@@ -31,7 +76,7 @@
   <% if @books.any? %>
     <div class="book-grid">
       <% @books.each do |book| %>
-        <article class="book-card<%= " book-card-featured" if book.featured? %>">
+        <article class="book-card">
           <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
             <% if book.cover_image_source.present? %>
               <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
@@ -40,14 +85,10 @@
             <% end %>
           <% end %>
 
-          <% if book.featured? %>
-            <span class="book-featured-badge">&#9733; Featured</span>
-          <% end %>
-
           <h3 class="book-card-title"><%= book.title %></h3>
           <p class="meta-line book-card-author">
             by
-            <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+            <%= author_name_with_verified_badge(book.user, profile: book.profile, linked: true) %>
           </p>
 
           <div class="book-actions">

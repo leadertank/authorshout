@@ -35,6 +35,12 @@ class User < ApplicationRecord
     pay_subscriptions.active.where(name: "authorshout-pro").exists?
   end
 
+  def verified_featured_author?
+    return true if paid_member?
+
+    featured_author?
+  end
+
   def free_member?
     !paid_member?
   end

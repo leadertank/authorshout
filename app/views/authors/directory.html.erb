@@ -1,0 +1,100 @@
+<section class="authors-shell">
+  <div class="section-header">
+    <h1>Members Directory</h1>
+    <p>Browse every member author in alphabetical order by last name.</p>
+  </div>
+
+  <div class="authors-page-links">
+    <%= link_to "View Featured Authors", featured_authors_path, class: "button button-outline" %>
+  </div>
+
+  <%= form_with url: authors_directory_path, method: :get, class: "authors-search-form" do |f| %>
+    <div>
+      <%= f.label :q, "Search members" %>
+      <%= f.search_field :q, value: @query, placeholder: "Search by name or email" %>
+    </div>
+    <div class="authors-search-actions">
+      <%= f.hidden_field :letter, value: @letter if @letter.present? %>
+      <%= f.submit "Search", class: "button" %>
+      <% if @query.present? || @letter.present? %>
+        <%= link_to "Clear", authors_directory_path, class: "button button-outline" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="authors-letter-filter">
+    <%= link_to "All", authors_directory_path(q: @query.presence), class: "letter-pill#{" active" if @letter.blank?}" %>
+    <% ("A".."Z").each do |letter| %>
+      <%= link_to letter, authors_directory_path(letter: letter, q: @query.presence), class: "letter-pill#{" active" if @letter == letter}" %>
+    <% end %>
+  </div>
+
+  <% if @profiles.any? %>
+    <p class="pager-status">Page <%= @page %> of <%= @total_pages %> (<%= @total_authors %> authors)</p>
+
+    <div class="authors-grid">
+      <% @profiles.each do |profile| %>
+        <article class="panel author-card">
+          <% if profile.avatar_image_source.present? %>
+            <%= image_tag profile.avatar_image_source, alt: "#{profile.user.display_name} profile picture", class: "author-card-avatar" %>
+          <% else %>
+            <div class="author-card-avatar author-card-avatar-placeholder">No photo</div>
+          <% end %>
+
+          <h2><%= author_name_with_verified_badge(profile.user, profile: profile, linked: true) %></h2>
+          <p class="meta-line"><%= profile.bio.to_s.truncate(130).presence || "This member has not added a bio yet." %></p>
+
+          <div class="author-card-actions">
+            <%= link_to "View Profile", profile_path(profile), class: "button" %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <div class="books-pager books-pager-bottom">
+      <% if @page > 1 %>
+        <%= link_to "Previous", authors_directory_path(page: @page - 1, q: @query.presence, letter: @letter), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Previous</span>
+      <% end %>
+
+      <% if @total_pages > 1 %>
+        <% window_start = [ @page - 2, 1 ].max %>
+        <% window_end = [ window_start + 4, @total_pages ].min %>
+        <% window_start = [ window_end - 4, 1 ].max %>
+
+        <div class="pager-chips" aria-label="Directory pages">
+          <% if window_start > 1 %>
+            <%= link_to "1", authors_directory_path(page: 1, q: @query.presence, letter: @letter), class: "pager-chip" %>
+            <% if window_start > 2 %>
+              <span class="pager-chip-ellipsis">...</span>
+            <% end %>
+          <% end %>
+
+          <% (window_start..window_end).each do |num| %>
+            <% if num == @page %>
+              <span class="pager-chip active"><%= num %></span>
+            <% else %>
+              <%= link_to num, authors_directory_path(page: num, q: @query.presence, letter: @letter), class: "pager-chip" %>
+            <% end %>
+          <% end %>
+
+          <% if window_end < @total_pages %>
+            <% if window_end < (@total_pages - 1) %>
+              <span class="pager-chip-ellipsis">...</span>
+            <% end %>
+            <%= link_to @total_pages, authors_directory_path(page: @total_pages, q: @query.presence, letter: @letter), class: "pager-chip" %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @page < @total_pages %>
+        <%= link_to "Next", authors_directory_path(page: @page + 1, q: @query.presence, letter: @letter), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Next</span>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No members match your filters yet.</p>
+  <% end %>
+</section>

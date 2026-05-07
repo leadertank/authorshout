@@ -11,7 +11,10 @@
   </div>
 
   <div class="profile-heading">
-    <h1><%= @profile.user.display_name %></h1>
+    <h1><%= author_name_with_verified_badge(@profile.user) %></h1>
+    <% if @profile.user.verified_featured_author? %>
+      <p class="featured-author-banner">Featured Author</p>
+    <% end %>
     <% if user_signed_in? && current_user == @profile.user %>
       <%= link_to "Edit Profile", edit_my_profile_path, class: "button" %>
     <% end %>

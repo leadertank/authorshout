@@ -133,4 +133,128 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert_match "Upgrade to PAID", response.body
     assert_equal 1, profiles(:one).books.count
   end
+
+  test "free member does not see featured book toggle" do
+    sign_in users(:one)
+
+    get edit_my_profile_path
+
+    assert_response :success
+    assert_no_match "Mark as featured book", response.body
+  end
+
+  test "free member cannot set featured via forged params" do
+    sign_in users(:one)
+
+    book = books(:one)
+    book.update_column(:featured, false)
+
+    patch my_profile_path, params: {
+      profile: {
+        books_attributes: {
+          "0" => {
+            id: book.id,
+            title: book.title,
+            purchase_url: book.purchase_url,
+            featured: "1"
+          }
+        }
+      }
+    }
+
+    assert_redirected_to profile_path(profiles(:one))
+    assert_not book.reload.featured?
+  end
+
+  test "paid member can set featured" do
+    sign_in users(:two)
+
+    book = books(:two)
+    book.update_column(:featured, false)
+
+    patch my_profile_path, params: {
+      profile: {
+        books_attributes: {
+          "0" => {
+            id: book.id,
+            title: book.title,
+            purchase_url: book.purchase_url,
+            featured: "1"
+          }
+        }
+      }
+    }
+
+    assert_redirected_to profile_path(profiles(:two))
+    assert book.reload.featured?
+  end
+
+  test "eligible member can feature only one book at a time" do
+    sign_in users(:one)
+    users(:one).update_column(:manual_paid, true)
+
+    first_book = books(:one)
+    second_book = first_book.profile.books.create!(
+      title: "Second Eligible Book",
+      purchase_url: "https://bookshop.example.com/eligible-second-book"
+    )
+
+    patch my_profile_path, params: {
+      profile: {
+        books_attributes: {
+          "0" => {
+            id: first_book.id,
+            title: first_book.title,
+            purchase_url: first_book.purchase_url,
+            featured: "1"
+          },
+          "1" => {
+            id: second_book.id,
+            title: second_book.title,
+            purchase_url: second_book.purchase_url,
+            featured: "1"
+          }
+        }
+      }
+    }
+
+    assert_response :unprocessable_entity
+    assert_match "You can feature only 1 book at a time.", response.body
+  end
+
+  test "paid author shows verified badge on profile page" do
+    get profile_path(profiles(:two))
+
+    assert_response :success
+    assert_match "verified-author-badge", response.body
+    assert_match "Verified Featured Author", response.body
+  end
+
+  test "free author does not show verified badge on profile page" do
+    users(:one).update_columns(manual_paid: false, featured_author: false)
+
+    get profile_path(profiles(:one))
+
+    assert_response :success
+    assert_no_match "verified-author-badge", response.body
+  end
+
+  test "free author with admin featured override shows verified badge" do
+    users(:one).update_column(:featured_author, true)
+
+    get profile_path(profiles(:one))
+
+    assert_response :success
+    assert_match "verified-author-badge", response.body
+  end
+
+  test "featured-author banner appears for verified featured author" do
+    users(:one).update_column(:manual_paid, true)
+
+    get profile_path(profiles(:one))
+
+    assert_response :success
+    assert_match "Featured Author", response.body
+    assert_match "featured-author-banner", response.body
+  end
 end

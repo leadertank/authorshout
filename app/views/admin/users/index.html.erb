@@ -1,6 +1,21 @@
 <section class="admin-shell">
   <h1>Users</h1>
 
+  <section class="panel admin-users-search-panel">
+    <%= form_with url: admin_users_path, method: :get, class: "admin-users-search-form" do |f| %>
+      <div>
+        <%= f.label :q, "Search authors" %>
+        <%= f.search_field :q, value: @query, placeholder: "Search by name or email" %>
+      </div>
+      <div class="admin-users-search-actions">
+        <%= f.submit "Search", class: "button" %>
+        <% if @query.present? %>
+          <%= link_to "Clear", admin_users_path, class: "button button-outline" %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+
   <section class="panel">
     <h2>Add Member</h2>
     <p class="form-help">Create a member account by email. A temporary password will be generated automatically.</p>
@@ -28,32 +43,71 @@
     <% end %>
   </section>
 
-  <div class="admin-grid">
-    <article class="panel">
-      <h2>Admins (Pinned First)</h2>
-      <ul class="link-list">
+  <section class="panel admin-users-admins-panel">
+    <h2>Admins</h2>
+    <% if @admins.any? %>
+      <ul class="admin-users-simple-list">
         <% @admins.each do |admin| %>
           <li>
-            <strong><%= admin.email %></strong>
+            <strong><%= admin.display_name %></strong>
+            <span><%= admin.email %></span>
             <span>Joined <%= admin.created_at.to_date %></span>
           </li>
         <% end %>
       </ul>
-    </article>
+    <% else %>
+      <p class="form-help">No admin users matched your search.</p>
+    <% end %>
+  </section>
 
-    <article class="panel">
-      <h2>Members</h2>
-      <ul class="link-list">
-        <% @members.each do |member| %>
-          <li>
-            <div>
-              <%= member.email %>
-              <span>Joined <%= member.created_at.to_date %></span>
-            </div>
-            <%= link_to "Login as user", masquerade_path(member), class: "button", data: { turbo: false } %>
-          </li>
-        <% end %>
-      </ul>
-    </article>
-  </div>
+  <section class="panel admin-users-members-panel">
+    <h2>Members</h2>
+    <% if @members.any? %>
+      <div class="admin-users-table-wrap">
+        <table class="cms-table admin-users-table">
+          <thead>
+            <tr>
+              <th>Author</th>
+              <th>Plan</th>
+              <th>Featured Author</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @members.each do |member| %>
+              <tr>
+                <td>
+                  <strong><%= member.display_name %></strong>
+                  <div class="form-help"><%= member.email %></div>
+                </td>
+                <td><%= member.plan_label %></td>
+                <td>
+                  <% if member.featured_author? %>
+                    <span class="admin-pill admin-pill-success">Enabled</span>
+                  <% else %>
+                    <span class="admin-pill admin-pill-muted">Disabled</span>
+                  <% end %>
+                </td>
+                <td><%= member.created_at.to_date %></td>
+                <td>
+                  <div class="cms-table-actions">
+                    <%= button_to(
+                      member.featured_author? ? "Unset Featured" : "Set Featured",
+                      toggle_featured_author_admin_user_path(member, q: @query),
+                      method: :patch,
+                      class: "button button-outline"
+                    ) %>
+                    <%= link_to "Login as user", masquerade_path(member), class: "button", data: { turbo: false } %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="form-help">No member users matched your search.</p>
+    <% end %>
+  </section>
 </section>

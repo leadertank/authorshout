@@ -47,6 +47,8 @@
 
           <nav class="site-nav" data-main-nav>
             <%= link_to "Home", root_path %>
+            <%= link_to "Featured Authors", featured_authors_path %>
+            <%= link_to "Members Directory", authors_directory_path %>
             <% if user_signed_in? %>
               <% if user_masquerade? %>
                 <span>Impersonating <%= current_user.email %></span>

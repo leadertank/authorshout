@@ -1,0 +1,53 @@
+<section class="authors-shell">
+  <div class="section-header">
+    <h1>Featured Authors</h1>
+    <p>Discover verified members with featured-author status.</p>
+  </div>
+
+  <div class="authors-page-links">
+    <%= link_to "Browse Full Members Directory", authors_directory_path, class: "button button-outline" %>
+  </div>
+
+  <%= form_with url: featured_authors_path, method: :get, class: "authors-search-form" do |f| %>
+    <div>
+      <%= f.label :q, "Search featured authors" %>
+      <%= f.search_field :q, value: @query, placeholder: "Search by name or email" %>
+    </div>
+    <div class="authors-search-actions">
+      <%= f.submit "Search", class: "button" %>
+      <% if @query.present? || @letter.present? %>
+        <%= link_to "Clear", featured_authors_path, class: "button button-outline" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="authors-letter-filter">
+    <%= link_to "All", featured_authors_path(q: @query.presence), class: "letter-pill#{" active" if @letter.blank?}" %>
+    <% ("A".."Z").each do |letter| %>
+      <%= link_to letter, featured_authors_path(letter: letter, q: @query.presence), class: "letter-pill#{" active" if @letter == letter}" %>
+    <% end %>
+  </div>
+
+  <% if @profiles.any? %>
+    <div class="authors-grid">
+      <% @profiles.each do |profile| %>
+        <article class="panel author-card">
+          <% if profile.avatar_image_source.present? %>
+            <%= image_tag profile.avatar_image_source, alt: "#{profile.user.display_name} profile picture", class: "author-card-avatar" %>
+          <% else %>
+            <div class="author-card-avatar author-card-avatar-placeholder">No photo</div>
+          <% end %>
+
+          <h2><%= author_name_with_verified_badge(profile.user, profile: profile, linked: true) %></h2>
+          <p class="meta-line"><%= profile.bio.to_s.truncate(130).presence || "This featured author has not added a bio yet." %></p>
+
+          <div class="author-card-actions">
+            <%= link_to "View Profile", profile_path(profile), class: "button" %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No featured authors match your filters yet.</p>
+  <% end %>
+</section>

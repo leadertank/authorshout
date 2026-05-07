@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", masquerades: "users/masquerades" }
   root "home#index"
 
+  get "authors/featured", to: "authors#featured", as: :featured_authors
+  get "authors/directory", to: "authors#directory", as: :authors_directory
+
   resources :profiles, only: [ :show ]
   get "my-profile", to: "profiles#edit", as: :edit_my_profile
   patch "my-profile", to: "profiles#update", as: :my_profile
@@ -23,7 +26,11 @@ Rails.application.routes.draw do
     patch "sales/members/:id", to: "sales#update_member", as: :sales_member
     post "sales/products", to: "sales#create_product", as: :sales_products
     patch "sales/products/:id", to: "sales#update_product", as: :sales_product
-    resources :users, only: [ :index, :create ]
+    resources :users, only: [ :index, :create ] do
+      member do
+        patch :toggle_featured_author
+      end
+    end
     resources :pages do
       member do
         get :preview

@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(
+    permitted = params.require(:profile).permit(
       :bio,
       :website,
       :x_url,
@@ -52,6 +52,13 @@ class ProfilesController < ApplicationController
       user_attributes: [ :id, :first_name, :last_name, :email, :password, :password_confirmation ],
       books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :featured, :_destroy ]
     )
+
+    unless current_user.paid_member? || current_user.featured_author?
+      books_attributes = permitted[:books_attributes]
+      books_attributes&.each_value { |book_attrs| book_attrs[:featured] = "0" }
+    end
+
+    permitted
   end
 
   def set_plan_state

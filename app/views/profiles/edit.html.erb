@@ -132,10 +132,12 @@
                       </div>
                     </div>
 
-                    <div class="book-entry-featured">
-                      <%= book_fields.check_box :featured %>
-                      <%= book_fields.label :featured, "Mark as featured book" %>
-                    </div>
+                    <% if current_user.paid_member? || current_user.featured_author? %>
+                      <div class="book-entry-featured">
+                        <%= book_fields.check_box :featured %>
+                        <%= book_fields.label :featured, "Mark as featured book" %>
+                      </div>
+                    <% end %>
 
                     <div class="book-entry-actions">
                       <%= book_fields.hidden_field :id %>
@@ -191,10 +193,12 @@
                   </div>
                 </div>
 
-                <div class="book-entry-featured">
-                  <%= book_fields.check_box :featured %>
-                  <%= book_fields.label :featured, "Mark as featured book" %>
-                </div>
+                <% if current_user.paid_member? || current_user.featured_author? %>
+                  <div class="book-entry-featured">
+                    <%= book_fields.check_box :featured %>
+                    <%= book_fields.label :featured, "Mark as featured book" %>
+                  </div>
+                <% end %>
 
                 <div class="book-entry-actions">
                   <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
