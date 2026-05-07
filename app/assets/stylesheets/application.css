@@ -2609,9 +2609,9 @@ textarea {
 
 /* Nav join pill */
 .nav-join-pill {
-	background: var(--accent);
+	background: #1f9d55;
 	color: #fff !important;
-	border: 2px solid var(--accent) !important;
+	border: 2px solid #1f9d55 !important;
 	border-radius: 999px !important;
 	padding: 0.35rem 1rem !important;
 	font-weight: 700;
@@ -2620,8 +2620,8 @@ textarea {
 }
 
 .nav-join-pill:hover {
-	background: var(--accent-dark) !important;
-	border-color: var(--accent-dark) !important;
+	background: #157347 !important;
+	border-color: #157347 !important;
 }
 
 /* Membership sales page */
@@ -2667,7 +2667,7 @@ textarea {
 }
 
 .membership-card-premium {
-	border-color: var(--accent);
+	border-color: #1f9d55;
 	box-shadow: 0 4px 20px rgba(0,0,0,0.09);
 }
 
@@ -2675,7 +2675,7 @@ textarea {
 	position: absolute;
 	top: -1px;
 	right: 1.25rem;
-	background: var(--accent);
+	background: #1f9d55;
 	color: #fff;
 	font-size: 0.72rem;
 	font-weight: 700;
@@ -2707,7 +2707,7 @@ textarea {
 .membership-price-amount {
 	font-size: 1.8rem;
 	font-weight: 700;
-	color: var(--accent-dark);
+	color: #17324d;
 }
 
 .membership-price-period {
@@ -2726,7 +2726,7 @@ textarea {
 }
 
 .membership-benefits li {
-	padding-left: 1.4rem;
+	padding-left: 2rem;
 	position: relative;
 	line-height: 1.45;
 	font-size: 0.95rem;
@@ -2736,7 +2736,16 @@ textarea {
 	content: "✓";
 	position: absolute;
 	left: 0;
-	color: var(--accent);
+	top: 0.12rem;
+	width: 1.15rem;
+	height: 1.15rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 999px;
+	background: #1f9d55;
+	color: #fff;
+	font-size: 0.75rem;
 	font-weight: 700;
 }
 
@@ -2756,9 +2765,9 @@ textarea {
 }
 
 .button-outline-dark {
-	background: transparent;
-	color: var(--accent-dark);
-	border: 2px solid var(--accent-dark);
+	background: #2563eb;
+	color: #fff;
+	border: 2px solid #2563eb;
 	border-radius: 8px;
 	font-weight: 600;
 	cursor: pointer;
@@ -2766,20 +2775,21 @@ textarea {
 }
 
 .button-outline-dark:hover {
-	background: var(--accent-dark);
+	background: #1d4ed8;
+	border-color: #1d4ed8;
 	color: #fff;
 }
 
 .membership-cta-premium {
-	background: var(--accent);
+	background: #1f9d55;
 	color: #fff;
-	border: 2px solid var(--accent);
+	border: 2px solid #1f9d55;
 	transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .membership-cta-premium:hover {
-	background: var(--accent-dark);
-	border-color: var(--accent-dark);
+	background: #157347;
+	border-color: #157347;
 }
 
 .membership-login-note {
