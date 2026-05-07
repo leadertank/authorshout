@@ -17,6 +17,7 @@ class User < ApplicationRecord
   }, on: :create
 
   after_create :create_default_profile
+  after_commit :enqueue_welcome_email, on: :create
 
   scope :admins_first, -> { order(admin: :desc, created_at: :asc) }
 
@@ -66,5 +67,9 @@ class User < ApplicationRecord
 
   def create_default_profile
     create_profile!
+  end
+
+  def enqueue_welcome_email
+    UserMailer.welcome_email(self).deliver_later
   end
 end

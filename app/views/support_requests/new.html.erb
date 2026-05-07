@@ -1,0 +1,36 @@
+<section class="panel auth-shell">
+  <h1>Contact Support</h1>
+  <p class="form-help">Send a message to the AuthorShout support team.</p>
+
+  <%= form_with model: @support_message, url: support_path, class: "form-stack" do |f| %>
+    <% if @support_message.errors.any? %>
+      <div class="form-errors">
+        <h2>Please fix these issues:</h2>
+        <ul>
+          <% @support_message.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :name, "Your name" %>
+      <%= f.text_field :name, autocomplete: "name" %>
+    </div>
+
+    <div>
+      <%= f.label :email, "Your email" %>
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+
+    <div>
+      <%= f.label :message, "How can we help?" %>
+      <%= f.text_area :message, rows: 8 %>
+    </div>
+
+    <div>
+      <%= f.submit "Send message", class: "button" %>
+    </div>
+  <% end %>
+</section>

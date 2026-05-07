@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
+  resource :support, only: [ :new, :create ], controller: :support_requests
 
   resources :profiles, only: [ :show ]
   get "my-profile", to: "profiles#edit", as: :edit_my_profile

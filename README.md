@@ -49,6 +49,70 @@ AuthorShout is a Ruby on Rails platform for authors to create a free/basic membe
 
 4. Open http://localhost:3000
 
+## Contact Support Form
+
+- URL: `/support`
+- Fields: name, email, message
+- Destination inbox: `support@authorshout.com` (configurable via `SUPPORT_INBOX_EMAIL`)
+
+## Email Setup (SMTP, No SendGrid)
+
+AuthorShout is configured to send mail through your own SMTP provider credentials.
+
+Required environment variables:
+
+- `SUPPORT_FROM_EMAIL` (example: `support@authorshout.com`)
+- `SUPPORT_INBOX_EMAIL` (defaults to `support@authorshout.com`)
+- `APP_HOST` (example: `authorshout.com`)
+- `APP_PROTOCOL` (`https` in production)
+- `SMTP_ADDRESS` (your provider SMTP host)
+- `SMTP_PORT` (usually `587`)
+- `SMTP_DOMAIN` (usually your domain, for example `authorshout.com`)
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_AUTH` (usually `plain`)
+- `SMTP_STARTTLS` (`true` recommended)
+
+Behavior by environment:
+
+- Development: if SMTP vars are missing, emails are written to `tmp/mails`.
+- Production: SMTP vars are required and used for all outbound mail.
+
+Uses of this setup:
+
+- Devise password reset emails
+- Welcome email on account creation
+- Support form emails
+
+If you use `deliver_later` emails (for example welcome emails), run a job worker:
+
+```bash
+bin/jobs start
+```
+
+## DNS Records You Will Likely Need
+
+Exact values come from your SMTP/mail provider, but usually include:
+
+1. SPF TXT record on root domain
+2. DKIM records (often CNAME/TXT selectors)
+3. DMARC TXT record (start with monitoring mode: `p=none`)
+4. MX records for the mailbox service hosting `support@authorshout.com`
+
+Example DMARC starter value:
+
+```txt
+v=DMARC1; p=none; rua=mailto:dmarc@authorshout.com; adkim=s; aspf=s; pct=100
+```
+
+After validating delivery/authentication, move DMARC policy to `quarantine` and eventually `reject`.
+
+## Quick Email Test
+
+1. Visit `/support` and submit a test message.
+2. Request password reset from `/users/password/new`.
+3. Create a test account and confirm welcome email is sent.
+
 ## Default Admin Account (Development)
 
 - Email: admin@authorshout.local
