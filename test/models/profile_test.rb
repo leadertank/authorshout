@@ -1,4 +1,5 @@
 require "test_helper"
+require "stringio"
 
 class ProfileTest < ActiveSupport::TestCase
   test "social_links returns only present values" do
@@ -31,5 +32,21 @@ class ProfileTest < ActiveSupport::TestCase
 
     assert_not profile.valid?
     assert_includes profile.errors[:instagram_url], "must be a valid URL"
+  end
+
+  test "avatar must be png or jpg" do
+    profile = profiles(:one)
+    profile.avatar.attach(io: StringIO.new("gif-data"), filename: "avatar.gif", content_type: "image/gif")
+
+    assert_not profile.valid?
+    assert_includes profile.errors[:avatar], "must be a .png or .jpg image"
+  end
+
+  test "avatar must be 2mb or smaller" do
+    profile = profiles(:one)
+    profile.avatar.attach(io: StringIO.new("a" * (2.megabytes + 1)), filename: "avatar.jpg", content_type: "image/jpeg")
+
+    assert_not profile.valid?
+    assert_includes profile.errors[:avatar], "must be 2MB or smaller"
   end
 end

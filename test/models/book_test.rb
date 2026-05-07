@@ -1,4 +1,5 @@
 require "test_helper"
+require "stringio"
 
 class BookTest < ActiveSupport::TestCase
   test "total_likes returns cached likes count" do
@@ -27,5 +28,21 @@ class BookTest < ActiveSupport::TestCase
 
   test "liked_by? returns false when actor has not liked the book" do
     assert_not books(:one).liked_by?(visitor_token: "different-visitor")
+  end
+
+  test "cover image must be png or jpg" do
+    book = books(:one)
+    book.cover_image.attach(io: StringIO.new("gif-data"), filename: "cover.gif", content_type: "image/gif")
+
+    assert_not book.valid?
+    assert_includes book.errors[:cover_image], "must be a .png or .jpg image"
+  end
+
+  test "cover image must be 2mb or smaller" do
+    book = books(:one)
+    book.cover_image.attach(io: StringIO.new("a" * (2.megabytes + 1)), filename: "cover.jpg", content_type: "image/jpeg")
+
+    assert_not book.valid?
+    assert_includes book.errors[:cover_image], "must be 2MB or smaller"
   end
 end

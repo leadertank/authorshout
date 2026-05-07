@@ -1,4 +1,7 @@
 class Profile < ApplicationRecord
+  ALLOWED_IMAGE_CONTENT_TYPES = %w[image/png image/jpeg image/jpg].freeze
+  MAX_IMAGE_FILE_SIZE = 2.megabytes
+
   URL_FIELDS = %i[
     avatar_url
     website
@@ -21,6 +24,7 @@ class Profile < ApplicationRecord
   validate :public_urls_must_be_valid
   validate :book_limit_for_plan
   validate :featured_book_limit
+  validate :avatar_must_be_png_or_jpg_under_size_limit
 
   def avatar_image_source
     return avatar if avatar.attached?
@@ -96,5 +100,17 @@ class Profile < ApplicationRecord
     cover_image = attributes["cover_image"] || attributes[:cover_image]
 
     title.blank? && purchase_url.blank? && cover_image_url.blank? && cover_image.blank?
+  end
+
+  def avatar_must_be_png_or_jpg_under_size_limit
+    return unless avatar.attached?
+
+    unless ALLOWED_IMAGE_CONTENT_TYPES.include?(avatar.blob.content_type)
+      errors.add(:avatar, "must be a .png or .jpg image")
+    end
+
+    if avatar.blob.byte_size > MAX_IMAGE_FILE_SIZE
+      errors.add(:avatar, "must be 2MB or smaller")
+    end
   end
 end

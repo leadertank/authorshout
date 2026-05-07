@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  ALLOWED_IMAGE_CONTENT_TYPES = %w[image/png image/jpeg image/jpg].freeze
+  MAX_IMAGE_FILE_SIZE = 2.megabytes
+
   belongs_to :profile
   has_many :book_likes, dependent: :destroy
   has_one_attached :cover_image
@@ -7,6 +10,7 @@ class Book < ApplicationRecord
   validates :purchase_url, presence: true
   validate :purchase_url_must_be_valid
   validate :cover_image_url_must_be_valid
+  validate :cover_image_must_be_png_or_jpg_under_size_limit
 
   delegate :user, to: :profile
 
@@ -55,5 +59,17 @@ class Book < ApplicationRecord
     errors.add(:cover_image_url, "must be a valid URL")
   rescue URI::InvalidURIError, TypeError
     errors.add(:cover_image_url, "must be a valid URL")
+  end
+
+  def cover_image_must_be_png_or_jpg_under_size_limit
+    return unless cover_image.attached?
+
+    unless ALLOWED_IMAGE_CONTENT_TYPES.include?(cover_image.blob.content_type)
+      errors.add(:cover_image, "must be a .png or .jpg image")
+    end
+
+    if cover_image.blob.byte_size > MAX_IMAGE_FILE_SIZE
+      errors.add(:cover_image, "must be 2MB or smaller")
+    end
   end
 end

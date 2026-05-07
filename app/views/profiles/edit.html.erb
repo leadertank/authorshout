@@ -59,8 +59,8 @@
           <div class="member-form-grid">
             <div>
               <%= f.label :avatar, "Upload profile picture" %>
-              <%= f.file_field :avatar, accept: "image/*" %>
-              <p class="form-help">Square or portrait images crop best across the site.</p>
+              <%= f.file_field :avatar, accept: ".png,.jpg,.jpeg,image/png,image/jpeg" %>
+              <p class="form-help">(File size limited to 2MB (.png/.jpg only))</p>
             </div>
 
             <div>
@@ -74,6 +74,10 @@
             <%= f.label :bio, "Bio / Description" %>
             <%= f.text_area :bio, rows: 6, maxlength: 1200 %>
             <p class="form-help">Up to 1200 characters. Lead with the clearest reader-facing summary.</p>
+          </div>
+
+          <div style="text-align: center;">
+            <%= f.submit "Save", class: "button" %>
           </div>
         </section>
 
@@ -117,11 +121,11 @@
                       <div class="member-form-grid">
                         <div>
                           <%= book_fields.label :cover_image, "Upload book cover" %>
-                          <%= book_fields.file_field :cover_image, accept: "image/*" %>
+                          <%= book_fields.file_field :cover_image, accept: ".png,.jpg,.jpeg,image/png,image/jpeg" %>
+                          <p class="form-help">(File size limited to 2MB (.png/.jpg only))</p>
                           <% if book.cover_image.attached? %>
                             <p class="form-help">Current cover: <%= link_to "View", book.cover_image, target: "_blank" %></p>
                           <% end %>
-                          <!-- TODO Phase 2: Integrate Digital Ocean Spaces for direct uploads -->
                         </div>
 
                         <div>
@@ -143,6 +147,7 @@
                       <%= book_fields.hidden_field :id %>
                       <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
                       <button type="button" class="button button-danger remove-book-btn" data-action="click->additional-books#removeBook">Remove</button>
+                      <%= f.submit "Save", class: "button" %>
                     </div>
                   </fieldset>
                 <% end %>
@@ -156,10 +161,6 @@
           <% else %>
             <button type="button" id="add-book-btn" class="button button-outline" data-additional-books-target="addBtn" data-action="click->additional-books#addBook">+ Add Another Book</button>
           <% end %>
-
-          <div class="book-entry-actions">
-            <%= f.submit "Save Books & Profile", class: "button" %>
-          </div>
           
           <template id="book-template" data-additional-books-target="template">
             <%= f.fields_for :books, Book.new, child_index: "NEW_RECORD" do |book_fields| %>
@@ -180,9 +181,8 @@
                   <div class="member-form-grid">
                     <div>
                       <%= book_fields.label :cover_image, "Upload book cover" %>
-                      <%= book_fields.file_field :cover_image, accept: "image/*" %>
-                      <p class="form-help">Portrait covers look best on the home grid and profile page.</p>
-                      <!-- TODO Phase 2: Integrate Digital Ocean Spaces for direct uploads -->
+                      <%= book_fields.file_field :cover_image, accept: ".png,.jpg,.jpeg,image/png,image/jpeg" %>
+                      <p class="form-help">(File size limited to 2MB (.png/.jpg only))</p>
                     </div>
 
                     <div>
@@ -203,6 +203,7 @@
                 <div class="book-entry-actions">
                   <%= book_fields.hidden_field :_destroy, value: false, class: "destroy-field" %>
                   <button type="button" class="button button-danger remove-book-btn" data-action="click->additional-books#removeBook">Remove</button>
+                  <%= f.submit "Save", class: "button" %>
                 </div>
               </fieldset>
             <% end %>
