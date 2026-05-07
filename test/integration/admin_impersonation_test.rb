@@ -28,4 +28,16 @@ class AdminImpersonationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Admin Dashboard", response.body
   end
+
+  test "invalid masquerade target is rejected without error" do
+    admin = users(:two)
+    sign_in admin
+
+    get user_masquerade_index_path(
+      masquerade: "invalid-key",
+      masqueraded_resource_class: User.name
+    )
+
+    assert_response :forbidden
+  end
 end

@@ -2,22 +2,29 @@ class AuthorsController < ApplicationController
   ALPHABET = ("A".."Z").to_a.freeze
 
   def featured
-    base_scope = Profile.includes(:user).references(:users)
-    featured_users = User.where("users.featured_author = ? OR users.manual_paid = ?", true, true)
+    base_scope = Profile.includes(:user).where(users: { admin: false }).references(:users)
 
     @query = params[:q].to_s.strip
     @letter = normalize_letter(params[:letter])
+    @featured_total = base_scope.to_a.count { |profile| profile.user.verified_featured_author? }
 
-    @profiles = apply_search_and_letter(base_scope.where(user: featured_users))
+    filtered = apply_search_and_letter(base_scope)
       .order(Arel.sql("LOWER(COALESCE(users.last_name, users.email)) ASC"), Arel.sql("LOWER(COALESCE(users.first_name, users.email)) ASC"))
+      .to_a
+      .select { |profile| profile.user.verified_featured_author? }
+
+    @featured_filtered = filtered.count
+
+    @profiles = filtered
   end
 
   def directory
-    base_scope = Profile.includes(:user).references(:users)
+    base_scope = Profile.includes(:user).where(users: { admin: false }).references(:users)
 
     @query = params[:q].to_s.strip
     @letter = normalize_letter(params[:letter])
     @per_page = 24
+    @directory_total = base_scope.count
 
     filtered = apply_search_and_letter(base_scope)
       .order(Arel.sql("LOWER(COALESCE(users.last_name, users.email)) ASC"), Arel.sql("LOWER(COALESCE(users.first_name, users.email)) ASC"))

@@ -5,7 +5,10 @@ module Users
     def masquerade_authorized?
       return user_masquerade? if params[:action] == "back"
 
-      current_user&.admin? && !find_masqueradable_resource&.admin?
+      resource = find_masqueradable_resource
+      return false if resource.blank?
+
+      current_user&.admin? && !resource.admin?
     end
 
     def after_masquerade_path_for(resource)

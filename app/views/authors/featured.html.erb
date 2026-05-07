@@ -8,6 +8,17 @@
     <%= link_to "Browse Full Members Directory", authors_directory_path, class: "button button-outline" %>
   </div>
 
+  <div class="authors-stats-strip" role="status" aria-live="polite">
+    <span><strong>Featured Authors:</strong> <%= @featured_total %></span>
+    <span><strong>Showing:</strong> <%= @featured_filtered %></span>
+    <% if @letter.present? %>
+      <span><strong>Letter:</strong> <%= @letter %></span>
+    <% end %>
+    <% if @query.present? %>
+      <span><strong>Search:</strong> <%= @query %></span>
+    <% end %>
+  </div>
+
   <%= form_with url: featured_authors_path, method: :get, class: "authors-search-form" do |f| %>
     <div>
       <%= f.label :q, "Search featured authors" %>
@@ -21,7 +32,7 @@
     </div>
   <% end %>
 
-  <div class="authors-letter-filter">
+  <div class="authors-letter-filter authors-letter-filter-sticky">
     <%= link_to "All", featured_authors_path(q: @query.presence), class: "letter-pill#{" active" if @letter.blank?}" %>
     <% ("A".."Z").each do |letter| %>
       <%= link_to letter, featured_authors_path(letter: letter, q: @query.presence), class: "letter-pill#{" active" if @letter == letter}" %>

@@ -83,8 +83,13 @@
                 </td>
                 <td><%= member.plan_label %></td>
                 <td>
-                  <% if member.featured_author? %>
+                  <% if member.verified_featured_author? %>
                     <span class="admin-pill admin-pill-success">Enabled</span>
+                    <% if member.paid_member? && !member.featured_author? %>
+                      <div class="form-help">Auto via PAID plan</div>
+                    <% elsif member.featured_author? %>
+                      <div class="form-help">Admin override</div>
+                    <% end %>
                   <% else %>
                     <span class="admin-pill admin-pill-muted">Disabled</span>
                   <% end %>
@@ -93,7 +98,7 @@
                 <td>
                   <div class="cms-table-actions">
                     <%= button_to(
-                      member.featured_author? ? "Unset Featured" : "Set Featured",
+                      member.featured_author? ? "Unset Override" : "Set Override",
                       toggle_featured_author_admin_user_path(member, q: @query),
                       method: :patch,
                       class: "button button-outline"
