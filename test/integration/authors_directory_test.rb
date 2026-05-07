@@ -52,6 +52,17 @@ class AuthorsDirectoryTest < ActionDispatch::IntegrationTest
     assert_no_match "Grace Hopper", response.body
   end
 
+  test "featured authors page excludes admins even when featured" do
+    users(:one).update_columns(manual_paid: false, featured_author: true)
+    users(:two).update_columns(manual_paid: true, featured_author: true)
+
+    get featured_authors_path
+
+    assert_response :success
+    assert_match "Ada Lovelace", response.body
+    assert_no_match "Grace Hopper", response.body
+  end
+
   test "author pages include cross-navigation links" do
     get featured_authors_path
 

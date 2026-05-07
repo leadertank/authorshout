@@ -2,16 +2,15 @@ class AuthorsController < ApplicationController
   ALPHABET = ("A".."Z").to_a.freeze
 
   def featured
-    base_scope = Profile.includes(:user).where(users: { admin: false }).references(:users)
+    base_scope = featured_base_scope
 
     @query = params[:q].to_s.strip
     @letter = normalize_letter(params[:letter])
-    @featured_total = base_scope.to_a.count { |profile| profile.user.verified_featured_author? }
+    @featured_total = base_scope.count
 
     filtered = apply_search_and_letter(base_scope)
       .order(Arel.sql("LOWER(COALESCE(users.last_name, users.email)) ASC"), Arel.sql("LOWER(COALESCE(users.first_name, users.email)) ASC"))
-      .to_a
-      .select { |profile| profile.user.verified_featured_author? }
+      .distinct
 
     @featured_filtered = filtered.count
 
@@ -62,5 +61,40 @@ class AuthorsController < ApplicationController
       "UPPER(SUBSTR(COALESCE(NULLIF(users.last_name, ''), users.email), 1, 1)) = ?",
       @letter
     )
+  end
+
+  def featured_base_scope
+    now = Time.current
+
+    Profile.includes(:user)
+      .where(users: { admin: false })
+      .where(
+        <<~SQL.squish,
+          users.featured_author = :enabled
+          OR users.manual_paid = :enabled
+          OR EXISTS (
+            SELECT 1
+            FROM pay_customers
+            INNER JOIN pay_subscriptions ON pay_subscriptions.customer_id = pay_customers.id
+            WHERE pay_customers.owner_type = 'User'
+              AND pay_customers.owner_id = users.id
+              AND pay_subscriptions.name = 'authorshout-pro'
+              AND (
+                (
+                  pay_subscriptions.status = 'active'
+                  AND (pay_subscriptions.pause_starts_at IS NULL OR pay_subscriptions.pause_starts_at > :now)
+                  AND (pay_subscriptions.ends_at IS NULL OR pay_subscriptions.ends_at > :now)
+                )
+                OR (
+                  pay_subscriptions.status IN ('on_trial', 'trialing', 'active')
+                  AND pay_subscriptions.trial_ends_at > :now
+                )
+              )
+          )
+        SQL
+        enabled: true,
+        now: now
+      )
+      .references(:users)
   end
 end
