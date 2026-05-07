@@ -2611,7 +2611,7 @@ textarea {
 .nav-join-pill {
 	background: #1f9d55;
 	color: #fff !important;
-	border: 2px solid #1f9d55 !important;
+	border: none !important;
 	border-radius: 999px !important;
 	padding: 0.35rem 1rem !important;
 	font-weight: 700;
@@ -2621,7 +2621,6 @@ textarea {
 
 .nav-join-pill:hover {
 	background: #157347 !important;
-	border-color: #157347 !important;
 }
 
 /* Membership sales page */
@@ -2713,6 +2712,13 @@ textarea {
 .membership-price-period {
 	color: var(--muted);
 	font-size: 0.9rem;
+}
+
+.membership-plan-note {
+	margin: -0.4rem 0 0;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #1f9d55;
 }
 
 .membership-benefits {
