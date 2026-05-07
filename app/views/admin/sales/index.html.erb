@@ -79,15 +79,20 @@
   </section>
 
   <section class="panel">
-    <h2>Stripe Catalog</h2>
+    <h2>Stripe Catalog (Relevant Products)</h2>
+    <p class="form-help">Showing products tied to your configured paid membership and awards price IDs.</p>
     <% if @stripe_products.any? %>
       <ul class="link-list">
         <% @stripe_products.each do |entry| %>
           <% product = entry[:product] %>
           <% prices = entry[:prices] %>
+          <% labels = entry[:labels] || [] %>
           <li>
             <div>
               <strong><%= product.name %></strong>
+              <% labels.each do |label| %>
+                <span class="admin-pill admin-pill-success"><%= label %></span>
+              <% end %>
               <span>ID: <%= product.id %></span>
               <% if prices.any? %>
                 <% prices.each do |price| %>

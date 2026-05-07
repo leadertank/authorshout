@@ -29,6 +29,16 @@
       <%= f.text_area :message, rows: 8 %>
     </div>
 
+    <div class="support-bot-trap" aria-hidden="true">
+      <%= f.label :organization_name, "Organization" %>
+      <%= f.text_field :organization_name, autocomplete: "off", tabindex: -1 %>
+    </div>
+
+    <div class="checkbox-row checkbox-row-large">
+      <%= f.check_box :human_verification, class: "large-checkbox" %>
+      <%= f.label :human_verification, "Check box to verify you are human" %>
+    </div>
+
     <div>
       <%= f.submit "Send message", class: "button" %>
     </div>

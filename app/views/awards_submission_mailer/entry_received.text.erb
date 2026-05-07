@@ -1,9 +1,12 @@
-A new 8th Annual Author Shout Book Awards entry has been submitted.
+A new form submission has been received.
+
+Form: <%= @awards_submission.form_label %>
 
 Name: <%= @awards_submission.submitter_name %>
 Email: <%= @awards_submission.author_email %>
 Book title: <%= @awards_submission.book_title %>
 Book URL: <%= @awards_submission.book_url %>
+Teaser blurb: <%= @awards_submission.teaser_blurb.presence || "(not provided)" %>
 Website: <%= @awards_submission.website_url.presence || "(not provided)" %>
 X.com: <%= @awards_submission.x_url.presence || "(not provided)" %>
 Facebook: <%= @awards_submission.facebook_url.presence || "(not provided)" %>

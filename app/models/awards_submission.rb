@@ -1,7 +1,10 @@
 class AwardsSubmission < ApplicationRecord
   DEFAULT_FORM_KEY = "8th-annual-author-shout-book-awards"
+  SOCIAL_BLITZ_FORM_KEY = "social-media-book-blitz"
+
   FORM_LABELS = {
-    DEFAULT_FORM_KEY => "8th Annual Author Shout Book Awards"
+    DEFAULT_FORM_KEY => "8th Annual Author Shout Book Awards",
+    SOCIAL_BLITZ_FORM_KEY => "Social Media Book Blitz"
   }.freeze
 
   enum :payment_status, {
@@ -18,12 +21,14 @@ class AwardsSubmission < ApplicationRecord
   validates :author_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :book_title, presence: true, length: { maximum: 220 }
   validates :book_url, presence: true
+  validates :teaser_blurb, presence: true, if: :social_blitz_form?
 
   validate :book_url_must_be_valid
   validate :website_url_must_be_valid
   validate :x_url_must_be_valid
   validate :facebook_url_must_be_valid
   validate :instagram_url_must_be_valid
+  validate :teaser_blurb_word_count_within_limit
 
   scope :most_recent_first, -> { order(created_at: :desc) }
   scope :for_form, ->(form_key) { where(form_key: form_key) }
@@ -33,7 +38,12 @@ class AwardsSubmission < ApplicationRecord
   end
 
   def form_label
-    FORM_LABELS.fetch(form_key, form_key.to_s.humanize)
+    current_form_key = self[:form_key]
+    FORM_LABELS.fetch(current_form_key, current_form_key.to_s.humanize)
+  end
+
+  def social_blitz_form?
+    self[:form_key] == SOCIAL_BLITZ_FORM_KEY
   end
 
   private
@@ -45,7 +55,7 @@ class AwardsSubmission < ApplicationRecord
   end
 
   def ensure_form_key
-    self.form_key = DEFAULT_FORM_KEY if form_key.blank?
+    self[:form_key] = DEFAULT_FORM_KEY if self[:form_key].blank?
   end
 
   def validate_optional_url(attribute)
@@ -84,5 +94,14 @@ class AwardsSubmission < ApplicationRecord
 
   def instagram_url_must_be_valid
     validate_optional_url(:instagram_url)
+  end
+
+  def teaser_blurb_word_count_within_limit
+    return if teaser_blurb.blank?
+
+    word_count = teaser_blurb.to_s.split.size
+    return if word_count <= 15
+
+    errors.add(:teaser_blurb, "must be 15 words or less")
   end
 end

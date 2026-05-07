@@ -7,7 +7,7 @@ class AdminAwardsSubmissionsTest < ActionDispatch::IntegrationTest
     get admin_awards_submissions_path
 
     assert_response :success
-    assert_match "Book Awards Submissions", response.body
+    assert_match "Form Submissions", response.body
     assert_match "Analytical Engines for Everyone", response.body
   end
 

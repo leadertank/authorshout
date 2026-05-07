@@ -16,7 +16,9 @@ class SupportRequestsTest < ActionDispatch::IntegrationTest
         support_message: {
           name: "Ada Lovelace",
           email: "ada@example.com",
-          message: "I need help with my profile."
+          message: "I need help with my profile.",
+          human_verification: "1",
+          organization_name: ""
         }
       }
     end
@@ -37,9 +39,28 @@ class SupportRequestsTest < ActionDispatch::IntegrationTest
       support_message: {
         name: "",
         email: "not-an-email",
-        message: ""
+        message: "",
+        human_verification: "0",
+        organization_name: ""
       }
     }
+
+    assert_response :unprocessable_entity
+    assert_match "Please fix these issues", response.body
+  end
+
+  test "bot-like support request with honeypot field is rejected" do
+    assert_no_emails do
+      post support_path, params: {
+        support_message: {
+          name: "Ada Lovelace",
+          email: "ada@example.com",
+          message: "I need help with my profile.",
+          human_verification: "1",
+          organization_name: "Spam Company"
+        }
+      }
+    end
 
     assert_response :unprocessable_entity
     assert_match "Please fix these issues", response.body

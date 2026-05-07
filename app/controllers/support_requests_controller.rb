@@ -2,7 +2,8 @@ class SupportRequestsController < ApplicationController
   def new
     @support_message = SupportMessage.new(
       name: current_user&.display_name,
-      email: current_user&.email
+      email: current_user&.email,
+      human_verification: "0"
     )
   end
 
@@ -24,6 +25,6 @@ class SupportRequestsController < ApplicationController
   private
 
   def support_message_params
-    params.require(:support_message).permit(:name, :email, :message)
+    params.require(:support_message).permit(:name, :email, :message, :human_verification, :organization_name)
   end
 end

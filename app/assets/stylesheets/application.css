@@ -1192,6 +1192,10 @@ textarea {
 	flex-wrap: wrap;
 }
 
+.admin-actions-row-spaced {
+	margin-top: 0.9rem;
+}
+
 .admin-users-admins-panel,
 .admin-users-members-panel {
 	margin-top: 0.95rem;
@@ -2827,6 +2831,14 @@ textarea {
 	margin: 1rem 0;
 	padding-left: 1.2rem;
 	line-height: 1.7;
+}
+
+.support-bot-trap {
+	position: absolute;
+	left: -10000px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
 }
 
 @media (max-width: 600px) {

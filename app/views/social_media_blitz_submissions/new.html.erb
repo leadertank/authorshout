@@ -1,0 +1,86 @@
+<section class="panel auth-shell awards-form-shell">
+  <h1>Social Media Book Blitz (30 day blitz)</h1>
+
+  <p><strong>$25 PER BOOK</strong></p>
+  <p>Don’t have time to promote your book(s) across the growing amount of social media sites out there. No worries, we got you covered.</p>
+  <p>The Social Media Book Blitz package is designed to do the work for you by gaining visibility across social media platforms.</p>
+  <p>We will promote your book with daily shout outs that include text, images, links, and custom book teasers across X (Twitter), Facebook, and Instagram.</p>
+  <p><strong>*NOTE*</strong> This package is good for 30 days once we have confirmed all details and added your book.</p>
+  <p>A package must be purchased for each book you would like promoted.</p>
+
+  <h2>Here’s what you get with the Social Media Book Blitz Package:</h2>
+  <ul class="billing-benefits-list">
+    <li>One book added to our recommended reads page and promoted across X (Twitter), Facebook, and Instagram for 30 days.</li>
+    <li>Your book gets a feature listing in our newsletter as a recommended read.</li>
+    <li>1 high quality 3D mockup image of your book.</li>
+    <li>2 high quality 3D book teaser banners (1 .png and 1 .jpg).</li>
+    <li>1 high quality video (.mp4) usable for Reels, Shorts, website videos, and TikTok.</li>
+  </ul>
+
+  <% if @awards_submission.errors.any? %>
+    <div class="form-errors">
+      <h2>Please fix these issues:</h2>
+      <ul>
+        <% @awards_submission.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @awards_submission, url: social_media_blitz_submissions_path, class: "form-stack", data: { turbo: false } do |f| %>
+    <div>
+      <%= f.label :first_name, "First Name" %>
+      <%= f.text_field :first_name, autocomplete: "given-name", placeholder: "Enter Your First Name", required: true %>
+    </div>
+
+    <div>
+      <%= f.label :last_name, "Last Name" %>
+      <%= f.text_field :last_name, autocomplete: "family-name", placeholder: "Enter Your Last Name", required: true %>
+    </div>
+
+    <div>
+      <%= f.label :author_email, "Author's E-Mail Address (For contact purposes and to send link to download book teasers)" %>
+      <%= f.email_field :author_email, autocomplete: "email", placeholder: "Email Address", required: true %>
+    </div>
+
+    <div>
+      <%= f.label :book_title, "What is the title of your book?" %>
+      <%= f.text_field :book_title, required: true %>
+    </div>
+
+    <div>
+      <%= f.label :book_url, "Where can we find your book? (Link/URL)" %>
+      <%= f.url_field :book_url, placeholder: "https://", required: true %>
+    </div>
+
+    <div>
+      <%= f.label :teaser_blurb, "What specific blurb or tagline would you like us to consider for your teasers? (15 words or less)" %>
+      <%= f.text_field :teaser_blurb, maxlength: 300, required: true %>
+    </div>
+
+    <div>
+      <%= f.label :website_url, "Do you have a website? (Link/URL)" %>
+      <%= f.url_field :website_url, placeholder: "https://" %>
+    </div>
+
+    <div>
+      <%= f.label :x_url, "What is the Link/URL to your X (Twitter)?" %>
+      <%= f.url_field :x_url, placeholder: "https://x.com/..." %>
+    </div>
+
+    <div>
+      <%= f.label :facebook_url, "What is the Link/URL to your Facebook?" %>
+      <%= f.url_field :facebook_url, placeholder: "https://facebook.com/..." %>
+    </div>
+
+    <div>
+      <%= f.label :instagram_url, "What is the Link/URL to your Instagram?" %>
+      <%= f.url_field :instagram_url, placeholder: "https://instagram.com/..." %>
+    </div>
+
+    <div>
+      <%= f.submit "Submit Payment and Start Book Blitz", class: "button awards-submit-button" %>
+    </div>
+  <% end %>
+</section>

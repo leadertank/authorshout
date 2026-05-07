@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     get "book-awards", to: "awards_submissions#new", as: :new_awards_submission
     post "book-awards", to: "awards_submissions#create", as: :awards_submissions
     get "book-awards/success/:token", to: "awards_submissions#success", as: :awards_submission_success
+  get "social-media-book-blitz", to: "social_media_blitz_submissions#new", as: :new_social_media_blitz_submission
+  post "social-media-book-blitz", to: "social_media_blitz_submissions#create", as: :social_media_blitz_submissions
+  get "social-media-book-blitz/success/:token", to: "social_media_blitz_submissions#success", as: :social_media_blitz_submission_success
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
   resource :support, only: [ :new, :create ], controller: :support_requests
