@@ -28,7 +28,6 @@ class AwardsSubmission < ApplicationRecord
   validate :x_url_must_be_valid
   validate :facebook_url_must_be_valid
   validate :instagram_url_must_be_valid
-  validate :teaser_blurb_word_count_within_limit
 
   scope :most_recent_first, -> { order(created_at: :desc) }
   scope :for_form, ->(form_key) { where(form_key: form_key) }
@@ -96,12 +95,4 @@ class AwardsSubmission < ApplicationRecord
     validate_optional_url(:instagram_url)
   end
 
-  def teaser_blurb_word_count_within_limit
-    return if teaser_blurb.blank?
-
-    word_count = teaser_blurb.to_s.split.size
-    return if word_count <= 15
-
-    errors.add(:teaser_blurb, "must be 15 words or less")
-  end
 end
