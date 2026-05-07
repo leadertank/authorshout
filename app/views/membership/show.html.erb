@@ -1,0 +1,59 @@
+<% content_for :title, "Become a Member – Authorshout" %>
+
+<section class="membership-page">
+  <div class="membership-hero">
+    <h1>Become a Member</h1>
+    <p class="membership-hero-sub">Join a growing community of authors connecting with readers worldwide. Choose the plan that works for you.</p>
+  </div>
+
+  <div class="membership-plans">
+
+    <%# FREE PLAN %>
+    <div class="membership-card">
+      <div class="membership-card-header">
+        <h2 class="membership-plan-name">Free</h2>
+        <div class="membership-price">
+          <span class="membership-price-amount">$0</span>
+          <span class="membership-price-period">/month</span>
+        </div>
+      </div>
+
+      <ul class="membership-benefits">
+        <li>Create your free account and be listed in our Members Directory</li>
+        <li>Add 1 book to your profile and it will be listed in our Latest Member Book Covers section of our site</li>
+      </ul>
+
+      <div class="membership-card-action">
+        <%= link_to "Sign Up Free", new_user_registration_path, class: "button button-outline-dark membership-cta" %>
+      </div>
+    </div>
+
+    <%# PREMIUM PLAN %>
+    <div class="membership-card membership-card-premium">
+      <div class="membership-recommended-badge">Recommended</div>
+
+      <div class="membership-card-header">
+        <h2 class="membership-plan-name">Premium</h2>
+        <div class="membership-price">
+          <span class="membership-price-amount"><%= @paid_price_display %></span>
+          <span class="membership-price-period">/month</span>
+        </div>
+      </div>
+
+      <ul class="membership-benefits">
+        <li><strong>Everything in the Free plan</strong>, plus:</li>
+        <li>Verified Featured Author with verified checkmark</li>
+        <li>Your profile added to the Featured Authors page</li>
+        <li>Add unlimited books to your profile</li>
+        <li>Select which book you want to set as your Featured Book — it will display on our site and your profile as a Featured Book</li>
+      </ul>
+
+      <div class="membership-card-action">
+        <%= link_to "Get Premium", new_user_registration_path(plan: "premium"), class: "button membership-cta membership-cta-premium" %>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="membership-login-note">Already have an account? <%= link_to "Log in here", new_user_session_path, class: "text-link" %>.</p>
+</section>

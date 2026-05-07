@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", masquerades: "users/masquerades" }
   root "home#index"
 
+  get "membership", to: "membership#show", as: :membership
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
   resource :support, only: [ :new, :create ], controller: :support_requests
