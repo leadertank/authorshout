@@ -114,6 +114,47 @@ class BookLikeUiTest < ActionDispatch::IntegrationTest
     assert users(:one).valid_password?("NewPassword123!")
   end
 
+  test "member can save profile name without entering book data or password" do
+    user = User.create!(
+      email: "profile-minimum@example.com",
+      password: "Password123!",
+      password_confirmation: "Password123!",
+      first_name: "Initial",
+      last_name: "Name",
+      human_verification: "1"
+    )
+
+    sign_in user
+
+    patch my_profile_path, params: {
+      profile: {
+        user_attributes: {
+          id: user.id,
+          first_name: "Updated",
+          last_name: "Member",
+          password: "",
+          password_confirmation: ""
+        },
+        books_attributes: {
+          "0" => {
+            title: "",
+            purchase_url: "",
+            cover_image_url: "",
+            featured: "0",
+            _destroy: "false"
+          }
+        }
+      }
+    }
+
+    assert_redirected_to profile_path(user.profile)
+
+    user.reload
+    assert_equal "Updated", user.first_name
+    assert_equal "Member", user.last_name
+    assert_equal 0, user.profile.books.count
+  end
+
   test "free member cannot add more than one book" do
     sign_in users(:one)
 

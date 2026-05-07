@@ -53,6 +53,12 @@ class ProfilesController < ApplicationController
       books_attributes: [ :id, :title, :purchase_url, :cover_image, :cover_image_url, :featured, :_destroy ]
     )
 
+    user_attributes = permitted[:user_attributes]
+    if user_attributes.present? && user_attributes[:password].blank? && user_attributes[:password_confirmation].blank?
+      user_attributes.delete(:password)
+      user_attributes.delete(:password_confirmation)
+    end
+
     unless current_user.paid_member? || current_user.featured_author?
       books_attributes = permitted[:books_attributes]
       books_attributes&.each_value { |book_attrs| book_attrs[:featured] = "0" }

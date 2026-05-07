@@ -14,7 +14,7 @@ class Profile < ApplicationRecord
   has_many :books, dependent: :destroy
   has_one_attached :avatar
 
-  accepts_nested_attributes_for :books, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :books, allow_destroy: true, reject_if: :reject_blank_new_book?
   accepts_nested_attributes_for :user, update_only: true
 
   validates :bio, length: { maximum: 1200 }
@@ -84,5 +84,17 @@ class Profile < ApplicationRecord
     return if featured_count <= 1
 
     errors.add(:books, "You can feature only 1 book at a time.")
+  end
+
+  def reject_blank_new_book?(attributes)
+    return false if ActiveModel::Type::Boolean.new.cast(attributes["_destroy"] || attributes[:_destroy])
+    return false if (attributes["id"] || attributes[:id]).present?
+
+    title = attributes["title"] || attributes[:title]
+    purchase_url = attributes["purchase_url"] || attributes[:purchase_url]
+    cover_image_url = attributes["cover_image_url"] || attributes[:cover_image_url]
+    cover_image = attributes["cover_image"] || attributes[:cover_image]
+
+    title.blank? && purchase_url.blank? && cover_image_url.blank? && cover_image.blank?
   end
 end
