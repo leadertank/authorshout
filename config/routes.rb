@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     patch "sales/members/:id", to: "sales#update_member", as: :sales_member
     post "sales/products", to: "sales#create_product", as: :sales_products
     patch "sales/products/:id", to: "sales#update_product", as: :sales_product
-    resources :users, only: [ :index, :create ] do
+    resources :users, only: [ :index, :create, :destroy ] do
       member do
         patch :toggle_featured_author
       end

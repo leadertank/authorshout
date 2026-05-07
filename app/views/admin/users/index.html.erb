@@ -104,6 +104,13 @@
                       class: "button button-outline"
                     ) %>
                     <%= link_to "Login as user", masquerade_path(member), class: "button", data: { turbo: false } %>
+                    <%= button_to(
+                      "Delete",
+                      admin_user_path(member, q: @query),
+                      method: :delete,
+                      class: "button button-danger",
+                      form: { data: { turbo_confirm: "Delete #{member.display_name} (#{member.email})? This cannot be undone." } }
+                    ) %>
                   </div>
                 </td>
               </tr>

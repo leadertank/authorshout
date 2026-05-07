@@ -2597,6 +2597,16 @@ textarea {
 	border-color: #b7d4e7;
 }
 
+.billing-benefits-list {
+	margin: 0.75rem 0 1.25rem 1.25rem;
+	padding: 0;
+	line-height: 1.8;
+}
+
+.billing-benefits-list li {
+	list-style: disc;
+}
+
 .button-outline {
 	background: transparent;
 	color: var(--accent-dark);

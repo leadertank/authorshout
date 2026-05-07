@@ -22,6 +22,19 @@ module Admin
       end
     end
 
+    def destroy
+      @member = User.find(params[:id])
+
+      if @member.admin?
+        redirect_to admin_users_path(q: params[:q]), alert: "Admin accounts cannot be deleted here."
+        return
+      end
+
+      name = @member.display_name
+      @member.destroy!
+      redirect_to admin_users_path(q: params[:q]), notice: "#{name} has been deleted."
+    end
+
     def toggle_featured_author
       @member = User.find(params[:id])
 

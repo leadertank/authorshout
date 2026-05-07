@@ -14,19 +14,25 @@
         <p class="form-help">Billing portal is not configured yet. Ask admin to set STRIPE_SECRET_KEY (or credentials stripe.secret_key).</p>
       <% end %>
     <% else %>
-      <p>You are currently on FREE and can publish up to 1 book.</p>
-      <p>Upgrade to PAID (<%= @paid_price_display %>/month) for unlimited books.</p>
+      <p>You are currently on the FREE plan and can publish up to 1 book.</p>
+      <p>Upgrade to Premium (<%= @paid_price_display %>/month) to receive the following benefits:</p>
+      <ul class="billing-benefits-list">
+        <li>Verified Featured Author with verified checkmark</li>
+        <li>Your profile added to the Featured Authors page</li>
+        <li>Add unlimited books to your profile</li>
+        <li>Select which book you want to set as your Featured Book — it will display on our site and your profile as a Featured Book</li>
+      </ul>
 
       <% if @paid_price_id_configured && @stripe_secret_configured %>
         <div class="member-form-actions">
-          <%= link_to "Upgrade to PAID", checkout_billing_path, class: "button", data: { turbo: false } %>
+          <%= link_to "Upgrade to Premium", checkout_billing_path, class: "button", data: { turbo: false } %>
         </div>
       <% else %>
         <p class="form-help">Billing is not configured yet. Ask admin to set STRIPE_SECRET_KEY and STRIPE_PAID_PRICE_ID (or credentials stripe.secret_key and stripe.paid_price_id).</p>
         <% if user_masquerade? %>
-          <p class="form-help">Impersonation testing is enabled: the upgrade action will grant PAID access without Stripe checkout.</p>
+          <p class="form-help">Impersonation testing is enabled: the upgrade action will grant Premium access without Stripe checkout.</p>
           <div class="member-form-actions">
-            <%= button_to "Simulate Upgrade (Impersonation)", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false } } %>
+            <%= button_to "Simulate Upgrade to Premium (Impersonation)", checkout_billing_path, method: :post, class: "button", form: { data: { turbo: false } } %>
           </div>
         <% end %>
       <% end %>
