@@ -1,0 +1,18 @@
+<h1>New Book Awards Entry</h1>
+
+<p>A new 8th Annual Author Shout Book Awards entry has been submitted.</p>
+
+<ul>
+  <li><strong>Name:</strong> <%= @awards_submission.submitter_name %></li>
+  <li><strong>Email:</strong> <%= @awards_submission.author_email %></li>
+  <li><strong>Book title:</strong> <%= @awards_submission.book_title %></li>
+  <li><strong>Book URL:</strong> <%= @awards_submission.book_url %></li>
+  <li><strong>Website:</strong> <%= @awards_submission.website_url.presence || "(not provided)" %></li>
+  <li><strong>X.com:</strong> <%= @awards_submission.x_url.presence || "(not provided)" %></li>
+  <li><strong>Facebook:</strong> <%= @awards_submission.facebook_url.presence || "(not provided)" %></li>
+  <li><strong>Instagram:</strong> <%= @awards_submission.instagram_url.presence || "(not provided)" %></li>
+  <li><strong>Stripe checkout session:</strong> <%= @awards_submission.stripe_checkout_session_id.presence || "(not captured)" %></li>
+  <li><strong>Stripe payment intent:</strong> <%= @awards_submission.stripe_payment_intent_id.presence || "(not captured)" %></li>
+  <li><strong>Paid at:</strong> <%= @awards_submission.paid_at %></li>
+  <li><strong>Submission token:</strong> <%= @awards_submission.public_token %></li>
+</ul>

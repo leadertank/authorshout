@@ -1,0 +1,56 @@
+<section class="admin-shell">
+  <h1>Book Awards Submissions</h1>
+
+  <section class="panel">
+    <div class="admin-users-search-actions">
+      <%= link_to "Download CSV", admin_awards_submissions_path(format: :csv), class: "button" %>
+    </div>
+
+    <% if @awards_submissions.any? %>
+      <div class="admin-users-table-wrap">
+        <table class="cms-table admin-users-table">
+          <thead>
+            <tr>
+              <th>Submitted</th>
+              <th>Payment</th>
+              <th>Author</th>
+              <th>Email</th>
+              <th>Book</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @awards_submissions.each do |submission| %>
+              <tr>
+                <td><%= submission.created_at.to_date %></td>
+                <td>
+                  <% if submission.paid? %>
+                    <span class="admin-pill admin-pill-success">Paid</span>
+                  <% elsif submission.failed? %>
+                    <span class="admin-pill">Failed</span>
+                  <% else %>
+                    <span class="admin-pill admin-pill-muted">Pending</span>
+                  <% end %>
+                </td>
+                <td><strong><%= submission.submitter_name %></strong></td>
+                <td><%= submission.author_email %></td>
+                <td>
+                  <strong><%= submission.book_title %></strong>
+                  <div class="form-help"><%= link_to submission.book_url, submission.book_url, target: "_blank", rel: "noopener" %></div>
+                </td>
+                <td>
+                  <div class="form-help">Website: <%= submission.website_url.presence || "-" %></div>
+                  <div class="form-help">X: <%= submission.x_url.presence || "-" %></div>
+                  <div class="form-help">Facebook: <%= submission.facebook_url.presence || "-" %></div>
+                  <div class="form-help">Instagram: <%= submission.instagram_url.presence || "-" %></div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="form-help">No submissions yet.</p>
+    <% end %>
+  </section>
+</section>

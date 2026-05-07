@@ -1,0 +1,14 @@
+<section class="panel auth-shell">
+  <h1>Entry Received</h1>
+  <p>Thank you for entering the 8th Annual Author Shout Book Awards.</p>
+  <p>Your payment was received and your book entry has been recorded.</p>
+
+  <ul class="awards-success-list">
+    <li><strong>Author:</strong> <%= @awards_submission.submitter_name %></li>
+    <li><strong>Email:</strong> <%= @awards_submission.author_email %></li>
+    <li><strong>Book:</strong> <%= @awards_submission.book_title %></li>
+    <li><strong>Paid:</strong> <%= @awards_submission.paid_at&.to_s(:long) || "Yes" %></li>
+  </ul>
+
+  <p class="form-help">Need to submit another book? <%= link_to "Enter another submission", new_awards_submission_path, class: "text-link" %>.</p>
+</section>

@@ -2804,6 +2804,31 @@ textarea {
 	color: var(--muted);
 }
 
+.awards-form-shell {
+	max-width: 760px;
+	margin-inline: auto;
+}
+
+.awards-submit-button {
+	background: #2563eb;
+	border: 2px solid #2563eb;
+	color: #fff;
+	font-weight: 700;
+	padding: 0.72rem 1.1rem;
+	border-radius: 10px;
+}
+
+.awards-submit-button:hover {
+	background: #1d4ed8;
+	border-color: #1d4ed8;
+}
+
+.awards-success-list {
+	margin: 1rem 0;
+	padding-left: 1.2rem;
+	line-height: 1.7;
+}
+
 @media (max-width: 600px) {
 	.membership-plans {
 		grid-template-columns: 1fr;

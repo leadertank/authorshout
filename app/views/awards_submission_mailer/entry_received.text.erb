@@ -1,0 +1,15 @@
+A new 8th Annual Author Shout Book Awards entry has been submitted.
+
+Name: <%= @awards_submission.submitter_name %>
+Email: <%= @awards_submission.author_email %>
+Book title: <%= @awards_submission.book_title %>
+Book URL: <%= @awards_submission.book_url %>
+Website: <%= @awards_submission.website_url.presence || "(not provided)" %>
+X.com: <%= @awards_submission.x_url.presence || "(not provided)" %>
+Facebook: <%= @awards_submission.facebook_url.presence || "(not provided)" %>
+Instagram: <%= @awards_submission.instagram_url.presence || "(not provided)" %>
+
+Stripe checkout session: <%= @awards_submission.stripe_checkout_session_id.presence || "(not captured)" %>
+Stripe payment intent: <%= @awards_submission.stripe_payment_intent_id.presence || "(not captured)" %>
+Paid at: <%= @awards_submission.paid_at %>
+Submission token: <%= @awards_submission.public_token %>

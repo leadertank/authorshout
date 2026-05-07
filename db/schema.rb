@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_07_021000) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_07_165653) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -47,6 +47,30 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_021000) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "awards_submissions", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "author_email", null: false
+    t.string "book_title", null: false
+    t.string "book_url", null: false
+    t.string "website_url"
+    t.string "x_url"
+    t.string "facebook_url"
+    t.string "instagram_url"
+    t.string "public_token", null: false
+    t.integer "payment_status", default: 0, null: false
+    t.string "stripe_checkout_session_id"
+    t.string "stripe_payment_intent_id"
+    t.datetime "paid_at"
+    t.datetime "support_emailed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_awards_submissions_on_created_at"
+    t.index ["payment_status"], name: "index_awards_submissions_on_payment_status"
+    t.index ["public_token"], name: "index_awards_submissions_on_public_token", unique: true
+    t.index ["stripe_checkout_session_id"], name: "index_awards_submissions_on_stripe_checkout_session_id"
   end
 
   create_table "book_likes", force: :cascade do |t|

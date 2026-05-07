@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "membership", to: "membership#show", as: :membership
+    get "book-awards", to: "awards_submissions#new", as: :new_awards_submission
+    post "book-awards", to: "awards_submissions#create", as: :awards_submissions
+    get "book-awards/success/:token", to: "awards_submissions#success", as: :awards_submission_success
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
   resource :support, only: [ :new, :create ], controller: :support_requests
@@ -33,6 +36,7 @@ Rails.application.routes.draw do
         patch :toggle_featured_author
       end
     end
+      resources :awards_submissions, only: [ :index ]
     resources :pages do
       member do
         get :preview

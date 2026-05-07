@@ -1,0 +1,16 @@
+one:
+  first_name: Ada
+  last_name: Lovelace
+  author_email: ada@example.com
+  book_title: Analytical Engines for Everyone
+  book_url: https://books.example.com/ada
+  website_url: https://ada.example.com
+  x_url: https://x.com/ada
+  facebook_url: https://facebook.com/ada
+  instagram_url: https://instagram.com/ada
+  public_token: token-ada-123
+  payment_status: 1
+  stripe_checkout_session_id: cs_test_123
+  stripe_payment_intent_id: pi_test_123
+  paid_at: <%= Time.current %>
+  support_emailed_at: <%= Time.current %>
