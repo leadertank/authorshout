@@ -20,6 +20,15 @@ class User < ApplicationRecord
 
   scope :admins_first, -> { order(admin: :desc, created_at: :asc) }
 
+  # Guard against stale app processes that haven't reloaded schema yet.
+  # This keeps author-directory rendering safe even if featured_author
+  # method generation has not been refreshed.
+  def featured_author?
+    return false unless has_attribute?(:featured_author)
+
+    ActiveModel::Type::Boolean.new.cast(self[:featured_author])
+  end
+
   def display_name
     full_name.presence || email.to_s.split("@").first.titleize
   end
