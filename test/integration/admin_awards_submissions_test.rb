@@ -4,7 +4,7 @@ class AdminAwardsSubmissionsTest < ActionDispatch::IntegrationTest
   test "admin can view awards submissions" do
     sign_in users(:two)
 
-    get admin_awards_submissions_path
+    get admin_submissions_path
 
     assert_response :success
     assert_match "Form Submissions", response.body
@@ -14,7 +14,7 @@ class AdminAwardsSubmissionsTest < ActionDispatch::IntegrationTest
   test "admin can export awards submissions csv" do
     sign_in users(:two)
 
-    get admin_awards_submissions_path(format: :csv)
+    get admin_submissions_path(format: :csv)
 
     assert_response :success
     assert_includes response.media_type, "text/csv"
@@ -44,10 +44,10 @@ class AdminAwardsSubmissionsTest < ActionDispatch::IntegrationTest
     )
 
     assert_difference("AwardsSubmission.count", -2) do
-      delete delete_non_paid_admin_awards_submissions_path
+      delete delete_non_paid_admin_submissions_path
     end
 
-    assert_redirected_to admin_awards_submissions_path
+    assert_redirected_to admin_submissions_path
     assert_not AwardsSubmission.exists?(pending_submission.id)
     assert_not AwardsSubmission.exists?(failed_submission.id)
     assert AwardsSubmission.exists?(awards_submissions(:one).id)

@@ -5,10 +5,9 @@ module Admin
     before_action :set_submission, only: [ :destroy ]
 
     def index
-      @selected_form_key = params[:form_key].to_s.presence
-      @selected_status = params[:status].to_s.presence
-
       @form_keys = AwardsSubmission.distinct.order(:form_key).pluck(:form_key)
+      @selected_form_key = params[:form_key].to_s.presence || @form_keys.first
+      @selected_status = params[:status].to_s.presence
       @awards_submissions = filtered_submissions
 
       respond_to do |format|
@@ -25,7 +24,7 @@ module Admin
 
     def destroy
       @submission.destroy!
-      redirect_to admin_awards_submissions_path(form_key: params[:form_key], status: params[:status]), notice: "Submission deleted."
+      redirect_to admin_submissions_path(form_key: params[:form_key], status: params[:status]), notice: "Submission deleted."
     end
 
     def delete_non_paid
@@ -33,7 +32,7 @@ module Admin
       deleted_count = scope.count
       scope.delete_all
 
-      redirect_to admin_awards_submissions_path(form_key: params[:form_key], status: params[:status]), notice: "Deleted #{deleted_count} pending/failed submissions."
+      redirect_to admin_submissions_path(form_key: params[:form_key], status: params[:status]), notice: "Deleted #{deleted_count} pending/failed submissions."
     end
 
     private
