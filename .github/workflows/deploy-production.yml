@@ -43,6 +43,57 @@ jobs:
           chmod 600 ~/.ssh/authorshout_deploy
           ssh-keyscan -H 143.110.156.239 >> ~/.ssh/known_hosts
 
+      - name: Validate required secrets
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_SIGNING_SECRET: ${{ secrets.STRIPE_SIGNING_SECRET }}
+          STRIPE_PAID_PRICE_ID: ${{ secrets.STRIPE_PAID_PRICE_ID }}
+          STRIPE_AWARDS_PRICE_ID: ${{ secrets.STRIPE_AWARDS_PRICE_ID }}
+          STRIPE_SOCIAL_BLITZ_PRICE_ID: ${{ secrets.STRIPE_SOCIAL_BLITZ_PRICE_ID }}
+          DO_SPACES_KEY: ${{ secrets.DO_SPACES_KEY }}
+          DO_SPACES_SECRET: ${{ secrets.DO_SPACES_SECRET }}
+          SMTP_ADDRESS: ${{ secrets.SMTP_ADDRESS }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_DOMAIN: ${{ secrets.SMTP_DOMAIN }}
+          SMTP_AUTH: ${{ secrets.SMTP_AUTH }}
+          SMTP_STARTTLS: ${{ secrets.SMTP_STARTTLS }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          required_vars=(
+            RAILS_MASTER_KEY
+            KAMAL_REGISTRY_PASSWORD
+            STRIPE_SECRET_KEY
+            STRIPE_SIGNING_SECRET
+            STRIPE_PAID_PRICE_ID
+            STRIPE_AWARDS_PRICE_ID
+            STRIPE_SOCIAL_BLITZ_PRICE_ID
+            DO_SPACES_KEY
+            DO_SPACES_SECRET
+            SMTP_ADDRESS
+            SMTP_PORT
+            SMTP_DOMAIN
+            SMTP_AUTH
+            SMTP_STARTTLS
+            SMTP_USERNAME
+            SMTP_PASSWORD
+          )
+
+          for var_name in "${required_vars[@]}"; do
+            if [[ -z "${!var_name:-}" ]]; then
+              echo "Missing required secret: ${var_name}"
+              exit 1
+            fi
+          done
+
+          if [[ ${#RAILS_MASTER_KEY} -ne 32 ]]; then
+            echo "RAILS_MASTER_KEY must be 32 characters long, got ${#RAILS_MASTER_KEY}"
+            exit 1
+          fi
+
       - name: Verify Kamal config
         run: bundle exec kamal config > /dev/null
 
