@@ -99,6 +99,30 @@ jobs:
       - name: Verify Kamal config
         run: bundle exec kamal config > /dev/null
 
+      - name: Smoke test production boot
+        env:
+          RAILS_ENV: production
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_SIGNING_SECRET: ${{ secrets.STRIPE_SIGNING_SECRET }}
+          STRIPE_PAID_PRICE_ID: ${{ secrets.STRIPE_PAID_PRICE_ID }}
+          STRIPE_AWARDS_PRICE_ID: ${{ secrets.STRIPE_AWARDS_PRICE_ID }}
+          STRIPE_SOCIAL_BLITZ_PRICE_ID: ${{ secrets.STRIPE_SOCIAL_BLITZ_PRICE_ID }}
+          DO_SPACES_KEY: ${{ secrets.DO_SPACES_KEY }}
+          DO_SPACES_SECRET: ${{ secrets.DO_SPACES_SECRET }}
+          DO_SPACES_REGION: sfo3
+          DO_SPACES_ENDPOINT: https://sfo3.digitaloceanspaces.com
+          DO_SPACES_BUCKET: authorshout-media
+          SMTP_ADDRESS: ${{ secrets.SMTP_ADDRESS }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_DOMAIN: ${{ secrets.SMTP_DOMAIN }}
+          SMTP_AUTH: ${{ secrets.SMTP_AUTH }}
+          SMTP_STARTTLS: ${{ secrets.SMTP_STARTTLS }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        run: bundle exec rails runner 'puts :production_boot_ok_in_ci'
+
       - name: Deploy with Kamal
         env:
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
