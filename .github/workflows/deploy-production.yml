@@ -41,6 +41,15 @@ jobs:
           chmod 700 ~/.ssh
           printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/authorshout_deploy
           chmod 600 ~/.ssh/authorshout_deploy
+          cat > ~/.ssh/config <<'EOF'
+          Host 143.110.156.239
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+            GlobalKnownHostsFile /dev/null
+            IdentitiesOnly yes
+            IdentityFile ~/.ssh/authorshout_deploy
+          EOF
+          chmod 600 ~/.ssh/config
           rm -f ~/.ssh/known_hosts
           ssh-keyscan -H 143.110.156.239 > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
