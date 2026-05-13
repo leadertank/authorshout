@@ -61,6 +61,10 @@ FROM base
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
+# Some host filesystems can yield restrictive group bits in image layers.
+# Normalize permissions so the non-root runtime user can read app code.
+RUN chmod -R go+rX /rails
+
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
