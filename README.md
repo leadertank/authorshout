@@ -126,3 +126,52 @@ You can log in with this account to access:
 ## Notes For Future Premium/Plus Tier
 
 The free tier is currently enforced as one book per profile. This can later be expanded for premium members by introducing a membership plan model and changing the one-book rule to a plan-based limit.
+
+## Production Deploy (Manual Approval)
+
+This repository includes a manual GitHub Actions workflow for production deploys:
+
+- Workflow: `.github/workflows/deploy-production.yml`
+- Trigger: Actions tab -> "Deploy Production (Manual)" -> Run workflow
+- Deploy command used: `bundle exec kamal deploy`
+
+### One-time GitHub setup
+
+1. Add repository secrets in GitHub (Settings -> Secrets and variables -> Actions):
+
+- `DEPLOY_SSH_PRIVATE_KEY` (private key matching your Droplet authorized key)
+- `KAMAL_REGISTRY_PASSWORD`
+- `RAILS_MASTER_KEY`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_SIGNING_SECRET`
+- `STRIPE_PAID_PRICE_ID`
+- `STRIPE_AWARDS_PRICE_ID`
+- `STRIPE_SOCIAL_BLITZ_PRICE_ID`
+- `DO_SPACES_KEY`
+- `DO_SPACES_SECRET`
+- `SMTP_ADDRESS`
+- `SMTP_PORT`
+- `SMTP_DOMAIN`
+- `SMTP_AUTH`
+- `SMTP_STARTTLS`
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+
+2. Add environment protection for manual approval:
+
+- Go to Settings -> Environments -> New environment: `production`
+- Configure required reviewers (you)
+- (Optional) Restrict deployment branches to `main`
+
+### Recommended release flow
+
+1. Push changes to `main`
+2. Open Actions -> "Deploy Production (Manual)"
+3. Click Run workflow
+4. Approve the `production` environment prompt
+5. Monitor logs until deploy completes
+
+### Seed safety in production
+
+If you run seeds in production, set `SEED_ADMIN_PASSWORD` explicitly first.
+The app no longer allows production seeding with an implicit default admin password.
