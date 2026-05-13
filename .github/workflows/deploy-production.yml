@@ -74,6 +74,11 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
           set -euo pipefail
+          raw_master_key="${RAILS_MASTER_KEY:-}"
+          # Accept common copy/paste mistakes like wrapping quotes or a leading "RAILS_MASTER_KEY=" prefix.
+          RAILS_MASTER_KEY="$(printf '%s' "$raw_master_key" | tr -d '\r\n' | sed -E 's/^RAILS_MASTER_KEY=//; s/^"//; s/"$//')"
+          export RAILS_MASTER_KEY
+
           required_vars=(
             RAILS_MASTER_KEY
             KAMAL_REGISTRY_PASSWORD
@@ -100,10 +105,13 @@ jobs:
             fi
           done
 
-          if [[ ${#RAILS_MASTER_KEY} -ne 32 ]]; then
-            echo "RAILS_MASTER_KEY must be 32 characters long, got ${#RAILS_MASTER_KEY}"
+          if [[ ! "$RAILS_MASTER_KEY" =~ ^[0-9a-fA-F]{32}$ ]]; then
+            echo "RAILS_MASTER_KEY must be exactly 32 hex characters (0-9, a-f)."
+            echo "Current metadata: len=${#RAILS_MASTER_KEY}, hex=$([[ "$RAILS_MASTER_KEY" =~ ^[0-9a-fA-F]+$ ]] && echo yes || echo no)"
             exit 1
           fi
+
+          echo "RAILS_MASTER_KEY=$RAILS_MASTER_KEY" >> "$GITHUB_ENV"
 
       - name: Verify Kamal config
         run: bundle exec kamal config > /dev/null
@@ -112,7 +120,7 @@ jobs:
         env:
           RAILS_ENV: production
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          RAILS_MASTER_KEY: ${{ env.RAILS_MASTER_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_SIGNING_SECRET: ${{ secrets.STRIPE_SIGNING_SECRET }}
           STRIPE_PAID_PRICE_ID: ${{ secrets.STRIPE_PAID_PRICE_ID }}
@@ -135,7 +143,7 @@ jobs:
       - name: Deploy with Kamal
         env:
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          RAILS_MASTER_KEY: ${{ env.RAILS_MASTER_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_SIGNING_SECRET: ${{ secrets.STRIPE_SIGNING_SECRET }}
           STRIPE_PAID_PRICE_ID: ${{ secrets.STRIPE_PAID_PRICE_ID }}
