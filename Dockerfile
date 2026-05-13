@@ -42,6 +42,9 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
+# Ensure startup scripts are executable regardless of host filesystem ACLs.
+RUN chmod 755 /rails/bin && chmod +x /rails/bin/*
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
