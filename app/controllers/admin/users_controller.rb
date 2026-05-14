@@ -15,7 +15,8 @@ module Admin
       )
 
       if @new_member.save
-        redirect_to admin_users_path, notice: "Member created. Temporary password: #{generated_password}"
+        UserMailer.admin_created_member_email(@new_member, generated_password).deliver_now
+        redirect_to admin_users_path, notice: "Member created and onboarding email sent."
       else
         load_users
         render :index, status: :unprocessable_entity

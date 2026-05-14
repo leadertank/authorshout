@@ -1,0 +1,13 @@
+Your AuthorShout account is ready
+
+Hi <%= @user.display_name %>,
+
+Your account was created for you by the AuthorShout team.
+
+Temporary password: <%= @temporary_password %>
+
+Log in here: <%= new_user_session_url %>
+
+After you log in, please change your password from your profile page for security.
+
+You can also request a reset link here: <%= new_user_password_url %>

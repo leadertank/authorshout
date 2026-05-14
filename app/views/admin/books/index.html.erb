@@ -1,0 +1,46 @@
+<section class="admin-shell">
+  <h1>Manual Books Dashboard</h1>
+  <p class="form-help">Manage books submitted directly by admin for non-member authors.</p>
+
+  <p>
+    <%= link_to "Add Manual Book", new_admin_book_path, class: "button" %>
+  </p>
+
+  <% if @admin_books.any? %>
+    <div class="admin-users-table-wrap">
+      <table class="cms-table">
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Placement</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admin_books.each do |book| %>
+            <tr>
+              <td>
+                <strong><%= book.title %></strong>
+              </td>
+              <td><%= book.author_name.presence || "-" %></td>
+              <td>
+                <span class="cms-inline-state"><%= book.featured? ? "Featured" : "Latest" %></span>
+              </td>
+              <td><%= book.created_at.to_date %></td>
+              <td>
+                <div class="cms-table-actions">
+                  <%= link_to "Edit", edit_admin_book_path(book), class: "button button-outline" %>
+                  <%= button_to "Delete", admin_book_path(book), method: :delete, class: "button button-danger", form: { data: { turbo_confirm: "Delete this manual book?" } } %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>No manual admin books yet.</p>
+  <% end %>
+</section>

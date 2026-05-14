@@ -29,7 +29,9 @@
           <h3 class="book-card-title"><%= book.title %></h3>
 
           <% if book.submitted_by_admin? %>
-            <p class="meta-line book-card-author">AuthorShout Curated Pick</p>
+            <% if book.author_name.present? %>
+              <p class="meta-line book-card-author">by <%= book.author_name %></p>
+            <% end %>
           <% elsif book.user.present? && book.profile.present? %>
             <p class="meta-line book-card-author">
               by
@@ -85,7 +87,9 @@
 
           <h3 class="book-card-title"><%= book.title %></h3>
           <% if book.submitted_by_admin? %>
-            <p class="meta-line book-card-author">AuthorShout Curated Pick</p>
+            <% if book.author_name.present? %>
+              <p class="meta-line book-card-author">by <%= book.author_name %></p>
+            <% end %>
           <% elsif book.user.present? && book.profile.present? %>
             <p class="meta-line book-card-author">
               by

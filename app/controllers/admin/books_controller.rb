@@ -2,6 +2,10 @@ module Admin
   class BooksController < BaseController
     before_action :set_book, only: [ :edit, :update, :destroy ]
 
+    def index
+      @admin_books = Book.admin_submitted.order(featured: :desc, created_at: :desc)
+    end
+
     def new
       @book = Book.new
     end
@@ -40,7 +44,7 @@ module Admin
     end
 
     def book_params
-      params.require(:book).permit(:title, :cover_image, :cover_image_url, :purchase_url, :featured)
+      params.require(:book).permit(:title, :author_name, :cover_image, :cover_image_url, :purchase_url, :featured)
     end
   end
 end

@@ -7,6 +7,7 @@ class Book < ApplicationRecord
   has_one_attached :cover_image
 
   validates :title, presence: true, length: { maximum: 180 }
+  validates :author_name, presence: true, length: { maximum: 120 }, if: :submitted_by_admin?
   validates :purchase_url, presence: true
   validate :purchase_url_must_be_valid
   validate :cover_image_url_must_be_valid

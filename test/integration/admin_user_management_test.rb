@@ -16,7 +16,7 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_response :success
-    assert_match "Member created. Temporary password:", response.body
+    assert_match "Member created and onboarding email sent.", response.body
     assert User.find_by(email: "new-member@example.com").present?
     assert User.find_by(email: "new-member@example.com").profile.present?
   end

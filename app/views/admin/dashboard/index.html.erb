@@ -63,7 +63,7 @@
       <%= link_to "Create Page", new_admin_page_path, class: "button" %>
       <%= link_to "Manage Posts", admin_posts_path, class: "button" %>
       <%= link_to "Write Post", new_admin_post_path, class: "button" %>
-      <%= link_to "Add Book (Manual)", new_admin_book_path, class: "button" %>
+      <%= link_to "Manual Books Dashboard", admin_books_path, class: "button" %>
     </div>
   </div>
 
@@ -110,25 +110,6 @@
           </li>
         <% end %>
       </ul>
-    </article>
-
-    <article class="panel">
-      <h2>Manual Books (Admin)</h2>
-      <% if @admin_books.any? %>
-        <ul class="link-list">
-          <% @admin_books.each do |book| %>
-            <li>
-              <strong><%= book.title %></strong>
-              <span class="cms-inline-state"><%= book.featured? ? "Featured" : "Latest" %></span>
-              <%= link_to "Edit", edit_admin_book_path(book), class: "text-link" %>
-              <%= button_to "Delete", admin_book_path(book), method: :delete, form: { data: { turbo_confirm: "Delete this manual book?" } }, class: "link-button" %>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>No manual admin books yet.</p>
-      <% end %>
-      <p><%= link_to "Add new manual book", new_admin_book_path, class: "button" %></p>
     </article>
 
     <article class="panel">

@@ -1,0 +1,21 @@
+<h1>Your AuthorShout account is ready</h1>
+
+<p>Hi <%= @user.display_name %>,</p>
+
+<p>Your account was created for you by the AuthorShout team.</p>
+
+<p>
+  Temporary password: <strong><%= @temporary_password %></strong>
+</p>
+
+<p>
+  Log in here: <%= link_to "AuthorShout Login", new_user_session_url %>
+</p>
+
+<p>
+  After you log in, please change your password from your profile page for security.
+</p>
+
+<p>
+  You can also request a reset link here: <%= link_to "Reset Password", new_user_password_url %>
+</p>
