@@ -1,42 +1,77 @@
-<section class="hero panel">
-  <div class="hero-copy">
-    <p class="eyebrow">For Independent Authors</p>
-    <h1>Get discovered. Build momentum. Connect with real readers.</h1>
-    <p>
-      AuthorShout gives indie authors a clean profile, social sharing tools, and visibility opportunities
-      to help your books reach more people.
-    </p>
-    <div class="hero-actions">
-      <%= link_to "Become a Member", membership_path, class: "btn btn-primary" %>
-      <%= link_to "Browse Members", authors_directory_path, class: "btn btn-secondary" %>
+<div class="home-share-wrap">
+  <p class="home-share-lead">Share this page on social (Click a button below).</p>
+  <div class="header-share-row">
+    <%= render "shared/share_buttons",
+               url: root_url,
+               text: "Discover member-submitted books on AuthorShout" %>
+  </div>
+</div>
+
+<section class="books-feed">
+  <div class="section-header">
+    <h2>Latest Member Book Covers</h2>
+    <p>Books are listed by submission time. Click a cover to view the link shared by the author.</p>
+  </div>
+
+  <div class="books-pager">
+    <% if @page > 1 %>
+      <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
+    <% else %>
+      <span class="pager-button disabled">Previous</span>
+    <% end %>
+
+    <% if @page < @total_pages %>
+      <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
+    <% else %>
+      <span class="pager-button disabled">Next</span>
+    <% end %>
+  </div>
+  <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
+
+  <% if @books.any? %>
+    <div class="book-grid">
+      <% @books.each do |book| %>
+        <article class="book-card<%= " book-card-featured" if book.featured? %>">
+          <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
+            <% if book.cover_image_source.present? %>
+              <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
+            <% else %>
+              <div class="book-cover fallback-cover">No cover uploaded</div>
+            <% end %>
+          <% end %>
+
+          <% if book.featured? %>
+            <span class="book-featured-badge">&#9733; Featured</span>
+          <% end %>
+
+          <h3 class="book-card-title"><%= book.title %></h3>
+          <p class="meta-line book-card-author">
+            by
+            <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+          </p>
+
+          <div class="book-actions">
+            <%= render "shared/book_like_button", book: book %>
+          </div>
+        </article>
+      <% end %>
     </div>
-  </div>
-  <div class="hero-card panel panel-soft">
-    <p class="kicker">WHY AUTHORSHOUT</p>
-    <ul>
-      <li>Showcase your author profile and books</li>
-      <li>Share to social quickly with built-in tools</li>
-      <li>Join a growing community of writers</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section-grid">
-  <article class="panel feature">
-    <h2>Featured Authors</h2>
-    <p>Highlight standout members and help readers discover great books.</p>
-    <%= link_to "View Featured", featured_authors_path, class: "text-link" %>
-  </article>
+    <div class="books-pager books-pager-bottom">
+      <% if @page > 1 %>
+        <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Previous</span>
+      <% end %>
 
-  <article class="panel feature">
-    <h2>Members Directory</h2>
-    <p>Explore author profiles, genres, and books in one place.</p>
-    <%= link_to "Explore Directory", authors_directory_path, class: "text-link" %>
-  </article>
-
-  <article class="panel feature">
-    <h2>Need Help?</h2>
-    <p>Questions about your membership or profile? Reach out anytime.</p>
-    <%= link_to "Contact Support", new_support_path, class: "text-link" %>
-  </article>
+      <% if @page < @total_pages %>
+        <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Next</span>
+      <% end %>
+    </div>
+    <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
+  <% else %>
+    <p class="empty-state">No books have been added yet. Be the first member to add one.</p>
+  <% end %>
 </section>
