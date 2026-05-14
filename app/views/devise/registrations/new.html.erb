@@ -1,6 +1,12 @@
 <section class="auth-shell">
-  <% premium_intent = params[:plan].to_s == "premium" || session[:post_signup_plan] == "premium" %>
+  <% requested_plan = params[:plan].to_s.strip.downcase %>
+  <% plan_intent = %w[premium free].include?(requested_plan) ? requested_plan : session[:post_signup_plan].to_s %>
+  <% premium_intent = plan_intent == "premium" %>
+
   <h2><%= premium_intent ? "Create Your Account to Start Premium" : "Create Your Free Author Account" %></h2>
+  <p class="auth-intent-note">
+    <%= premium_intent ? "You are signing up for a Premium checkout flow after account creation." : "You are signing up for a Free account." %>
+  </p>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -39,7 +45,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up", class: "button" %>
+      <%= f.submit(premium_intent ? "Create Account & Continue to Premium" : "Create Free Account", class: "button") %>
     </div>
   <% end %>
 
