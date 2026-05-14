@@ -2,7 +2,9 @@ class HomeController < ApplicationController
   def index
     all_books_scope = Book.includes(:book_likes, profile: :user).with_attached_cover_image
     featured_candidates = all_books_scope.where(featured: true).order(created_at: :desc).to_a
-    @featured_books = featured_candidates.select { |book| book.user.paid_member? || book.user.featured_author? }
+    @featured_books = featured_candidates.select do |book|
+      book.submitted_by_admin? || book.user&.paid_member? || book.user&.featured_author?
+    end
 
     latest_scope = all_books_scope.where.not(id: @featured_books.map(&:id)).order(created_at: :desc)
 

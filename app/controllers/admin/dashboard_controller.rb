@@ -25,6 +25,7 @@ module Admin
 
       @recent_members = User.order(created_at: :desc).limit(10)
       @top_books = Book.order(likes_count: :desc, created_at: :desc).limit(10)
+      @admin_books = Book.admin_submitted.order(created_at: :desc).limit(10)
       @recent_pages = Page.order(updated_at: :desc).limit(5)
       @recent_posts = Post.order(updated_at: :desc).limit(5)
     end

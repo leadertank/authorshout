@@ -2,7 +2,7 @@ class Book < ApplicationRecord
   ALLOWED_IMAGE_CONTENT_TYPES = %w[image/png image/jpeg image/jpg].freeze
   MAX_IMAGE_FILE_SIZE = 2.megabytes
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
   has_many :book_likes, dependent: :destroy
   has_one_attached :cover_image
 
@@ -12,7 +12,12 @@ class Book < ApplicationRecord
   validate :cover_image_url_must_be_valid
   validate :cover_image_must_be_png_or_jpg_under_size_limit
 
-  delegate :user, to: :profile
+  # Only delegate user if profile is present
+  delegate :user, to: :profile, allow_nil: true
+
+  # Scope for admin-submitted books
+  scope :admin_submitted, -> { where(admin_submitted: true) }
+  scope :member_submitted, -> { where(admin_submitted: false) }
 
   def total_likes
     likes_count || 0
@@ -35,8 +40,11 @@ class Book < ApplicationRecord
   def cover_image_source
     return cover_image if cover_image.attached?
     return cover_image_url if cover_image_url.present?
-
     nil
+  end
+
+  def submitted_by_admin?
+    admin_submitted
   end
 
   private

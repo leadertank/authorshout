@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     masquerades: "users/masquerades"
   }
   root "home#index"
+  get "products", to: "products#show", as: :products
 
   get "membership", to: "membership#show", as: :membership
     get "book-awards", to: "awards_submissions#new", as: :new_awards_submission
@@ -54,6 +55,7 @@ Rails.application.routes.draw do
         delete :delete_non_paid
       end
     end
+    resources :books, only: [:new, :create, :edit, :update, :destroy]
     resources :pages do
       member do
         get :preview

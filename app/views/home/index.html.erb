@@ -7,10 +7,49 @@
   </div>
 </div>
 
+<% if @featured_books.any? %>
+  <section class="books-feed">
+    <div class="section-header">
+      <h2>Featured Books</h2>
+      <p>Highlighted books selected by members and AuthorShout curation.</p>
+    </div>
+
+    <div class="book-grid">
+      <% @featured_books.each do |book| %>
+        <article class="book-card book-card-featured">
+          <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
+            <% if book.cover_image_source.present? %>
+              <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
+            <% else %>
+              <div class="book-cover fallback-cover">No cover uploaded</div>
+            <% end %>
+          <% end %>
+
+          <span class="book-featured-badge">&#9733; Featured</span>
+          <h3 class="book-card-title"><%= book.title %></h3>
+
+          <% if book.submitted_by_admin? %>
+            <p class="meta-line book-card-author">AuthorShout Curated Pick</p>
+          <% elsif book.user.present? && book.profile.present? %>
+            <p class="meta-line book-card-author">
+              by
+              <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+            </p>
+          <% end %>
+
+          <div class="book-actions">
+            <%= render "shared/book_like_button", book: book %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
 <section class="books-feed">
   <div class="section-header">
-    <h2>Latest Member Book Covers</h2>
-    <p>Books are listed by submission time. Click a cover to view the link shared by the author.</p>
+    <h2>Latest Book Covers</h2>
+    <p>Books are listed by submission time. Click a cover to view the shared book link.</p>
   </div>
 
   <div class="books-pager">
@@ -45,10 +84,14 @@
           <% end %>
 
           <h3 class="book-card-title"><%= book.title %></h3>
-          <p class="meta-line book-card-author">
-            by
-            <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
-          </p>
+          <% if book.submitted_by_admin? %>
+            <p class="meta-line book-card-author">AuthorShout Curated Pick</p>
+          <% elsif book.user.present? && book.profile.present? %>
+            <p class="meta-line book-card-author">
+              by
+              <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+            </p>
+          <% end %>
 
           <div class="book-actions">
             <%= render "shared/book_like_button", book: book %>

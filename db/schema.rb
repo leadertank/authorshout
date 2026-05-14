@@ -89,7 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_192208) do
   end
 
   create_table "books", force: :cascade do |t|
-    t.integer "profile_id", null: false
+    t.integer "profile_id"
     t.string "title", null: false
     t.string "purchase_url", null: false
     t.integer "likes_count", default: 0, null: false
@@ -97,6 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_192208) do
     t.datetime "updated_at", null: false
     t.string "cover_image_url"
     t.boolean "featured", default: false, null: false
+    t.boolean "admin_submitted", default: false, null: false
     t.index ["featured"], name: "index_books_on_featured"
     t.index ["profile_id"], name: "index_books_on_profile_id"
   end

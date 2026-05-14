@@ -1,0 +1,43 @@
+<%= form_with model: [:admin, @book], local: true, html: { multipart: true, class: "cms-form" } do |f| %>
+  <% if @book.errors.any? %>
+    <div class="form-errors">
+      <h2>Please fix these issues:</h2>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :purchase_url, "Book Link" %>
+      <%= f.text_field :purchase_url %>
+    </div>
+  </div>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :cover_image, "Upload Cover Image" %>
+      <%= f.file_field :cover_image %>
+    </div>
+    <div>
+      <%= f.label :cover_image_url, "Or Cover Image URL" %>
+      <%= f.text_field :cover_image_url %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :featured, "Featured Book?" %>
+    <%= f.check_box :featured %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
