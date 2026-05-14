@@ -18,6 +18,7 @@ class User < ApplicationRecord
 
   after_create :create_default_profile
   after_commit :enqueue_welcome_email, on: :create
+  after_commit :enqueue_admin_signup_alert, on: :create
 
   scope :admins_first, -> { order(admin: :desc, created_at: :asc) }
 
@@ -71,5 +72,9 @@ class User < ApplicationRecord
 
   def enqueue_welcome_email
     UserMailer.welcome_email(self).deliver_later
+  end
+
+  def enqueue_admin_signup_alert
+    AdminNotifierMailer.new_member_signup(self).deliver_later
   end
 end

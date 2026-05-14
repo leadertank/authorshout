@@ -1,0 +1,8 @@
+Payment received
+
+Event type: <%= @event_type %>
+Event ID: <%= @event_id %>
+Customer email: <%= @customer_email.presence || "(not provided by Stripe event)" %>
+Amount: <%= @amount_cents.present? ? format("$%.2f", @amount_cents.to_f / 100.0) : "(unknown)" %>
+Currency: <%= @currency.presence || "(unknown)" %>
+Subscription ID: <%= @subscription_id.presence || "(none)" %>
