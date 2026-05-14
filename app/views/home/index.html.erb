@@ -1,11 +1,42 @@
-<section class="panel" style="max-width: 900px; margin: 2rem auto; text-align: center; padding: 2.5rem 2rem;">
-  <p style="font-size: 2rem; font-weight: 800; letter-spacing: 0.08em; margin-bottom: 1.5rem;">NOTICE</p>
+<section class="hero panel">
+  <div class="hero-copy">
+    <p class="eyebrow">For Independent Authors</p>
+    <h1>Get discovered. Build momentum. Connect with real readers.</h1>
+    <p>
+      AuthorShout gives indie authors a clean profile, social sharing tools, and visibility opportunities
+      to help your books reach more people.
+    </p>
+    <div class="hero-actions">
+      <%= link_to "Become a Member", membership_path, class: "btn btn-primary" %>
+      <%= link_to "Browse Members", authors_directory_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+  <div class="hero-card panel panel-soft">
+    <p class="kicker">WHY AUTHORSHOUT</p>
+    <ul>
+      <li>Showcase your author profile and books</li>
+      <li>Share to social quickly with built-in tools</li>
+      <li>Join a growing community of writers</li>
+    </ul>
+  </div>
+</section>
 
-  <p style="font-size: 1.4rem; line-height: 1.7; margin: 0 auto; max-width: 760px;">
-    We are currently conducting SITE MAINTENANCE and are FULLY AWARE that there is currently NOTHING listed on our site.
-    We are in the middle of UPGRADING EVERYTHING in order to create an improved experience for everyone.
-    Please come back later.
-    We will send out updates via our newsletter and/or social media once the site is FULLY FUNCTIONAL.
-    We truly do apologize for the inconvenience, but these updates are necessary.
-  </p>
+<section class="section-grid">
+  <article class="panel feature">
+    <h2>Featured Authors</h2>
+    <p>Highlight standout members and help readers discover great books.</p>
+    <%= link_to "View Featured", featured_authors_path, class: "text-link" %>
+  </article>
+
+  <article class="panel feature">
+    <h2>Members Directory</h2>
+    <p>Explore author profiles, genres, and books in one place.</p>
+    <%= link_to "Explore Directory", authors_directory_path, class: "text-link" %>
+  </article>
+
+  <article class="panel feature">
+    <h2>Need Help?</h2>
+    <p>Questions about your membership or profile? Reach out anytime.</p>
+    <%= link_to "Contact Support", new_support_path, class: "text-link" %>
+  </article>
 </section>

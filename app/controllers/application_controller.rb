@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   skip_forgery_protection if: -> { Rails.env.development? }
 
-  before_action :enforce_public_maintenance_mode
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :current_visitor_token, :maintenance_mode?
+  helper_method :current_visitor_token
 
   protected
 
@@ -16,17 +15,6 @@ class ApplicationController < ActionController::Base
 
   def current_visitor_token
     cookies.permanent.signed[:visitor_token] ||= SecureRandom.uuid
-  end
-
-  def maintenance_mode?
-    true
-  end
-
-  def enforce_public_maintenance_mode
-    return unless maintenance_mode?
-    return if controller_name == "home" && action_name == "index"
-
-    redirect_to root_path
   end
 
   def after_sign_in_path_for(resource)
