@@ -55,7 +55,7 @@ Rails.application.routes.draw do
         delete :delete_non_paid
       end
     end
-    resources :books, only: [:new, :create, :edit, :update, :destroy]
+    resources :books, only: [ :new, :create, :edit, :update, :destroy ]
     resources :pages do
       member do
         get :preview

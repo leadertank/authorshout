@@ -3,8 +3,8 @@ require "test_helper"
 class UserWelcomeEmailTest < ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
-  test "creating a user enqueues welcome email" do
-    assert_enqueued_emails 1 do
+  test "creating a user enqueues welcome and admin signup emails" do
+    assert_enqueued_emails 2 do
       User.create!(
         email: "welcome-check@example.com",
         password: "Password123!",

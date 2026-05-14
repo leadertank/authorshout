@@ -94,5 +94,4 @@ class AwardsSubmission < ApplicationRecord
   def instagram_url_must_be_valid
     validate_optional_url(:instagram_url)
   end
-
 end

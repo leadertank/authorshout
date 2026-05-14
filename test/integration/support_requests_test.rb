@@ -28,8 +28,8 @@ class SupportRequestsTest < ActionDispatch::IntegrationTest
     assert_match "Your message was sent to support", response.body
 
     mail = ActionMailer::Base.deliveries.last
-    assert_equal ["support@authorshout.com"], mail.to
-    assert_equal ["ada@example.com"], mail.reply_to
+    assert_equal [ "support@authorshout.com" ], mail.to
+    assert_equal [ "ada@example.com" ], mail.reply_to
     text_body = mail.text_part ? mail.text_part.body.to_s : mail.body.to_s
     assert_match "I need help with my profile.", text_body
   end
