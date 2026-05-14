@@ -15,8 +15,8 @@
       <p class="stat"><%= @total_books %></p>
     </article>
     <article class="panel stat-card">
-      <h2>Total Likes</h2>
-      <p class="stat"><%= @total_likes %></p>
+      <h2>Featured Books</h2>
+      <p class="stat"><%= @total_featured_books %></p>
     </article>
     <article class="panel stat-card">
       <h2>Pages</h2>
@@ -97,16 +97,15 @@
     </article>
 
     <article class="panel">
-      <h2>Top Liked Books</h2>
+      <h2>Recent Books</h2>
       <ul class="link-list">
-        <% @top_books.each do |book| %>
+        <% @recent_books.each do |book| %>
           <li>
             <% if book.profile.present? %>
               <%= link_to book.title, profile_path(book.profile), class: "text-link" %>
             <% else %>
               <span><%= book.title %></span>
             <% end %>
-            (<%= book.total_likes %> likes)
           </li>
         <% end %>
       </ul>

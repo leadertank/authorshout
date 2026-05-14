@@ -4,7 +4,7 @@ module Admin
       @total_members = User.where(admin: false).count
       @total_admins = User.where(admin: true).count
       @total_books = Book.count
-      @total_likes = Book.sum(:likes_count)
+      @total_featured_books = Book.where(featured: true).count
       @total_pages = Page.count
       @total_posts = Post.count
       @draft_pages = Page.draft.count
@@ -24,7 +24,7 @@ module Admin
                          .count
 
       @recent_members = User.order(created_at: :desc).limit(10)
-      @top_books = Book.order(likes_count: :desc, created_at: :desc).limit(10)
+  @recent_books = Book.order(created_at: :desc).limit(10)
       @admin_books = Book.admin_submitted.order(created_at: :desc).limit(10)
       @recent_pages = Page.order(updated_at: :desc).limit(5)
       @recent_posts = Post.order(updated_at: :desc).limit(5)

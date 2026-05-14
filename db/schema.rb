@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_14_180500) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_14_203000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -76,23 +76,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_14_180500) do
     t.index ["stripe_checkout_session_id"], name: "index_awards_submissions_on_stripe_checkout_session_id"
   end
 
-  create_table "book_likes", force: :cascade do |t|
-    t.integer "book_id", null: false
-    t.integer "user_id"
-    t.string "visitor_token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id", "user_id"], name: "index_book_likes_on_book_id_and_user_id", unique: true, where: "user_id IS NOT NULL"
-    t.index ["book_id", "visitor_token"], name: "index_book_likes_on_book_id_and_visitor_token", unique: true, where: "visitor_token IS NOT NULL"
-    t.index ["book_id"], name: "index_book_likes_on_book_id"
-    t.index ["user_id"], name: "index_book_likes_on_user_id"
-  end
-
   create_table "books", force: :cascade do |t|
     t.integer "profile_id"
     t.string "title", null: false
     t.string "purchase_url", null: false
-    t.integer "likes_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cover_image_url"
@@ -394,8 +381,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_14_180500) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "book_likes", "books"
-  add_foreign_key "book_likes", "users"
   add_foreign_key "books", "profiles"
   add_foreign_key "form_fields", "forms"
   add_foreign_key "form_payment_events", "form_submissions"

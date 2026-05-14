@@ -1,0 +1,28 @@
+<% featured_badge = local_assigns.fetch(:featured_badge, false) %>
+
+<article class="book-card<%= " book-card-featured" if featured_badge %>">
+  <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
+    <% if book.cover_image_source.present? %>
+      <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
+    <% else %>
+      <div class="book-cover fallback-cover">No cover uploaded</div>
+    <% end %>
+  <% end %>
+
+  <% if featured_badge %>
+    <span class="book-featured-badge">&#9733; Featured</span>
+  <% end %>
+
+  <h3 class="book-card-title"><%= book.title %></h3>
+
+  <% if book.submitted_by_admin? %>
+    <% if book.author_name.present? %>
+      <p class="meta-line book-card-author">by <%= book.author_name %></p>
+    <% end %>
+  <% elsif book.user.present? && book.profile.present? %>
+    <p class="meta-line book-card-author">
+      by
+      <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+    </p>
+  <% end %>
+</article>

@@ -9,10 +9,6 @@ module ApplicationHelper
     src style target title valign width
   ].freeze
 
-  def book_liked_by_current_actor?(book)
-    book.liked_by?(user: current_user, visitor_token: current_visitor_token)
-  end
-
   def author_name_with_verified_badge(user, profile: nil, linked: false, link_class: "text-link")
     name_node = if linked && profile.present?
       link_to(user.display_name, profile_path(profile), class: link_class)

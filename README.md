@@ -13,7 +13,6 @@ AuthorShout is a Ruby on Rails platform for authors to create a free/basic membe
   - Website link
   - Social links: X, Facebook, Instagram, Threads, Bluesky, YouTube
 - Home page showing member-submitted books in submission order on a responsive multi-column grid
-- Book likes from member profile and home grid (guest or signed-in users)
 - Social sharing buttons: X, Pinterest, Bluesky, Threads, Reddit, Copy Link
 - Admin dashboard with site analytics overview
 - Admin users page with admins pinned above members

@@ -7,116 +7,85 @@
   </div>
 </div>
 
+<section class="home-awards-banner">
+  <%= link_to new_awards_submission_path, class: "home-awards-banner-link" do %>
+    <%= image_tag "https://authorshout-media.sfo3.cdn.digitaloceanspaces.com/uploads/8th%20Annual%20Author%20Shout%20Awards%20Banner.png",
+                  alt: "Author Shout Awards banner",
+                  class: "home-awards-banner-image" %>
+  <% end %>
+</section>
+
 <% if @featured_books.any? %>
-  <section class="books-feed">
-    <div class="section-header">
-      <h2>Featured Books</h2>
+  <section class="books-feed" id="featured-books">
+    <div class="section-header section-header-split">
+      <div>
+        <h2>Featured Books</h2>
+        <p>Discover the latest featured books highlighted on Author Shout.</p>
+      </div>
+
+      <div class="section-header-controls">
+        <div class="section-header-actions">
+          <div class="books-pager books-pager-inline">
+            <% if @featured_page > 1 %>
+              <%= link_to "Previous", root_path(featured_page: @featured_page - 1, latest_page: @latest_page, anchor: "featured-books"), class: "pager-button" %>
+            <% else %>
+              <span class="pager-button disabled">Previous</span>
+            <% end %>
+
+            <% if @featured_page < @featured_total_pages %>
+              <%= link_to "Next", root_path(featured_page: @featured_page + 1, latest_page: @latest_page, anchor: "featured-books"), class: "pager-button" %>
+            <% else %>
+              <span class="pager-button disabled">Next</span>
+            <% end %>
+          </div>
+
+          <%= link_to "View All Featured", featured_books_path, class: "button button-outline" %>
+        </div>
+
+        <p class="pager-status pager-status-inline">Page <%= @featured_page %> of <%= @featured_total_pages %></p>
+      </div>
     </div>
 
     <div class="book-grid">
       <% @featured_books.each do |book| %>
-        <article class="book-card book-card-featured">
-          <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
-            <% if book.cover_image_source.present? %>
-              <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
-            <% else %>
-              <div class="book-cover fallback-cover">No cover uploaded</div>
-            <% end %>
-          <% end %>
-
-          <span class="book-featured-badge">&#9733; Featured</span>
-          <h3 class="book-card-title"><%= book.title %></h3>
-
-          <% if book.submitted_by_admin? %>
-            <% if book.author_name.present? %>
-              <p class="meta-line book-card-author">by <%= book.author_name %></p>
-            <% end %>
-          <% elsif book.user.present? && book.profile.present? %>
-            <p class="meta-line book-card-author">
-              by
-              <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
-            </p>
-          <% end %>
-
-          <div class="book-actions">
-            <%= render "shared/book_like_button", book: book %>
-          </div>
-        </article>
+        <%= render "shared/public_book_card", book: book, featured_badge: true %>
       <% end %>
     </div>
   </section>
 <% end %>
 
-<section class="books-feed">
-  <div class="section-header">
-    <h2>Latest Book Covers</h2>
-    <p>Books are listed by submission time. Click a cover to view the shared book link.</p>
-  </div>
+<section class="books-feed" id="latest-book-covers">
+  <div class="section-header section-header-split">
+    <div>
+      <h2>Latest Book Covers</h2>
+      <p>Books are listed by submission time. Click a cover to view the shared book link.</p>
+    </div>
 
-  <div class="books-pager">
-    <% if @page > 1 %>
-      <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
-    <% else %>
-      <span class="pager-button disabled">Previous</span>
-    <% end %>
+    <div class="section-header-controls">
+      <div class="books-pager books-pager-inline">
+        <% if @latest_page > 1 %>
+          <%= link_to "Previous", root_path(featured_page: @featured_page, latest_page: @latest_page - 1, anchor: "latest-book-covers"), class: "pager-button" %>
+        <% else %>
+          <span class="pager-button disabled">Previous</span>
+        <% end %>
 
-    <% if @page < @total_pages %>
-      <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
-    <% else %>
-      <span class="pager-button disabled">Next</span>
-    <% end %>
+        <% if @latest_page < @latest_total_pages %>
+          <%= link_to "Next", root_path(featured_page: @featured_page, latest_page: @latest_page + 1, anchor: "latest-book-covers"), class: "pager-button" %>
+        <% else %>
+          <span class="pager-button disabled">Next</span>
+        <% end %>
+      </div>
+
+      <p class="pager-status pager-status-inline">Page <%= @latest_page %> of <%= @latest_total_pages %></p>
+    </div>
   </div>
-  <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
 
   <% if @books.any? %>
     <div class="book-grid">
       <% @books.each do |book| %>
-        <article class="book-card<%= " book-card-featured" if book.featured? %>">
-          <%= link_to book.purchase_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
-            <% if book.cover_image_source.present? %>
-              <%= image_tag book.cover_image_source, alt: "#{book.title} cover", class: "book-cover" %>
-            <% else %>
-              <div class="book-cover fallback-cover">No cover uploaded</div>
-            <% end %>
-          <% end %>
-
-          <% if book.featured? %>
-            <span class="book-featured-badge">&#9733; Featured</span>
-          <% end %>
-
-          <h3 class="book-card-title"><%= book.title %></h3>
-          <% if book.submitted_by_admin? %>
-            <% if book.author_name.present? %>
-              <p class="meta-line book-card-author">by <%= book.author_name %></p>
-            <% end %>
-          <% elsif book.user.present? && book.profile.present? %>
-            <p class="meta-line book-card-author">
-              by
-              <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
-            </p>
-          <% end %>
-
-          <div class="book-actions">
-            <%= render "shared/book_like_button", book: book %>
-          </div>
-        </article>
+        <%= render "shared/public_book_card", book: book, featured_badge: false %>
       <% end %>
     </div>
-
-    <div class="books-pager books-pager-bottom">
-      <% if @page > 1 %>
-        <%= link_to "Previous", root_path(page: @page - 1), class: "pager-button" %>
-      <% else %>
-        <span class="pager-button disabled">Previous</span>
-      <% end %>
-
-      <% if @page < @total_pages %>
-        <%= link_to "Next", root_path(page: @page + 1), class: "pager-button" %>
-      <% else %>
-        <span class="pager-button disabled">Next</span>
-      <% end %>
-    </div>
-    <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
   <% else %>
     <p class="empty-state">No books have been added yet. Be the first member to add one.</p>
   <% end %>

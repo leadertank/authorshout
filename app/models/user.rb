@@ -7,7 +7,6 @@ class User < ApplicationRecord
       :recoverable, :rememberable, :validatable, :masqueradable
 
   has_one :profile, dependent: :destroy
-  has_many :book_likes, dependent: :destroy
 
   pay_customer default_payment_processor: :stripe
 

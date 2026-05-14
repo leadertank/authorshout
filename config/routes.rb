@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "social-media-book-blitz", to: "social_media_blitz_submissions#new", as: :new_social_media_blitz_submission
   post "social-media-book-blitz", to: "social_media_blitz_submissions#create", as: :social_media_blitz_submissions
   get "social-media-book-blitz/success/:token", to: "social_media_blitz_submissions#success", as: :social_media_blitz_submission_success
+  get "featured-books", to: "books#featured", as: :featured_books
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
   resource :support, only: [ :new, :create ], controller: :support_requests
@@ -36,8 +37,6 @@ Rails.application.routes.draw do
     post :checkout
     post :portal
   end
-
-  post "books/:book_id/like", to: "book_likes#create", as: :book_like
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"

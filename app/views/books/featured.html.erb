@@ -1,0 +1,26 @@
+<section class="books-feed">
+  <div class="section-header section-header-split">
+    <div>
+      <h1>Featured Books</h1>
+      <p>Browse every featured book currently highlighted on Author Shout.</p>
+    </div>
+
+    <div class="authors-page-links">
+      <%= link_to "Back to Home", root_path(anchor: "featured-books"), class: "button button-outline" %>
+    </div>
+  </div>
+
+  <div class="authors-stats-strip">
+    <span><strong>Featured Books:</strong> <%= @books.size %></span>
+  </div>
+
+  <% if @books.any? %>
+    <div class="book-grid">
+      <% @books.each do |book| %>
+        <%= render "shared/public_book_card", book: book, featured_badge: true %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No featured books are available yet.</p>
+  <% end %>
+</section>

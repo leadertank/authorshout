@@ -28,7 +28,7 @@ class ProfilesController < ApplicationController
 
   def set_profile
     requested = params[:id].to_s
-    scope = Profile.includes(:user, books: :book_likes).merge(Book.order(featured: :desc, created_at: :asc))
+    scope = Profile.includes(:user, :books).merge(Book.order(featured: :desc, created_at: :asc))
 
     @profile = scope.find_by(id: requested)
     if @profile.blank?

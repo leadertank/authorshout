@@ -2,10 +2,6 @@ require "test_helper"
 require "stringio"
 
 class BookTest < ActiveSupport::TestCase
-  test "total_likes returns cached likes count" do
-    assert_equal 1, books(:one).total_likes
-  end
-
   test "purchase_url must be a valid http url" do
     book = books(:one)
     book.purchase_url = "bad-url"
@@ -18,16 +14,50 @@ class BookTest < ActiveSupport::TestCase
     assert_equal "https://images.example.com/ada-book.jpg", books(:one).cover_image_source
   end
 
-  test "liked_by? returns true for an associated user like" do
-    assert books(:one).liked_by?(user: users(:one))
-  end
+  test "public_featured_books keeps admin submitted and eligible member books" do
+    books(:one).update_columns(featured: true)
+    users(:one).update_columns(manual_paid: true)
 
-  test "liked_by? returns true for a matching visitor token" do
-    assert books(:two).liked_by?(visitor_token: "visitor-123")
-  end
+    eligible_member_book = Book.create!(
+      profile: profiles(:one),
+      title: "Eligible Member Book",
+      purchase_url: "https://example.com/eligible-member-book",
+      cover_image_url: "https://images.example.com/eligible-member-book.jpg",
+      featured: true
+    )
 
-  test "liked_by? returns false when actor has not liked the book" do
-    assert_not books(:one).liked_by?(visitor_token: "different-visitor")
+    admin_book = Book.create!(
+      title: "Admin Spotlight",
+      author_name: "Author Shout",
+      purchase_url: "https://example.com/admin-spotlight",
+      cover_image_url: "https://images.example.com/admin-spotlight.jpg",
+      featured: true,
+      admin_submitted: true
+    )
+
+    ineligible_member = User.create!(
+      email: "plain-member@example.com",
+      password: "Password123!",
+      password_confirmation: "Password123!",
+      first_name: "Plain",
+      last_name: "Member",
+      human_verification: "1"
+    )
+
+    hidden_book = Book.create!(
+      profile: ineligible_member.profile,
+      title: "Hidden Feature",
+      purchase_url: "https://example.com/hidden-feature",
+      cover_image_url: "https://images.example.com/hidden-feature.jpg",
+      featured: true
+    )
+
+    featured_titles = Book.public_featured_books.map(&:title)
+
+    assert_includes featured_titles, eligible_member_book.title
+    assert_includes featured_titles, admin_book.title
+    assert_includes featured_titles, books(:one).title
+    assert_not_includes featured_titles, hidden_book.title
   end
 
   test "cover image must be png or jpg" do

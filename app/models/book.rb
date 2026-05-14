@@ -3,7 +3,6 @@ class Book < ApplicationRecord
   MAX_IMAGE_FILE_SIZE = 2.megabytes
 
   belongs_to :profile, optional: true
-  has_many :book_likes, dependent: :destroy
   has_one_attached :cover_image
 
   validates :title, presence: true, length: { maximum: 180 }
@@ -20,22 +19,13 @@ class Book < ApplicationRecord
   scope :admin_submitted, -> { where(admin_submitted: true) }
   scope :member_submitted, -> { where(admin_submitted: false) }
 
-  def total_likes
-    likes_count || 0
-  end
-
-  def liked_by?(user: nil, visitor_token: nil)
-    if user.present?
-      return book_likes.any? { |like| like.user_id == user.id } if association(:book_likes).loaded?
-
-      book_likes.exists?(user_id: user.id)
-    elsif visitor_token.present?
-      return book_likes.any? { |like| like.visitor_token == visitor_token } if association(:book_likes).loaded?
-
-      book_likes.exists?(visitor_token: visitor_token)
-    else
-      false
-    end
+  def self.public_featured_books
+    includes(profile: :user)
+      .with_attached_cover_image
+      .where(featured: true)
+      .order(created_at: :desc)
+      .to_a
+      .select { |book| book.submitted_by_admin? || book.user&.paid_member? || book.user&.featured_author? }
   end
 
   def cover_image_source
