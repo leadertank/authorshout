@@ -42,7 +42,7 @@ class User < ApplicationRecord
     return true if admin?
     return true if manual_paid?
 
-    pay_subscriptions.active.where(name: "authorshout-pro").exists?
+    pay_subscriptions.active.exists?
   end
 
   def verified_featured_author?

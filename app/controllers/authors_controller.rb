@@ -78,7 +78,6 @@ class AuthorsController < ApplicationController
             INNER JOIN pay_subscriptions ON pay_subscriptions.customer_id = pay_customers.id
             WHERE pay_customers.owner_type = 'User'
               AND pay_customers.owner_id = users.id
-              AND pay_subscriptions.name = 'authorshout-pro'
               AND (
                 (
                   pay_subscriptions.status = 'active'

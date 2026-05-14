@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   post "webhooks/stripe", to: "pay/webhooks/stripe#create"
 
-  devise_for :users, controllers: { sessions: "users/sessions", masquerades: "users/masquerades" }
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    masquerades: "users/masquerades"
+  }
   root "home#index"
 
   get "membership", to: "membership#show", as: :membership

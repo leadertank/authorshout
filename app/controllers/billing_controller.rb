@@ -2,6 +2,7 @@ class BillingController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    sync_checkout_session_if_present
     @paid_price_display = paid_price_display
     @paid_price_id_configured = paid_price_id.present?
     @stripe_secret_configured = stripe_secret_key.present?
@@ -31,7 +32,7 @@ class BillingController < ApplicationController
     checkout_session = current_user.payment_processor.checkout(
       mode: "subscription",
       line_items: price_id,
-      success_url: billing_url,
+      success_url: billing_url(checkout: "success"),
       cancel_url: billing_url,
       client_reference_id: Pay::Stripe.to_client_reference_id(current_user)
     )
@@ -82,5 +83,14 @@ class BillingController < ApplicationController
 
     ENV["STRIPE_SECRET_KEY"] ||= stripe_secret_key
     Stripe.api_key = stripe_secret_key
+  end
+
+  def sync_checkout_session_if_present
+    return if params[:stripe_checkout_session_id].blank? && params[:session_id].blank?
+
+    ensure_stripe_api_key!
+    Pay.sync(params.to_unsafe_h)
+  rescue StandardError => e
+    Rails.logger.warn("Billing checkout sync failed: #{e.class}: #{e.message}")
   end
 end

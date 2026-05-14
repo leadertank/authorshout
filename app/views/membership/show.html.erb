@@ -51,7 +51,11 @@
       </ul>
 
       <div class="membership-card-action">
-        <%= link_to "Get Premium", new_user_registration_path(plan: "premium"), class: "button membership-cta membership-cta-premium" %>
+        <% if user_signed_in? %>
+          <%= link_to "Get Premium", checkout_billing_path, class: "button membership-cta membership-cta-premium", data: { turbo: false } %>
+        <% else %>
+          <%= link_to "Get Premium", new_user_registration_path(plan: "premium"), class: "button membership-cta membership-cta-premium" %>
+        <% end %>
       </div>
     </div>
 
