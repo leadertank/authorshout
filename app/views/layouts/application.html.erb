@@ -27,52 +27,63 @@
     <header class="site-header">
       <div class="nav-wrap">
         <div class="brand-row">
+          <% if maintenance_mode? %>
+            <div class="brand">
+              <span class="brand-title">AUTHORSHOUT</span>
+              <span class="brand-tagline">Connecting Authors With Readers Worldwide</span>
+            </div>
+          <% else %>
           <%= link_to root_path, class: "brand" do %>
             <span class="brand-title">AUTHORSHOUT</span>
             <span class="brand-tagline">Connecting Authors With Readers Worldwide</span>
           <% end %>
+          <% end %>
 
-          <div class="header-follow-wrap">
-            <p class="follow-us-label">Follow Us On Social</p>
-            <%= render "shared/follow_icons" %>
+          <% unless maintenance_mode? %>
+            <div class="header-follow-wrap">
+              <p class="follow-us-label">Follow Us On Social</p>
+              <%= render "shared/follow_icons" %>
+            </div>
+          <% end %>
+        </div>
+
+        <% unless maintenance_mode? %>
+          <div class="nav-row">
+            <button type="button" class="mobile-nav-toggle" data-nav-toggle aria-label="Open navigation menu">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="site-nav" data-main-nav>
+              <%= link_to "Home", root_path %>
+              <%= link_to "Featured Authors", featured_authors_path %>
+              <%= link_to "Members Directory", authors_directory_path %>
+              <%= link_to "Support", new_support_path %>
+              <% if user_signed_in? %>
+                <% if user_masquerade? %>
+                  <span>Impersonating <%= current_user.email %></span>
+                  <%= link_to "Return to Admin", back_masquerade_path(current_user), class: "button", data: { turbo: false } %>
+                <% end %>
+                <%= link_to "My Profile", profile_path(current_user.profile) %>
+                <%= link_to "Edit Profile", edit_my_profile_path %>
+                <%= link_to "Billing", billing_path %>
+                <% if current_user.admin? %>
+                  <%= link_to "Admin Dashboard", admin_dashboard_path %>
+                  <%= link_to "Sales", admin_sales_path %>
+                  <%= link_to "Submissions", admin_submissions_path %>
+                  <%= link_to "Pages CMS", admin_pages_path %>
+                  <%= link_to "Posts CMS", admin_posts_path %>
+                  <%= link_to "Users", admin_users_path %>
+                <% end %>
+                <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "link-button" %>
+              <% else %>
+                <%= link_to "Log In", new_user_session_path %>
+                <%= link_to "Become a Member", membership_path, class: "nav-join-pill" %>
+              <% end %>
+            </nav>
           </div>
-        </div>
-
-        <div class="nav-row">
-          <button type="button" class="mobile-nav-toggle" data-nav-toggle aria-label="Open navigation menu">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
-
-          <nav class="site-nav" data-main-nav>
-            <%= link_to "Home", root_path %>
-            <%= link_to "Featured Authors", featured_authors_path %>
-            <%= link_to "Members Directory", authors_directory_path %>
-            <%= link_to "Support", new_support_path %>
-            <% if user_signed_in? %>
-              <% if user_masquerade? %>
-                <span>Impersonating <%= current_user.email %></span>
-                <%= link_to "Return to Admin", back_masquerade_path(current_user), class: "button", data: { turbo: false } %>
-              <% end %>
-              <%= link_to "My Profile", profile_path(current_user.profile) %>
-              <%= link_to "Edit Profile", edit_my_profile_path %>
-              <%= link_to "Billing", billing_path %>
-              <% if current_user.admin? %>
-                <%= link_to "Admin Dashboard", admin_dashboard_path %>
-                <%= link_to "Sales", admin_sales_path %>
-                <%= link_to "Submissions", admin_submissions_path %>
-                <%= link_to "Pages CMS", admin_pages_path %>
-                <%= link_to "Posts CMS", admin_posts_path %>
-                <%= link_to "Users", admin_users_path %>
-              <% end %>
-              <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "link-button" %>
-            <% else %>
-              <%= link_to "Log In", new_user_session_path %>
-              <%= link_to "Become a Member", membership_path, class: "nav-join-pill" %>
-            <% end %>
-          </nav>
-        </div>
+        <% end %>
       </div>
     </header>
 
@@ -88,10 +99,12 @@
     </main>
 
     <footer class="site-footer">
-      <div class="mobile-social-footer">
-        <p class="follow-us-label">Follow Us On Social</p>
-        <%= render "shared/follow_icons" %>
-      </div>
+      <% unless maintenance_mode? %>
+        <div class="mobile-social-footer">
+          <p class="follow-us-label">Follow Us On Social</p>
+          <%= render "shared/follow_icons" %>
+        </div>
+      <% end %>
       <p class="footer-brand">AUTHORSHOUT</p>
     </footer>
   </body>
