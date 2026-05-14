@@ -158,6 +158,7 @@ jobs:
           SMTP_STARTTLS: ${{ secrets.SMTP_STARTTLS }}
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          BUILDX_NO_DEFAULT_ATTESTATIONS: "1"
         run: bundle exec kamal deploy
 
       - name: Prune old app images on host
