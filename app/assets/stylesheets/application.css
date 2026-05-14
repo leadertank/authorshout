@@ -2813,6 +2813,20 @@ textarea {
 	margin-inline: auto;
 }
 
+.awards-copy-shell {
+	max-width: 760px;
+	margin: 1rem auto;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+.awards-copy-shell-title {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
 .awards-submit-button {
 	background: #2563eb;
 	border: 2px solid #2563eb;
