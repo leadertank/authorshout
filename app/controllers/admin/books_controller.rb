@@ -14,7 +14,7 @@ module Admin
       @book = Book.new(book_params)
       @book.admin_submitted = true
       if @book.save
-        redirect_to admin_dashboard_path, notice: "Book was successfully added."
+        redirect_to admin_books_path, notice: "Book was successfully added."
       else
         render :new, status: :unprocessable_entity
       end
@@ -26,7 +26,7 @@ module Admin
     def update
       @book.admin_submitted = true
       if @book.update(book_params)
-        redirect_to admin_dashboard_path, notice: "Book was successfully updated."
+        redirect_to admin_books_path, notice: "Book was successfully updated."
       else
         render :edit, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module Admin
 
     def destroy
       @book.destroy
-      redirect_to admin_dashboard_path, notice: "Book was successfully deleted."
+      redirect_to admin_books_path, notice: "Book was successfully deleted."
     end
 
     private
