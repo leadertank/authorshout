@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  constraints(host: "www.authorshout.com") do
+    match "(*path)", to: redirect(status: 301) { |_params, request|
+      "https://authorshout.com#{request.fullpath}"
+    }, via: :all
+  end
+
   post "webhooks/stripe", to: "pay/webhooks/stripe#create"
 
   devise_for :users, controllers: { sessions: "users/sessions", masquerades: "users/masquerades" }
