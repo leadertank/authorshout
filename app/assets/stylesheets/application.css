@@ -1927,6 +1927,9 @@ textarea {
 		width: 100%;
 		flex-direction: column;
 		align-items: center;
+		max-height: 100vh;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 		padding-bottom: 0.8rem;
 	}
 
