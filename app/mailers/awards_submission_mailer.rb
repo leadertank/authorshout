@@ -3,7 +3,8 @@ class AwardsSubmissionMailer < ApplicationMailer
     @awards_submission = awards_submission
 
     mail(
-      to: ENV.fetch("SUPPORT_INBOX_EMAIL", "support@authorshout.com"),
+      from: "support@authorshout.com",
+      to: "support@authorshout.com",
       reply_to: @awards_submission.author_email,
       subject: "#{@awards_submission.form_label} entry: #{@awards_submission.book_title}"
     )

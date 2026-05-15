@@ -3,7 +3,9 @@ class AdminNotifierMailer < ApplicationMailer
     @user = user
 
     mail(
-      to: ENV.fetch("SUPPORT_INBOX_EMAIL", "support@authorshout.com"),
+      from: "support@authorshout.com",
+      to: "support@authorshout.com",
+      reply_to: @user.email,
       subject: "New member signup: #{@user.email}"
     )
   end
@@ -18,7 +20,9 @@ class AdminNotifierMailer < ApplicationMailer
     @subscription_id = extract_subscription_id(event)
 
     mail(
-      to: ENV.fetch("SUPPORT_INBOX_EMAIL", "support@authorshout.com"),
+      from: "support@authorshout.com",
+      to: "support@authorshout.com",
+      reply_to: @customer_email,
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
   end
