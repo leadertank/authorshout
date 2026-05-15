@@ -17,4 +17,10 @@
 
   <h3 class="book-card-title"><%= manual_award.title %></h3>
   <p class="meta-line book-card-author">by <%= manual_award.author_name %></p>
+
+  <% if manual_award.book_url.present? %>
+    <div class="book-actions">
+      <%= link_to "View Book", manual_award.book_url, target: "_blank", rel: "noopener", class: "button" %>
+    </div>
+  <% end %>
 </article>

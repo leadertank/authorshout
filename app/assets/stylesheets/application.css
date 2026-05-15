@@ -689,6 +689,10 @@ body.page-builder-mode .unlayer-builder {
 	padding-bottom: 1rem;
 }
 
+.manual-award-card .book-actions {
+	justify-items: center;
+}
+
 .book-cover {
 	width: 100%;
 	aspect-ratio: 2 / 3;
