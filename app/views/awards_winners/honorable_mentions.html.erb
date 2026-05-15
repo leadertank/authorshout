@@ -1,0 +1,26 @@
+<section class="books-feed">
+  <div class="section-header section-header-split">
+    <div>
+      <h1>7th Annual Author Shout Book Awards Honorable Mentions</h1>
+      <p>All books designated as Honorable Mention in the 7th Annual Author Shout awards.</p>
+    </div>
+
+    <div class="authors-page-links">
+      <%= link_to "Back to Winners", awards_winners_path(anchor: "honorable-mentions"), class: "button button-outline" %>
+    </div>
+  </div>
+
+  <div class="authors-stats-strip">
+    <span><strong>Total Honorable Mentions:</strong> <%= @books.size %></span>
+  </div>
+
+  <% if @books.any? %>
+    <div class="book-grid">
+      <% @books.each do |manual_award| %>
+        <%= render "shared/manual_award_book_card", manual_award: manual_award %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No Honorable Mention books are currently available.</p>
+  <% end %>
+</section>

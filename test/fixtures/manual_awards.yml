@@ -1,0 +1,21 @@
+editors_choice:
+  title: Silver Horizon
+  author_name: Robin Vale
+  book_url: https://example.com/silver-horizon
+  cover_image_url: https://images.example.com/silver-horizon.jpg
+  editor_choice: true
+  top_pick: true
+  recommended_read: false
+  honorable_mention: false
+  primary_page: top_picks_page
+
+recommended_pick:
+  title: Quiet Embers
+  author_name: Dana Cole
+  book_url: https://example.com/quiet-embers
+  cover_image_url: https://images.example.com/quiet-embers.jpg
+  editor_choice: false
+  top_pick: false
+  recommended_read: true
+  honorable_mention: false
+  primary_page: recommended_reads_page

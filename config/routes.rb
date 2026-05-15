@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   get "social-media-book-blitz", to: "social_media_blitz_submissions#new", as: :new_social_media_blitz_submission
   post "social-media-book-blitz", to: "social_media_blitz_submissions#create", as: :social_media_blitz_submissions
   get "social-media-book-blitz/success/:token", to: "social_media_blitz_submissions#success", as: :social_media_blitz_submission_success
+  get "7th-annual-author-shout-book-award-winners", to: "awards_winners#index", as: :awards_winners
+  get "7th-annual-author-shout-book-awards-top-picks", to: "awards_winners#top_picks", as: :awards_top_picks
+  get "7th-annual-author-shout-book-awards-recommended-reads", to: "awards_winners#recommended_reads", as: :awards_recommended_reads
+  get "7th-annual-author-shout-book-awards-honorable-mentions", to: "awards_winners#honorable_mentions", as: :awards_honorable_mentions
   get "featured-books", to: "books#featured", as: :featured_books
   get "authors/featured", to: "authors#featured", as: :featured_authors
   get "authors/directory", to: "authors#directory", as: :authors_directory
@@ -55,6 +59,7 @@ Rails.application.routes.draw do
       end
     end
     resources :books, only: [ :index, :new, :create, :edit, :update, :destroy ]
+    resources :manual_awards, only: [ :index, :new, :create, :edit, :update, :destroy ]
     resources :pages do
       member do
         get :preview

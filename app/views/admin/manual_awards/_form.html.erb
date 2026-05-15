@@ -1,0 +1,65 @@
+<%= form_with model: [:admin, @manual_award], local: true, html: { multipart: true, class: "cms-form" } do |f| %>
+  <% if @manual_award.errors.any? %>
+    <div class="form-errors">
+      <h2>Please fix these issues:</h2>
+      <ul>
+        <% @manual_award.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :title, "Book Title" %>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :author_name, "Author Name" %>
+      <%= f.text_field :author_name %>
+    </div>
+  </div>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :book_url, "Book Link (optional)" %>
+      <%= f.text_field :book_url %>
+    </div>
+    <div>
+      <%= f.label :primary_page, "Primary Awards Page" %>
+      <%= f.select :primary_page,
+                   options_for_select([
+                     ["Top Picks", "top_picks_page"],
+                     ["Recommended Reads", "recommended_reads_page"],
+                     ["Honorable Mentions", "honorable_mentions_page"]
+                   ], @manual_award.primary_page),
+                   { include_blank: "Select page" } %>
+    </div>
+  </div>
+
+  <div class="cms-grid-two">
+    <div>
+      <%= f.label :cover_image, "Upload Cover Image" %>
+      <%= f.file_field :cover_image %>
+    </div>
+    <div>
+      <%= f.label :cover_image_url, "Or Cover Image URL" %>
+      <%= f.text_field :cover_image_url %>
+    </div>
+  </div>
+
+  <fieldset class="award-toggle-group">
+    <legend>Awards Designations</legend>
+    <div class="award-toggle-grid">
+      <label><%= f.check_box :editor_choice %> Editor's Choice</label>
+      <label><%= f.check_box :top_pick %> Top Pick</label>
+      <label><%= f.check_box :recommended_read %> Recommended Read</label>
+      <label><%= f.check_box :honorable_mention %> Honorable Mention</label>
+    </div>
+  </fieldset>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

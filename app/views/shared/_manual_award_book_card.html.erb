@@ -1,0 +1,20 @@
+<article class="book-card manual-award-card">
+  <% if manual_award.book_url.present? %>
+    <%= link_to manual_award.book_url, target: "_blank", rel: "noopener", class: "book-cover-link" do %>
+      <% if manual_award.cover_image_source.present? %>
+        <%= image_tag manual_award.cover_image_source, alt: "#{manual_award.title} cover", class: "book-cover" %>
+      <% else %>
+        <div class="book-cover fallback-cover">No cover uploaded</div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if manual_award.cover_image_source.present? %>
+      <%= image_tag manual_award.cover_image_source, alt: "#{manual_award.title} cover", class: "book-cover" %>
+    <% else %>
+      <div class="book-cover fallback-cover">No cover uploaded</div>
+    <% end %>
+  <% end %>
+
+  <h3 class="book-card-title"><%= manual_award.title %></h3>
+  <p class="meta-line book-card-author">by <%= manual_award.author_name %></p>
+</article>

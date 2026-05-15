@@ -1,0 +1,98 @@
+<section class="books-feed winners-shell">
+  <div class="section-header">
+    <h1>7th Annual Author Shout Book Award Winners</h1>
+    <p>Explore this year’s standout books selected by the Author Shout awards team.</p>
+  </div>
+
+  <% if @editor_choice.present? %>
+    <article class="panel winners-hero">
+      <h2>Editor's Choice</h2>
+      <div class="winners-hero-grid">
+        <div>
+          <% if @editor_choice.cover_image_source.present? %>
+            <%= image_tag @editor_choice.cover_image_source, alt: "#{@editor_choice.title} cover", class: "winners-hero-image" %>
+          <% else %>
+            <div class="book-cover fallback-cover winners-hero-image">No cover uploaded</div>
+          <% end %>
+        </div>
+        <div class="winners-hero-body">
+          <h3><%= @editor_choice.title %></h3>
+          <p class="meta-line">by <%= @editor_choice.author_name %></p>
+          <% if @editor_choice.book_url.present? %>
+            <p>
+              <%= link_to "View Book", @editor_choice.book_url, target: "_blank", rel: "noopener", class: "button" %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </article>
+  <% else %>
+    <article class="panel winners-hero">
+      <h2>Editor's Choice</h2>
+      <p class="empty-state">Choose an Editor's Choice book from the Manual Awards Dashboard to feature it here.</p>
+    </article>
+  <% end %>
+</section>
+
+<%= render "awards_section",
+           dom_id: "top-picks",
+           heading: "Top Pick",
+           description: "Award-winning picks selected as top highlights.",
+           books: @top_pick_books,
+           page: @top_pick_page,
+           total_pages: @top_pick_total_pages,
+           previous_params: {
+             top_pick_page: @top_pick_page - 1,
+             recommended_read_page: @recommended_read_page,
+             honorable_mention_page: @honorable_mention_page,
+             anchor: "top-picks"
+           },
+           next_params: {
+             top_pick_page: @top_pick_page + 1,
+             recommended_read_page: @recommended_read_page,
+             honorable_mention_page: @honorable_mention_page,
+             anchor: "top-picks"
+           },
+           view_all_path: awards_top_picks_path %>
+
+<%= render "awards_section",
+           dom_id: "recommended-reads",
+           heading: "Recommended Read",
+           description: "Books chosen as exceptional recommended reads.",
+           books: @recommended_read_books,
+           page: @recommended_read_page,
+           total_pages: @recommended_read_total_pages,
+           previous_params: {
+             top_pick_page: @top_pick_page,
+             recommended_read_page: @recommended_read_page - 1,
+             honorable_mention_page: @honorable_mention_page,
+             anchor: "recommended-reads"
+           },
+           next_params: {
+             top_pick_page: @top_pick_page,
+             recommended_read_page: @recommended_read_page + 1,
+             honorable_mention_page: @honorable_mention_page,
+             anchor: "recommended-reads"
+           },
+           view_all_path: awards_recommended_reads_path %>
+
+<%= render "awards_section",
+           dom_id: "honorable-mentions",
+           heading: "Honorable Mention",
+           description: "Notable books recognized with honorable mention status.",
+           books: @honorable_mention_books,
+           page: @honorable_mention_page,
+           total_pages: @honorable_mention_total_pages,
+           previous_params: {
+             top_pick_page: @top_pick_page,
+             recommended_read_page: @recommended_read_page,
+             honorable_mention_page: @honorable_mention_page - 1,
+             anchor: "honorable-mentions"
+           },
+           next_params: {
+             top_pick_page: @top_pick_page,
+             recommended_read_page: @recommended_read_page,
+             honorable_mention_page: @honorable_mention_page + 1,
+             anchor: "honorable-mentions"
+           },
+           view_all_path: awards_honorable_mentions_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_14_203000) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_15_010000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -162,6 +162,25 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_14_203000) do
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_forms_on_slug", unique: true
     t.index ["status"], name: "index_forms_on_status"
+  end
+
+  create_table "manual_awards", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "author_name", null: false
+    t.string "book_url"
+    t.string "cover_image_url"
+    t.boolean "editor_choice", default: false, null: false
+    t.boolean "top_pick", default: false, null: false
+    t.boolean "recommended_read", default: false, null: false
+    t.boolean "honorable_mention", default: false, null: false
+    t.integer "primary_page"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["editor_choice"], name: "index_manual_awards_on_editor_choice"
+    t.index ["honorable_mention"], name: "index_manual_awards_on_honorable_mention"
+    t.index ["primary_page"], name: "index_manual_awards_on_primary_page"
+    t.index ["recommended_read"], name: "index_manual_awards_on_recommended_read"
+    t.index ["top_pick"], name: "index_manual_awards_on_top_pick"
   end
 
   create_table "page_blocks", force: :cascade do |t|

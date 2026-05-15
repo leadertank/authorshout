@@ -685,6 +685,10 @@ body.page-builder-mode .unlayer-builder {
 	height: 100%;
 }
 
+.manual-award-card {
+	padding-bottom: 1rem;
+}
+
 .book-cover {
 	width: 100%;
 	aspect-ratio: 2 / 3;
@@ -729,6 +733,83 @@ body.page-builder-mode .unlayer-builder {
 	align-items: flex-start;
 	gap: 0.25rem;
 	flex-wrap: wrap;
+}
+
+.award-badge-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.award-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.15rem 0.55rem;
+	border-radius: 999px;
+	background: #f5ebda;
+	border: 1px solid #e1c79e;
+	font-size: 0.76rem;
+	font-weight: 700;
+	color: #7a4913;
+}
+
+.award-toggle-group {
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 0.75rem;
+	margin: 0.35rem 0 1rem;
+	background: #fffdf8;
+}
+
+.award-toggle-group legend {
+	font-weight: 700;
+	padding: 0 0.3rem;
+}
+
+.award-toggle-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.6rem;
+}
+
+.award-toggle-grid label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	font-weight: 600;
+}
+
+.winners-shell {
+	margin-top: 1rem;
+}
+
+.winners-hero {
+	margin-top: 0.8rem;
+}
+
+.winners-hero-grid {
+	display: grid;
+	grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+	gap: 1rem;
+	align-items: start;
+}
+
+.winners-hero-image {
+	width: 100%;
+	aspect-ratio: 2 / 3;
+	object-fit: cover;
+	border-radius: 12px;
+	border: 1px solid var(--line);
+}
+
+.winners-hero-body h3 {
+	margin: 0;
+	font-size: 1.35rem;
+	line-height: 1.2;
+}
+
+.winners-hero-body .meta-line {
+	margin: 0.5rem 0 0.9rem;
 }
 
 .verified-author-name {
@@ -3203,6 +3284,11 @@ textarea {
 
 	.pager-status-inline {
 		text-align: left;
+	}
+
+	.winners-hero-grid,
+	.award-toggle-grid {
+		grid-template-columns: 1fr;
 	}
 }
 

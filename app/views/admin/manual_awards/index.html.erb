@@ -1,0 +1,54 @@
+<section class="admin-shell">
+  <h1>Manual Awards Dashboard</h1>
+  <p class="form-help">Manage books for the 7th Annual Author Shout Book Award Winners experience.</p>
+
+  <p>
+    <%= link_to "Add Manual Award Book", new_admin_manual_award_path, class: "button" %>
+  </p>
+
+  <% if @manual_awards.any? %>
+    <div class="admin-users-table-wrap">
+      <table class="cms-table">
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Awards</th>
+            <th>Page</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @manual_awards.each do |entry| %>
+            <tr>
+              <td><strong><%= entry.title %></strong></td>
+              <td><%= entry.author_name %></td>
+              <td>
+                <% if entry.award_labels.any? %>
+                  <div class="award-badge-row">
+                    <% entry.award_labels.each do |label| %>
+                      <span class="award-badge"><%= label %></span>
+                    <% end %>
+                  </div>
+                <% else %>
+                  -
+                <% end %>
+              </td>
+              <td><%= entry.primary_page&.humanize || "-" %></td>
+              <td><%= entry.created_at.to_date %></td>
+              <td>
+                <div class="cms-table-actions">
+                  <%= link_to "Edit", edit_admin_manual_award_path(entry), class: "button button-outline" %>
+                  <%= button_to "Delete", admin_manual_award_path(entry), method: :delete, class: "button button-danger", form: { data: { turbo_confirm: "Delete this manual award book?" } } %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>No manual award entries yet.</p>
+  <% end %>
+</section>
