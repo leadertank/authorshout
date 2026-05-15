@@ -2,17 +2,29 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-document.addEventListener("turbo:load", () => {
-	const toggleButton = document.querySelector("[data-nav-toggle]")
-	const mainNav = document.querySelector("[data-main-nav]")
+const setupMobileNav = () => {
+	document.querySelectorAll("[data-nav-toggle]").forEach((toggleButton) => {
+		if (toggleButton.dataset.mobileNavBound === "true") return
 
-	if (toggleButton && mainNav) {
+		const navRow = toggleButton.closest(".nav-row")
+		const mainNav = navRow?.querySelector("[data-main-nav]") || document.querySelector("[data-main-nav]")
+		if (!mainNav) return
+
+		toggleButton.dataset.mobileNavBound = "true"
+		toggleButton.setAttribute("aria-expanded", mainNav.classList.contains("open") ? "true" : "false")
+
 		toggleButton.addEventListener("click", () => {
-			mainNav.classList.toggle("open")
+			const isOpen = mainNav.classList.toggle("open")
+			toggleButton.setAttribute("aria-expanded", isOpen ? "true" : "false")
 		})
-	}
+	})
+}
 
+const setupCopyButtons = () => {
 	document.querySelectorAll(".copy-link-button").forEach((button) => {
+		if (button.dataset.copyBound === "true") return
+		button.dataset.copyBound = "true"
+
 		button.addEventListener("click", async () => {
 			const copyUrl = button.dataset.copyUrl
 			if (!copyUrl) return
@@ -27,6 +39,21 @@ document.addEventListener("turbo:load", () => {
 				button.textContent = "Unable to copy"
 			}
 		})
+	})
+}
+
+document.addEventListener("turbo:load", () => {
+	setupMobileNav()
+	setupCopyButtons()
+})
+
+document.addEventListener("turbo:before-cache", () => {
+	document.querySelectorAll("[data-main-nav]").forEach((mainNav) => {
+		mainNav.classList.remove("open")
+	})
+
+	document.querySelectorAll("[data-nav-toggle]").forEach((toggleButton) => {
+		toggleButton.setAttribute("aria-expanded", "false")
 	})
 })
 
