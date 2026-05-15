@@ -22,7 +22,7 @@
   <% elsif book.user.present? && book.profile.present? %>
     <p class="meta-line book-card-author">
       by
-      <%= link_to book.user.display_name, profile_path(book.profile), class: "text-link" %>
+      <%= author_name_with_verified_badge(book.user, profile: book.profile, linked: true) %>
     </p>
   <% end %>
 </article>

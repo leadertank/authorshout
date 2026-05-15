@@ -1,0 +1,18 @@
+<section class="books-feed">
+  <div class="section-header">
+    <h1>Book Award Winners</h1>
+    <p>Explore annual Author Shout award winner collections.</p>
+  </div>
+
+  <div class="admin-grid">
+    <% @award_pages.each do |award_page| %>
+      <article class="panel">
+        <h2><%= award_page[:title] %></h2>
+        <p class="meta-line"><%= award_page[:description] %></p>
+        <p>
+          <%= link_to "View Winners", award_page[:path], class: "button" %>
+        </p>
+      </article>
+    <% end %>
+  </div>
+</section>

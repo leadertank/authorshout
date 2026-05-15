@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "social-media-book-blitz", to: "social_media_blitz_submissions#new", as: :new_social_media_blitz_submission
   post "social-media-book-blitz", to: "social_media_blitz_submissions#create", as: :social_media_blitz_submissions
   get "social-media-book-blitz/success/:token", to: "social_media_blitz_submissions#success", as: :social_media_blitz_submission_success
+  get "book-award-winners", to: "book_award_winners#index", as: :book_award_winners
   get "7th-annual-author-shout-book-award-winners", to: "awards_winners#index", as: :awards_winners
   get "7th-annual-author-shout-book-awards-top-picks", to: "awards_winners#top_picks", as: :awards_top_picks
   get "7th-annual-author-shout-book-awards-recommended-reads", to: "awards_winners#recommended_reads", as: :awards_recommended_reads
