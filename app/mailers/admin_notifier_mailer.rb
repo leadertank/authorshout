@@ -94,11 +94,17 @@ class AdminNotifierMailer < ApplicationMailer
   end
 
   def admin_alert_bcc
-    monitor = ENV.fetch("ADMIN_ALERT_MONITOR", "sales@authorshout.com").to_s.strip
-    return if monitor.empty?
-    return if monitor.casecmp?(admin_alert_to)
+    monitors = []
+    monitors.concat(ENV.fetch("ADMIN_ALERT_MONITORS", "").split(","))
+    monitors << ENV.fetch("ADMIN_ALERT_MONITOR", "sales@authorshout.com")
+    monitors << ENV.fetch("ADMIN_ALERT_GMAIL_MONITOR", "authorshoutbooks@gmail.com")
 
-    monitor
+    cleaned = monitors.map { |address| address.to_s.strip }
+      .reject(&:empty?)
+      .uniq { |address| address.downcase }
+      .reject { |address| address.casecmp?(admin_alert_to) }
+
+    cleaned.presence
   end
 
   def support_reply_to
