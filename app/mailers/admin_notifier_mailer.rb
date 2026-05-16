@@ -4,7 +4,8 @@ class AdminNotifierMailer < ApplicationMailer
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: "support@authorshout.com",
+      to: admin_alert_to,
+      bcc: admin_alert_bcc,
       reply_to: @user.email,
       subject: "New member signup: #{@user.email}"
     )
@@ -21,7 +22,8 @@ class AdminNotifierMailer < ApplicationMailer
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: "support@authorshout.com",
+      to: admin_alert_to,
+      bcc: admin_alert_bcc,
       reply_to: @customer_email.presence || "support@authorshout.com",
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
@@ -85,5 +87,17 @@ class AdminNotifierMailer < ApplicationMailer
     return unless object.respond_to?(:subscription)
 
     object.subscription
+  end
+
+  def admin_alert_to
+    ENV.fetch("ADMIN_ALERT_TO", "support@authorshout.com")
+  end
+
+  def admin_alert_bcc
+    monitor = ENV.fetch("ADMIN_ALERT_MONITOR", "sales@authorshout.com").to_s.strip
+    return if monitor.empty?
+    return if monitor.casecmp?(admin_alert_to)
+
+    monitor
   end
 end
