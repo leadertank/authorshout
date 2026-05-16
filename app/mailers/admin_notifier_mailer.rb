@@ -102,9 +102,8 @@ class AdminNotifierMailer < ApplicationMailer
   end
 
   def self.admin_alert_addresses
-    primary   = ENV.fetch("ADMIN_ALERT_TO", "authorshoutbooks@gmail.com")
-    extras    = ENV.fetch("ADMIN_ALERT_EXTRA_TO",
-                          "sales@authorshout.com,support@authorshout.com").split(",")
+    primary = ENV.fetch("ADMIN_ALERT_TO", "authorshoutbooks@gmail.com")
+    extras  = ENV.fetch("ADMIN_ALERT_EXTRA_TO", "").split(",")
 
     [primary, *extras]
       .map    { |a| a.to_s.strip }
