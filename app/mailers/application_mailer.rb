@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "support@authorshout.com"
+  default from: "Author Shout <support@authorshout.com>"
   layout "mailer"
 end

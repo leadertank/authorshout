@@ -3,7 +3,7 @@ class AdminNotifierMailer < ApplicationMailer
     @user = user
 
     mail(
-      from: "support@authorshout.com",
+      from: "Author Shout <support@authorshout.com>",
       to: "support@authorshout.com",
       reply_to: @user.email,
       subject: "New member signup: #{@user.email}"
@@ -20,7 +20,7 @@ class AdminNotifierMailer < ApplicationMailer
     @subscription_id = extract_subscription_id(event)
 
     mail(
-      from: "support@authorshout.com",
+      from: "Author Shout <support@authorshout.com>",
       to: "support@authorshout.com",
       reply_to: @customer_email.presence || "support@authorshout.com",
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
