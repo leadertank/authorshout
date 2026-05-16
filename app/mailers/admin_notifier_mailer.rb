@@ -4,8 +4,7 @@ class AdminNotifierMailer < ApplicationMailer
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: admin_alert_to,
-      bcc: admin_alert_bcc,
+      to: admin_alert_recipients,
       reply_to: support_reply_to,
       subject: "New member signup: #{@user.email}"
     )
@@ -22,8 +21,7 @@ class AdminNotifierMailer < ApplicationMailer
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: admin_alert_to,
-      bcc: admin_alert_bcc,
+      to: admin_alert_recipients,
       reply_to: support_reply_to,
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
@@ -89,20 +87,17 @@ class AdminNotifierMailer < ApplicationMailer
     object.subscription
   end
 
-  def admin_alert_to
-    ENV.fetch("ADMIN_ALERT_TO", "support@authorshout.com")
-  end
-
-  def admin_alert_bcc
+  def admin_alert_recipients
+    primary = ENV.fetch("ADMIN_ALERT_TO", "support@authorshout.com")
     monitors = []
     monitors.concat(ENV.fetch("ADMIN_ALERT_MONITORS", "").split(","))
     monitors << ENV.fetch("ADMIN_ALERT_MONITOR", "sales@authorshout.com")
     monitors << ENV.fetch("ADMIN_ALERT_GMAIL_MONITOR", "authorshoutbooks@gmail.com")
+    monitors << primary
 
     cleaned = monitors.map { |address| address.to_s.strip }
       .reject(&:empty?)
       .uniq { |address| address.downcase }
-      .reject { |address| address.casecmp?(admin_alert_to) }
 
     cleaned.presence
   end
