@@ -74,16 +74,16 @@ class User < ApplicationRecord
   end
 
   def enqueue_admin_signup_alert
-    AdminNotifierMailer.new_member_signup(self).deliver_now
-    Rails.logger.info("Admin signup alert delivered for user ##{id} (#{email})")
+    AdminNotifierMailer.new_member_signup(self).deliver_later
+    Rails.logger.info("Admin signup alert queued for user ##{id} (#{email})")
   rescue StandardError => error
-    Rails.logger.error("Admin signup alert failed for user ##{id}: #{error.class}: #{error.message}")
+    Rails.logger.error("Admin signup alert queue failed for user ##{id}: #{error.class}: #{error.message}")
 
     begin
-      AdminNotifierMailer.new_member_signup(self).deliver_later
-      Rails.logger.info("Admin signup alert queued for retry for user ##{id} (#{email})")
+      AdminNotifierMailer.new_member_signup(self).deliver_now
+      Rails.logger.info("Admin signup alert delivered synchronously after queue failure for user ##{id} (#{email})")
     rescue StandardError => queue_error
-      Rails.logger.error("Admin signup alert retry enqueue failed for user ##{id}: #{queue_error.class}: #{queue_error.message}")
+      Rails.logger.error("Admin signup alert synchronous fallback failed for user ##{id}: #{queue_error.class}: #{queue_error.message}")
     end
   end
 end

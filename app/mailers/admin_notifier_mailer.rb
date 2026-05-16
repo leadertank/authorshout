@@ -6,7 +6,7 @@ class AdminNotifierMailer < ApplicationMailer
       from: "Author Shout <support@authorshout.com>",
       to: admin_alert_to,
       bcc: admin_alert_bcc,
-      reply_to: @user.email,
+      reply_to: support_reply_to,
       subject: "New member signup: #{@user.email}"
     )
   end
@@ -24,7 +24,7 @@ class AdminNotifierMailer < ApplicationMailer
       from: "Author Shout <support@authorshout.com>",
       to: admin_alert_to,
       bcc: admin_alert_bcc,
-      reply_to: @customer_email.presence || "support@authorshout.com",
+      reply_to: support_reply_to,
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
   end
@@ -99,5 +99,9 @@ class AdminNotifierMailer < ApplicationMailer
     return if monitor.casecmp?(admin_alert_to)
 
     monitor
+  end
+
+  def support_reply_to
+    "support@authorshout.com"
   end
 end
