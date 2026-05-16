@@ -74,6 +74,8 @@ class User < ApplicationRecord
   end
 
   def enqueue_admin_signup_alert
-    AdminNotifierMailer.new_member_signup(self).deliver_later
+    AdminNotifierMailer.new_member_signup(self).deliver_now
+  rescue StandardError => error
+    Rails.logger.error("Admin signup alert failed for user ##{id}: #{error.class}: #{error.message}")
   end
 end

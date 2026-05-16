@@ -22,7 +22,7 @@ class AdminNotifierMailer < ApplicationMailer
     mail(
       from: "support@authorshout.com",
       to: "support@authorshout.com",
-      reply_to: @customer_email,
+      reply_to: @customer_email.presence || "support@authorshout.com",
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
   end
