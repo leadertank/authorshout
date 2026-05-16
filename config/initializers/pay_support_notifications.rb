@@ -45,21 +45,12 @@ Pay::Webhooks.configure do |events|
 
   notification_handler = lambda { |event|
     begin
-      AdminNotifierMailer.payment_received(event).deliver_now
-      Rails.logger.info("Payment support notification delivered for event #{event&.id} (#{event&.type})")
+      AdminNotifierMailer.notify_payment_received(event)
+      Rails.logger.info("Payment support notifications dispatched for event #{event&.id} (#{event&.type})")
 
       notify_awards_submission_if_needed.call(event)
     rescue StandardError => error
       Rails.logger.error("Payment support notification failed for event #{event&.id}: #{error.class}: #{error.message}")
-
-      begin
-        AdminNotifierMailer.payment_received(event).deliver_later
-        Rails.logger.info("Payment support notification queued for retry for event #{event&.id} (#{event&.type})")
-
-        notify_awards_submission_if_needed.call(event)
-      rescue StandardError => queue_error
-        Rails.logger.error("Payment support notification retry enqueue failed for event #{event&.id}: #{queue_error.class}: #{queue_error.message}")
-      end
     end
   }
 

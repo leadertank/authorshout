@@ -1,16 +1,24 @@
 class AdminNotifierMailer < ApplicationMailer
-  def new_member_signup(user)
+  # Send one copy per admin address for maximum inbox deliverability.
+  # Call AdminNotifierMailer.notify_new_member_signup(user) to dispatch to all.
+  def new_member_signup(user, recipient:)
     @user = user
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: admin_alert_recipients,
+      to: recipient,
       reply_to: support_reply_to,
       subject: "New member signup: #{@user.email}"
     )
   end
 
-  def payment_received(event)
+  def self.notify_new_member_signup(user)
+    admin_alert_addresses.each do |address|
+      new_member_signup(user, recipient: address).deliver_later
+    end
+  end
+
+  def payment_received(event, recipient:)
     @event = event
     @event_type = extract_event_type(event)
     @event_id = extract_event_id(event)
@@ -21,10 +29,16 @@ class AdminNotifierMailer < ApplicationMailer
 
     mail(
       from: "Author Shout <support@authorshout.com>",
-      to: admin_alert_recipients,
+      to: recipient,
       reply_to: support_reply_to,
       subject: "Payment received#{" from #{@customer_email}" if @customer_email.present?}"
     )
+  end
+
+  def self.notify_payment_received(event)
+    admin_alert_addresses.each do |address|
+      payment_received(event, recipient: address).deliver_later
+    end
   end
 
   private
@@ -87,19 +101,15 @@ class AdminNotifierMailer < ApplicationMailer
     object.subscription
   end
 
-  def admin_alert_recipients
-    primary = ENV.fetch("ADMIN_ALERT_TO", "support@authorshout.com")
-    monitors = []
-    monitors.concat(ENV.fetch("ADMIN_ALERT_MONITORS", "").split(","))
-    monitors << ENV.fetch("ADMIN_ALERT_MONITOR", "sales@authorshout.com")
-    monitors << ENV.fetch("ADMIN_ALERT_GMAIL_MONITOR", "authorshoutbooks@gmail.com")
-    monitors << primary
+  def self.admin_alert_addresses
+    primary   = ENV.fetch("ADMIN_ALERT_TO", "authorshoutbooks@gmail.com")
+    extras    = ENV.fetch("ADMIN_ALERT_EXTRA_TO",
+                          "sales@authorshout.com,support@authorshout.com").split(",")
 
-    cleaned = monitors.map { |address| address.to_s.strip }
+    [primary, *extras]
+      .map    { |a| a.to_s.strip }
       .reject(&:empty?)
-      .uniq { |address| address.downcase }
-
-    cleaned.presence
+      .uniq   { |a| a.downcase }
   end
 
   def support_reply_to
