@@ -11,13 +11,30 @@
   </div>
 
   <div class="authors-stats-strip">
-    <span><strong>Featured Books:</strong> <%= @books.size %></span>
+    <span><strong>Featured Books:</strong> <%= @featured_total %></span>
+    <span><strong>Showing:</strong> <%= @books.size %></span>
   </div>
 
   <% if @books.any? %>
+    <p class="pager-status">Page <%= @page %> of <%= @total_pages %></p>
+
     <div class="book-grid">
       <% @books.each do |book| %>
         <%= render "shared/public_book_card", book: book, featured_badge: true %>
+      <% end %>
+    </div>
+
+    <div class="books-pager books-pager-bottom">
+      <% if @page > 1 %>
+        <%= link_to "Previous", featured_books_path(page: @page - 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Previous</span>
+      <% end %>
+
+      <% if @page < @total_pages %>
+        <%= link_to "Next", featured_books_path(page: @page + 1), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Next</span>
       <% end %>
     </div>
   <% else %>

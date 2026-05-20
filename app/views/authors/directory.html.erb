@@ -41,7 +41,7 @@
   </div>
 
   <% if @profiles.any? %>
-    <p class="pager-status">Page <%= @page %> of <%= @total_pages %> (<%= @total_authors %> authors)</p>
+    <p class="pager-status">Page <%= @page %> of <%= @total_pages %> (<%= @total_authors %> authors, 20 per page)</p>
 
     <div class="authors-grid">
       <% @profiles.each do |profile| %>

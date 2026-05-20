@@ -10,7 +10,8 @@
 
   <div class="authors-stats-strip" role="status" aria-live="polite">
     <span><strong>Featured Authors:</strong> <%= @featured_total %></span>
-    <span><strong>Showing:</strong> <%= @featured_filtered %></span>
+    <span><strong>Matching:</strong> <%= @featured_filtered %></span>
+    <span><strong>Showing:</strong> <%= @profiles.size %></span>
     <% if @letter.present? %>
       <span><strong>Letter:</strong> <%= @letter %></span>
     <% end %>
@@ -40,6 +41,8 @@
   </div>
 
   <% if @profiles.any? %>
+    <p class="pager-status">Page <%= @featured_page %> of <%= @featured_total_pages %></p>
+
     <div class="authors-grid">
       <% @profiles.each do |profile| %>
         <article class="panel author-card">
@@ -56,6 +59,20 @@
             <%= link_to "View Profile", profile_path(profile), class: "button" %>
           </div>
         </article>
+      <% end %>
+    </div>
+
+    <div class="books-pager books-pager-bottom">
+      <% if @featured_page > 1 %>
+        <%= link_to "Previous", featured_authors_path(page: @featured_page - 1, q: @query.presence, letter: @letter), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Previous</span>
+      <% end %>
+
+      <% if @featured_page < @featured_total_pages %>
+        <%= link_to "Next", featured_authors_path(page: @featured_page + 1, q: @query.presence, letter: @letter), class: "pager-button" %>
+      <% else %>
+        <span class="pager-button disabled">Next</span>
       <% end %>
     </div>
   <% else %>

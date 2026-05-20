@@ -2,20 +2,15 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-const setupMobileNav = () => {
-	document.querySelectorAll("[data-nav-toggle]").forEach((toggleButton) => {
-		if (toggleButton.dataset.mobileNavBound === "true") return
+const setupMobileNavJump = () => {
+	document.querySelectorAll("[data-nav-jump]").forEach((select) => {
+		if (select.dataset.navJumpBound === "true") return
+		select.dataset.navJumpBound = "true"
 
-		const navRow = toggleButton.closest(".nav-row")
-		const mainNav = navRow?.querySelector("[data-main-nav]") || document.querySelector("[data-main-nav]")
-		if (!mainNav) return
-
-		toggleButton.dataset.mobileNavBound = "true"
-		toggleButton.setAttribute("aria-expanded", mainNav.classList.contains("open") ? "true" : "false")
-
-		toggleButton.addEventListener("click", () => {
-			const isOpen = mainNav.classList.toggle("open")
-			toggleButton.setAttribute("aria-expanded", isOpen ? "true" : "false")
+		select.addEventListener("change", () => {
+			const destination = select.value
+			if (!destination) return
+			window.location.href = destination
 		})
 	})
 }
@@ -43,18 +38,8 @@ const setupCopyButtons = () => {
 }
 
 document.addEventListener("turbo:load", () => {
-	setupMobileNav()
+	setupMobileNavJump()
 	setupCopyButtons()
-})
-
-document.addEventListener("turbo:before-cache", () => {
-	document.querySelectorAll("[data-main-nav]").forEach((mainNav) => {
-		mainNav.classList.remove("open")
-	})
-
-	document.querySelectorAll("[data-nav-toggle]").forEach((toggleButton) => {
-		toggleButton.setAttribute("aria-expanded", "false")
-	})
 })
 
 import "trix"

@@ -1,5 +1,6 @@
 class AuthorsController < ApplicationController
   ALPHABET = ("A".."Z").to_a.freeze
+  AUTHORS_PER_PAGE = 20
 
   def featured
     base_scope = featured_base_scope
@@ -13,8 +14,9 @@ class AuthorsController < ApplicationController
       .distinct
 
     @featured_filtered = filtered.count
-
-    @profiles = filtered
+    @featured_total_pages = [ (@featured_filtered.to_f / AUTHORS_PER_PAGE).ceil, 1 ].max
+    @featured_page = normalized_page(params[:page], @featured_total_pages)
+    @profiles = filtered.offset((@featured_page - 1) * AUTHORS_PER_PAGE).limit(AUTHORS_PER_PAGE)
   end
 
   def directory
@@ -22,7 +24,7 @@ class AuthorsController < ApplicationController
 
     @query = params[:q].to_s.strip
     @letter = normalize_letter(params[:letter])
-    @per_page = 24
+    @per_page = AUTHORS_PER_PAGE
     @directory_total = base_scope.count
 
     filtered = apply_search_and_letter(base_scope)
@@ -38,6 +40,12 @@ class AuthorsController < ApplicationController
   end
 
   private
+
+  def normalized_page(value, total_pages)
+    page = value.to_i
+    page = 1 if page < 1
+    page > total_pages ? total_pages : page
+  end
 
   def normalize_letter(value)
     letter = value.to_s.strip.upcase

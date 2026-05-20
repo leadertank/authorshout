@@ -38,13 +38,52 @@
         </div>
 
         <div class="nav-row">
-          <button type="button" class="mobile-nav-toggle" data-nav-toggle aria-label="Open navigation menu">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
+          <% nav_links = [
+            ["Home", root_path, nil],
+            ["Promotion Packages", products_path, nil],
+            ["Book Award Winners", book_award_winners_path, nil],
+            ["Featured Books", featured_books_path, nil],
+            ["Featured Authors", featured_authors_path, nil],
+            ["Members Directory", authors_directory_path, nil],
+            ["Support", new_support_path, nil]
+          ] %>
 
-          <nav class="site-nav" data-main-nav>
+          <% if user_signed_in? %>
+            <% nav_links += [
+              ["My Profile", profile_path(current_user.profile), nil],
+              ["Edit Profile", edit_my_profile_path, nil],
+              ["Billing", billing_path, nil]
+            ] %>
+            <% if current_user.admin? %>
+              <% nav_links += [
+                ["Admin Dashboard", admin_dashboard_path, nil],
+                ["Sales", admin_sales_path, nil],
+                ["Manual Books", admin_books_path, nil],
+                ["Manual Awards", admin_manual_awards_path, nil],
+                ["Submissions", admin_submissions_path, nil],
+                ["Pages CMS", admin_pages_path, nil],
+                ["Posts CMS", admin_posts_path, nil],
+                ["Users", admin_users_path, nil]
+              ] %>
+            <% end %>
+          <% else %>
+            <% nav_links += [
+              ["Log In", new_user_session_path, nil],
+              ["Become a Member", membership_path, "nav-join-pill"]
+            ] %>
+          <% end %>
+
+          <div class="mobile-nav-jump-wrap">
+            <label for="mobile-nav-jump" class="mobile-nav-jump-label">Jump to</label>
+            <select id="mobile-nav-jump" class="mobile-nav-jump" data-nav-jump>
+              <option value="">Select a page</option>
+              <% nav_links.each do |label, path, _klass| %>
+                <option value="<%= path %>" <%= "selected" if current_page?(path) %>><%= label %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <nav class="site-nav">
             <%= link_to "Home", root_path %>
             <%= link_to "Promotion Packages", products_path %>
             <%= link_to "Book Award Winners", book_award_winners_path %>
